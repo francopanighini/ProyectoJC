@@ -8,7 +8,7 @@ function Scene()
 	var tilesheet = new Texture("imgs/lava.png");
 	
 	// Create tilemap
-	this.map = new Tilemap(tilesheet, [16, 16], [4, 2], [0, 0], lava);
+	this.map = new Tilemap(tilesheet, [16, 16], [6, 4], [-2000, 0], lava);
 
 	// Store current time
 	this.currentTime = 0
