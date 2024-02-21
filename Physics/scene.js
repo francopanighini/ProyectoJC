@@ -13,7 +13,9 @@ function Scene()
 	// Create entities
 	this.player = new Player(224, 240, this.map);
 	this.bubble = new Bubble(360, 112);
+	this.goomba = new Goomba(200, 200);
 	this.bubbleActive = true;
+	this.goombaActive = true;
 	
 	// Store current time
 	this.currentTime = 0
@@ -28,10 +30,14 @@ Scene.prototype.update = function(deltaTime)
 	// Update entities
 	this.player.update(deltaTime);
 	this.bubble.update(deltaTime);
+	this.goomba.update(deltaTime);
 	
 	// Check for collision between entities
 	if(this.player.collisionBox().intersect(this.bubble.collisionBox()))
 		this.bubbleActive = false;
+	
+	if(this.player.collisionBox().intersect(this.goomba.collisionBox()))
+		this.goombaActive = false;
 }
 
 Scene.prototype.draw = function ()
@@ -50,6 +56,8 @@ Scene.prototype.draw = function ()
 	// Draw entities
 	if(this.bubbleActive)
 		this.bubble.draw();
+	if(this.goombaActive)
+		this.goomba.draw();
 	this.player.draw();
 }
 
