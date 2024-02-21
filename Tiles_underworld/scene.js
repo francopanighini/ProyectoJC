@@ -8,7 +8,9 @@ function Scene()
 	var tilesheet = new Texture("imgs/lava.png");
 	
 	// Create tilemap
-	this.map = new Tilemap(tilesheet, [16, 16], [6, 4], [-2000, 0], lava);
+	this.pos = 0;
+
+	this.map = new Tilemap(tilesheet, [16, 16], [6, 4], [this.pos, 0], lava);
 
 	// Store current time
 	this.currentTime = 0
@@ -31,15 +33,18 @@ Scene.prototype.draw = function ()
 	context.fillStyle = "rgb(81, 81, 81)";
 	context.fillRect(0, 0, canvas.width, canvas.height);
 
-
 	if (keyboard[65]) {
-		context.translate(-32,0);
+		this.pos = this.pos - 5;
+		this.map.basePos = [this.pos,0]
+		//context.translate(-32,0);
 	}
 	if (keyboard[68]) {
-		context.translate(32,0);
+		this.pos = this.pos + 5;
+		this.map.basePos = [this.pos,0]
+
+		//context.translate(32,0);
 
 	}	
-
 
 	// Draw tilemap
 	this.map.draw(); 
