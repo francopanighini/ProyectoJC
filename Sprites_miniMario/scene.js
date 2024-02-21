@@ -7,7 +7,7 @@ const BUB_WALK_RIGHT = 3;
 
 
 const MARIO_STAND_LEFT = 0;
-const MARIO_STAND_RIGHT = 1;
+const MARIO_STAND_RIGHT = 1; 
 const MARIO_WALK_LEFT = 2;
 const MARIO_WALK_RIGHT = 3;
 
