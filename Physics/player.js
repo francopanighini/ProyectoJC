@@ -46,26 +46,26 @@ Player.prototype.update = function(deltaTime)
 	// Move Bub sprite left/right
 	if(keyboard[37]) // KEY_LEFT
 	{
-		if(this.sprite.currentAnimation != BUB_WALK_LEFT)
-			this.sprite.setAnimation(BUB_WALK_LEFT);
+		if(this.sprite.currentAnimation != MARIO_WALK_LEFT)
+			this.sprite.setAnimation(MARIO_WALK_LEFT);
 		this.sprite.x -= 2;
 		if(this.map.collisionMoveLeft(this.sprite))
 			this.sprite.x += 2;
 	}
 	else if(keyboard[39]) // KEY_RIGHT
 	{
-		if(this.sprite.currentAnimation != BUB_WALK_RIGHT)
-			this.sprite.setAnimation(BUB_WALK_RIGHT);
+		if(this.sprite.currentAnimation != MARIO_WALK_RIGHT)
+			this.sprite.setAnimation(MARIO_WALK_RIGHT);
 		this.sprite.x += 2;
 		if(this.map.collisionMoveRight(this.sprite))
 			this.sprite.x -= 2;
 	}
 	else
 	{
-		if(this.sprite.currentAnimation == BUB_WALK_LEFT)
-			this.sprite.setAnimation(BUB_STAND_LEFT);
-		if(this.sprite.currentAnimation == BUB_WALK_RIGHT)
-			this.sprite.setAnimation(BUB_STAND_RIGHT);
+		if(this.sprite.currentAnimation == MARIO_WALK_LEFT)
+			this.sprite.setAnimation(MARIO_STAND_LEFT);
+		if(this.sprite.currentAnimation == MARIO_WALK_RIGHT)
+			this.sprite.setAnimation(MARIO_STAND_RIGHT);
 	}
 	
 	if(this.bJumping)

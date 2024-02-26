@@ -4,8 +4,11 @@ function Goomba(x, y)
 {
 	var goomba = new Texture("imgs/goomba.png");
 
+	this.movR = true;
+
 	// Prepare goomba sprite & its animation
 	this.sprite = new Sprite(x, y, 32, 32, 3, goomba);
+
 
 	this.sprite.addAnimation();
 	this.sprite.addKeyframe(0, [0, 0, 16, 16]);
@@ -15,6 +18,21 @@ function Goomba(x, y)
 
 Goomba.prototype.update = function update(deltaTime)
 {
+
+	if(this.movR){
+		if(this.sprite.x >= 260){
+			this.movR = false;
+		}else{
+			this.sprite.x += 1;
+		}
+	}else{
+		
+		if(this.sprite.x <= 180){
+			this.movR = true;
+		}else{
+			this.sprite.x -= 1;
+		}
+	}
 	this.sprite.update(deltaTime);
 }
 

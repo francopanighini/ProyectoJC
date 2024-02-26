@@ -5,18 +5,19 @@
 function Scene()
 {
 	// Loading texture to use in a TileMap
-	var tilesheet = new Texture("imgs/tiles.png");
+	var tilesheet = new Texture("imgs/CompleteTilesheetLvl1.png");
 	
 	// Create tilemap
-	this.map = new Tilemap(tilesheet, [16, 16], [2, 2], [0, 32], level01);
+	this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01);
 	
 	// Create entities
-	this.player = new Player(224, 240, this.map);
-	this.bubble = new Bubble(360, 112);
-	this.goomba = new Goomba(200, 200);
-	this.bubbleActive = true;
+	this.player = new Player(224, 50, this.map);
+	//this.bubble = new Bubble(360, 112);
+	this.goomba = new Goomba(200, 384);
+	//this.bubbleActive = true;
 	this.goombaActive = true;
 	
+	this.pos = 0;
 	// Store current time
 	this.currentTime = 0
 }
@@ -29,15 +30,16 @@ Scene.prototype.update = function(deltaTime)
 	
 	// Update entities
 	this.player.update(deltaTime);
-	this.bubble.update(deltaTime);
+	//this.bubble.update(deltaTime);
 	this.goomba.update(deltaTime);
 	
 	// Check for collision between entities
-	if(this.player.collisionBox().intersect(this.bubble.collisionBox()))
-		this.bubbleActive = false;
+	/*if(this.player.collisionBox().intersect(this.bubble.collisionBox()))
+		this.bubbleActive = false;*/
 	
 	if(this.player.collisionBox().intersect(this.goomba.collisionBox()))
 		this.goombaActive = false;
+
 }
 
 Scene.prototype.draw = function ()
@@ -50,12 +52,23 @@ Scene.prototype.draw = function ()
 	context.fillStyle = "rgb(224, 224, 240)";
 	context.fillRect(0, 0, canvas.width, canvas.height);
 
+
+	if (keyboard[65]) {
+		this.pos = this.pos - 5;
+		this.map.basePos = [this.pos,0]
+	}
+	if (keyboard[68]) {
+		this.pos = this.pos + 5;
+		this.map.basePos = [this.pos,0]
+
+	}	
+
 	// Draw tilemap
 	this.map.draw();
 
 	// Draw entities
-	if(this.bubbleActive)
-		this.bubble.draw();
+	/*if(this.bubbleActive)
+		this.bubble.draw();*/
 	if(this.goombaActive)
 		this.goomba.draw();
 	this.player.draw();
