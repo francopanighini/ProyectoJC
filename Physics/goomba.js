@@ -19,20 +19,29 @@ function Goomba(x, y)
 Goomba.prototype.update = function update(deltaTime)
 {
 
-	if(this.movR){
-		if(this.sprite.x >= 260){
-			this.movR = false;
-		}else{
-			this.sprite.x += 1;
-		}
-	}else{
+	// if(this.movR){
+	// 	if(this.sprite.x >= 260){
+	// 		this.movR = false;
+	// 	}else{
+	// 		this.sprite.x += 1;
+	// 	}
+	// }else{
 		
-		if(this.sprite.x <= 180){
-			this.movR = true;
-		}else{
-			this.sprite.x -= 1;
-		}
-	}
+	// 	if(this.sprite.x <= 180){
+	// 		this.movR = true;
+	// 	}else{
+	// 		this.sprite.x -= 1;
+	// 	}
+	// }
+
+	// Move the Goomba to the left
+    this.sprite.x -= 1;
+
+    // Check if the Goomba has left the map
+    if (this.sprite.x < -32) {
+        //this.sprite.destroy();
+    }
+
 	this.sprite.update(deltaTime);
 }
 
