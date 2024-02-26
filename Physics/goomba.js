@@ -1,5 +1,3 @@
-
-
 function Goomba(x, y)
 {
 	var goomba = new Texture("imgs/goomba.png");

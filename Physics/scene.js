@@ -9,6 +9,7 @@ function Scene()
 	
 	// Create tilemap
 	this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V2);
+	//this.map = new Tilemap(tilesheet, [32, 32], [4, 8], [0, 0], level01V2);
 	
 	// Create entities
 	this.player = new Player(150, 384, this.map);
@@ -16,6 +17,7 @@ function Scene()
 	this.goomba = new Goomba(512, 384);
 	//this.bubbleActive = true;
 	this.goombaActive = true;
+	this.question_box = new Question_Box(224, 352);
 	
 	this.pos = 0;
 	// Store current time
@@ -32,6 +34,8 @@ Scene.prototype.update = function(deltaTime)
 	this.player.update(deltaTime);
 	//this.bubble.update(deltaTime);
 	this.goomba.update(deltaTime);
+
+	this.question_box.update(deltaTime);
 	
 	// Check for collision between entities
 	/*if(this.player.collisionBox().intersect(this.bubble.collisionBox()))
@@ -66,6 +70,7 @@ Scene.prototype.draw = function ()
 	// Draw tilemap
 	this.map.draw();
 
+	this.question_box.draw();
 	// Draw entities
 	/*if(this.bubbleActive)
 		this.bubble.draw();*/
