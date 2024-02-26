@@ -41,6 +41,24 @@ Tilemap.prototype.draw = function ()
 				context.drawImage(this.tilesheet.img, tilePositions[tileId-1][0], tilePositions[tileId-1][1], blockSize[0], blockSize[1], 
 				                  this.basePos[0] + this.tileSize[0] * i, this.basePos[1] + this.tileSize[1] * j, blockSize[0], blockSize[1]);
 		}
+
+		for(var j=0, pos=0; j<this.map.height; j++)
+		for(var i=0; i<this.map.width; i++, pos++)
+		{
+			tileId = this.map.layers[1].data[pos];
+			if(tileId != 0)
+				context.drawImage(this.tilesheet.img, tilePositions[tileId-1][0], tilePositions[tileId-1][1], blockSize[0], blockSize[1], 
+				                  this.basePos[0] + this.tileSize[0] * i, this.basePos[1] + this.tileSize[1] * j, blockSize[0], blockSize[1]);
+		}
+
+		for(var j=0, pos=0; j<this.map.height; j++)
+		for(var i=0; i<this.map.width; i++, pos++)
+		{
+			tileId = this.map.layers[2].data[pos];
+			if(tileId != 0)
+				context.drawImage(this.tilesheet.img, tilePositions[tileId-1][0], tilePositions[tileId-1][1], blockSize[0], blockSize[1], 
+				                  this.basePos[0] + this.tileSize[0] * i, this.basePos[1] + this.tileSize[1] * j, blockSize[0], blockSize[1]);
+		}
 }
 
 // Computes if the left part of a sprite collides with the tilemap.
@@ -54,7 +72,7 @@ Tilemap.prototype.collisionMoveLeft = function(sprite)
 	
 	for(var y=y0; y<=y1; y++)
 	{
-		if(this.map.layers[0].data[y * this.map.width + x] != 0)
+		if(this.map.layers[0].data[y * this.map.width + x] != 0 || this.map.layers[2].data[y * this.map.width + x] != 0)
 			return true;
 	}
 	
@@ -72,7 +90,7 @@ Tilemap.prototype.collisionMoveRight = function(sprite)
 	
 	for(var y=y0; y<=y1; y++)
 	{
-		if(this.map.layers[0].data[y * this.map.width + x] != 0)
+		if(this.map.layers[0].data[y * this.map.width + x] != 0 || this.map.layers[2].data[y * this.map.width + x] != 0)
 			return true;
 	}
 	
@@ -90,7 +108,7 @@ Tilemap.prototype.collisionMoveDown = function(sprite)
 	
 	for(var x=x0; x<=x1; x++)
 	{
-		if(this.map.layers[0].data[y * this.map.width + x] != 0)
+		if(this.map.layers[0].data[y * this.map.width + x] != 0 || this.map.layers[2].data[y * this.map.width + x] != 0)
 		{
 			sprite.y = y * this.tileSize[1] - sprite.height + this.basePos[1];
 			return true;

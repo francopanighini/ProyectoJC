@@ -8,12 +8,12 @@ function Scene()
 	var tilesheet = new Texture("imgs/CompleteTilesheetLvl1.png");
 	
 	// Create tilemap
-	this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01);
+	this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V2);
 	
 	// Create entities
-	this.player = new Player(224, 50, this.map);
+	this.player = new Player(150, 384, this.map);
 	//this.bubble = new Bubble(360, 112);
-	this.goomba = new Goomba(200, 384);
+	this.goomba = new Goomba(512, 384);
 	//this.bubbleActive = true;
 	this.goombaActive = true;
 	
