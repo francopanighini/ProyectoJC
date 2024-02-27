@@ -17,13 +17,13 @@ function Scene()
 	this.goomba = new Goomba(512, 384);
 	//this.bubbleActive = true;
 	this.goombaActive = true;
-<<<<<<< Updated upstream
+
 	this.question_box = new Question_Box(224, 352);
-=======
+
 
 	this.marioDead = false;
 	this.startmarioDead = false;
->>>>>>> Stashed changes
+
 	
 	this.pos = 0;
 	// Store current time
