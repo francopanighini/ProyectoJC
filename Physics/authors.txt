@@ -1,2 +1,5 @@
 Judit Cerdà - judit.cerda@estudiantat.upc.edu
 Franco Panighini - franco.panighini@estudiantat.upc.edu
+
+Para ver el resto del mapa (no de forma funcional),
+puede moverse con las teclas 'A' y 'D'
