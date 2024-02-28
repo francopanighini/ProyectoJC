@@ -5,11 +5,12 @@
 function Scene()
 {
 	// Loading texture to use in a TileMap
-	var tilesheet = new Texture("imgs/CompleteTilesheetLvl1.png");
-	
-	// Create tilemap
+	var tilesheet = new Texture("imgs/CompleteTilesheetLvl1.png");	
 	this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V2);
-	//this.map = new Tilemap(tilesheet, [32, 32], [4, 8], [0, 0], level01V2);
+
+
+	//var tilesheet = new Texture("imgs/lava.png");
+	//this.map = new Tilemap(tilesheet, [16, 16], [6, 4], [0, 0], lava);
 	
 	// Create entities
 	this.player = new Player(150, 384, this.map);

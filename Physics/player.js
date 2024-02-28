@@ -127,7 +127,8 @@ Player.prototype.update = function(deltaTime)
 	{
 		if(this.sprite.currentAnimation != MARIO_JUMP_L)
 			this.sprite.setAnimation(MARIO_JUMP_L);
-			this.animjump = true;
+		this.animjump = true;
+		this.direccionjump ="R";
 		
 	}
 	else 

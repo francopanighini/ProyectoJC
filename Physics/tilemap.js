@@ -42,24 +42,29 @@ Tilemap.prototype.draw = function ()
 				                  this.basePos[0] + this.tileSize[0] * i, this.basePos[1] + this.tileSize[1] * j, blockSize[0], blockSize[1]);
 		}
 
+		
 		for(var j=0, pos=0; j<this.map.height; j++)
 		for(var i=0; i<this.map.width; i++, pos++)
 		{
 			tileId = this.map.layers[1].data[pos];
 			if(tileId != 0)
 				context.drawImage(this.tilesheet.img, tilePositions[tileId-1][0], tilePositions[tileId-1][1], blockSize[0], blockSize[1], 
-				                  this.basePos[0] + this.tileSize[0] * i, this.basePos[1] + this.tileSize[1] * j, blockSize[0], blockSize[1]);
+									this.basePos[0] + this.tileSize[0] * i, this.basePos[1] + this.tileSize[1] * j, blockSize[0], blockSize[1]);
 		}
+		if (this.map.layers.length > 2){
 
-		for(var j=0, pos=0; j<this.map.height; j++)
-		for(var i=0; i<this.map.width; i++, pos++)
-		{
-			tileId = this.map.layers[2].data[pos];
-			if(tileId != 0)
-				context.drawImage(this.tilesheet.img, tilePositions[tileId-1][0], tilePositions[tileId-1][1], blockSize[0], blockSize[1], 
-				                  this.basePos[0] + this.tileSize[0] * i, this.basePos[1] + this.tileSize[1] * j, blockSize[0], blockSize[1]);
+			for(var j=0, pos=0; j<this.map.height; j++)
+			for(var i=0; i<this.map.width; i++, pos++)
+			{
+				tileId = this.map.layers[2].data[pos];
+				if(tileId != 0)
+					context.drawImage(this.tilesheet.img, tilePositions[tileId-1][0], tilePositions[tileId-1][1], blockSize[0], blockSize[1], 
+									this.basePos[0] + this.tileSize[0] * i, this.basePos[1] + this.tileSize[1] * j, blockSize[0], blockSize[1]);
+			}
 		}
-}
+		
+	}
+		
 
 // Computes if the left part of a sprite collides with the tilemap.
 // Returns a boolean with the result.
