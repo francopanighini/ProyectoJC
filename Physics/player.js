@@ -7,6 +7,7 @@ const MARIO_JUMP_R = 4;
 const MARIO_STOP_JUMP_R = 5;
 const MARIO_JUMP_L = 6;
 const MARIO_STOP_JUMP_L = 7;
+const MARIO_DEAD = 8;
  
 
 function Player(x, y, map)
@@ -46,6 +47,9 @@ function Player(x, y, map)
 	this.sprite.addAnimation();
 	this.sprite.addKeyframe(MARIO_STOP_JUMP_L, [0, 16, 16, 16]);
 
+	this.sprite.addAnimation();
+	this.sprite.addKeyframe(MARIO_DEAD, [48, 0, 16, 16]);
+
 
 	this.sprite.setAnimation(MARIO_STAND_RIGHT);
 	
@@ -58,14 +62,27 @@ function Player(x, y, map)
 	// Set attributes for jump
 	this.bJumping = false;
 	this.jumpAngle = 0;
+
+	this.m_dead = false;
+	this.c_dead = 0;
 }
 
 
 Player.prototype.update = function(deltaTime)
 {
-	// Move Bub sprite left/right
 
-	if(keyboard[37] && keyboard[38]) // KEY_LEFT
+	if(this.m_dead){
+		if(this.sprite.currentAnimation != MARIO_DEAD)
+			this.sprite.setAnimation(MARIO_DEAD);		
+		if (this.c_dead < 5){
+			this.sprite.y -= 16;
+		}else if(this.c_dead > 80 && this.c_dead < 100 ){
+			this.sprite.y += 2;
+		}
+
+		this.c_dead = this.c_dead + 1;
+	}
+	else if(keyboard[37] && keyboard[38]) // KEY_LEFT
 	{
 		if(this.sprite.currentAnimation != MARIO_JUMP_L)
 			this.sprite.setAnimation(MARIO_JUMP_L);
@@ -123,8 +140,6 @@ Player.prototype.update = function(deltaTime)
 
 
 
-
-	
 	if(this.bJumping)
 	{
 		this.jumpAngle += 4;
@@ -160,12 +175,13 @@ Player.prototype.update = function(deltaTime)
 	{
 		// Move Bub so that it is affected by gravity
 		this.sprite.y += 2;
-		if(this.map.collisionMoveDown(this.sprite))
+		if(!this.m_dead && this.map.collisionMoveDown(this.sprite))
 		{
+			
 			//this.sprite.y -= 2;
 
 			// Check arrow up key. If pressed, jump.
-			if(keyboard[38])
+			if(keyboard[38] && !this.m_dead)
 			{
 				this.bJumping = true;
 				this.jumpAngle = 0;
@@ -196,6 +212,11 @@ Player.prototype.collisionBox = function()
 	var box = new Box(this.sprite.x + 2, this.sprite.y, this.sprite.x + this.sprite.width - 4, this.sprite.y + this.sprite.height);
 	
 	return box;
+}
+
+Player.prototype.dead = function()
+{
+	this.m_dead = true;
 }
 
 

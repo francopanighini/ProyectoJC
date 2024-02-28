@@ -17,7 +17,13 @@ function Scene()
 	this.goomba = new Goomba(512, 384);
 	//this.bubbleActive = true;
 	this.goombaActive = true;
+
 	this.question_box = new Question_Box(224, 352);
+
+
+	this.marioDead = false;
+	this.startmarioDead = false;
+
 	
 	this.pos = 0;
 	// Store current time
@@ -41,8 +47,14 @@ Scene.prototype.update = function(deltaTime)
 	/*if(this.player.collisionBox().intersect(this.bubble.collisionBox()))
 		this.bubbleActive = false;*/
 	
-	if(this.player.collisionBox().intersect(this.goomba.collisionBox()))
-		this.goombaActive = false;
+	if(this.player.collisionBox().intersect(this.goomba.collisionBox())){
+		//this.goombaActive = false;
+		if(!this.marioDead){
+			this.player.dead();
+		}
+		
+		this.marioDead = true;
+	}
 
 }
 
