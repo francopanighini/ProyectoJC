@@ -12,12 +12,14 @@ const MARIO_RUN_LEFT = 9;
 const MARIO_RUN_RIGHT = 10;
 
 
-function Player(x, y, map) {
+function Player(x, y, map, posMap) {
 	// Loading spritesheets
 	var mario = new Texture("imgs/mario.png");
 
 	// Prepare Bub sprite & its animations
 	this.sprite = new Sprite(x, y, 32, 32, 7, mario);
+
+	this.posMap = posMap;
 
 
 	this.sprite.addAnimation();
@@ -235,10 +237,10 @@ Player.prototype.moveMario = function (deltaTime) {
 		this.animjump = true;
 	}
 
-	if (this.sprite.x < -2) {
-		this.sprite.x = 0;
-	} else if (this.sprite.x > 480) {
-		this.sprite.x = 480;
+	if (this.sprite.x < -2 + this.posMap) {
+		this.sprite.x = -2 + this.posMap; 
+	} else if (this.sprite.x > 480  + this.posMap) {
+		this.sprite.x = 480 + this.posMap;
 	}
 }
 
