@@ -31,12 +31,13 @@ function Scene()
 	this.currentTime = 0
 }
 
-
 Scene.prototype.update = function(deltaTime)
 {
 	// Keep track of time
 	this.currentTime += deltaTime;
 	
+	this.player.moveMario(deltaTime);
+
 	// Update entities
 	this.player.update(deltaTime);
 	//this.bubble.update(deltaTime);
