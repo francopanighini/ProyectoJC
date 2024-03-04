@@ -65,8 +65,104 @@ function Player(x, y, map)
 
 	this.m_dead = false;
 	this.c_dead = 0;
+	
+	this.speed = 0;
 }
 
+let minWalkSpeed = 30;
+let walkAccel = 30;
+let runAccel = 60;
+let releaseDecel = 180;
+let maxWalkSpeed = 60;
+let maxRunSpeed = 120;
+
+Player.prototype.moveMario = function(deltaTime)
+{
+	let accel = 0;
+	
+	if(keyboard[37] || keyboard[39])
+	{
+		// Pressing move buttons
+		if(keyboard[37] && (this.speed > -minWalkSpeed))
+			this.speed = -minWalkSpeed;
+		else if(keyboard[39] && (this.speed < minWalkSpeed))
+			this.speed = minWalkSpeed;
+		// Prepare acceleration according to action (walk or run)
+		if(keyboard[16])
+		{
+			if(keyboard[37])
+				accel = -runAccel;
+			else
+				accel = runAccel;
+		}
+		else
+		{
+			if(keyboard[37])
+				accel = -walkAccel;
+			else
+				accel = walkAccel;
+		}
+	}
+	else
+	{
+		if(this.speed > 0)
+			accel = -releaseDecel;
+		else if(this.speed < 0)
+			accel = releaseDecel;
+		else
+			accel = 0;
+	}
+	
+	// Move according to current speed
+	this.sprite.x = this.sprite.x + this.speed * deltaTime / 1000.0;
+
+	// Apply acceleration to current speed
+	if(keyboard[37] || keyboard[39])
+	{
+		this.speed = this.speed + accel * deltaTime / 1000.0;
+
+		// Respect maximum speeds
+		if(keyboard[16])
+		{
+			if(Math.abs(this.speed) > maxRunSpeed)
+			{
+				if(this.speed > 0)
+					this.speed = maxRunSpeed;
+				else
+					this.speed = -maxRunSpeed;
+			}
+		}
+		else
+		{
+			if(Math.abs(this.speed) > maxWalkSpeed)
+			{
+				if(this.speed > 0)
+					this.speed = maxWalkSpeed;
+				else
+					this.speed = -maxWalkSpeed;
+			}
+		}
+	}
+	else
+	{
+		// Be careful to stop when current acceleration gets close to zero
+		if(this.speed > 0)
+		{
+			this.speed = this.speed + accel * deltaTime / 1000.0;
+			if(this.speed < minWalkSpeed)
+				this.speed = 0;
+		}
+		else if(this.speed < 0)
+		{
+			this.speed = this.speed + accel * deltaTime / 1000.0;
+			if(this.speed > -minWalkSpeed)
+				this.speed = 0;
+		}
+	}
+
+	console.log("Speed = " + this.speed);
+	//console.log("Accel = " + accel);
+}
 
 Player.prototype.update = function(deltaTime)
 {
