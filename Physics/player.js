@@ -196,6 +196,8 @@ Player.prototype.update = function(deltaTime)
 		this.sprite.x += 2;
 		if(this.map.collisionMoveLeft(this.sprite))
 			this.sprite.x -= 2;
+		
+			
 	
 		this.animjump = true;
 		this.direccionjump ="R";
@@ -215,15 +217,24 @@ Player.prototype.update = function(deltaTime)
 		if(this.sprite.currentAnimation != MARIO_WALK_RIGHT)
 			this.sprite.setAnimation(MARIO_WALK_RIGHT);
 		this.sprite.x += 2;
-		if(this.map.collisionMoveRight(this.sprite))
+		if(this.map.collisionMoveRight(this.sprite)){
 			this.sprite.x -= 2;
+		}
+			
 		this.direccionjump = "R";
 	}
 	else if(keyboard[38]) // KEY_UP
 	{
-		if(this.sprite.currentAnimation != MARIO_JUMP_L)
-			this.sprite.setAnimation(MARIO_JUMP_L);
-			this.animjump = true;
+		if(this.direccionjump == "L"){
+			if(this.sprite.currentAnimation != MARIO_JUMP_L)
+				this.sprite.setAnimation(MARIO_JUMP_L);
+		}else{
+			if(this.sprite.currentAnimation != MARIO_JUMP_R)
+				this.sprite.setAnimation(MARIO_JUMP_R);
+		}
+		
+		this.animjump = true;
+		//this.direccionjump ="L";
 		
 	}
 	else 
@@ -235,9 +246,15 @@ Player.prototype.update = function(deltaTime)
 	}
 
 
+	if (this.sprite.x < -2){
+		this.sprite.x += 2;
+	}else if(this.sprite.x > 480){
+		this.sprite.x -= 2;
+	}
 
 	if(this.bJumping)
 	{
+
 		this.jumpAngle += 4;
 		if(this.jumpAngle == 180)
 		{
@@ -245,7 +262,7 @@ Player.prototype.update = function(deltaTime)
 			this.sprite.y = this.startY;
 			if(this.animjump){
 
-				console.log(this.direccionjump );
+				
 				if (this.direccionjump == "R"){
 					if(this.sprite.currentAnimation != MARIO_STOP_JUMP_R)
 					this.sprite.setAnimation(MARIO_STOP_JUMP_R);
@@ -259,10 +276,10 @@ Player.prototype.update = function(deltaTime)
 		}
 		else
 		{
+			
 			this.sprite.y = this.startY - 96 * Math.sin(3.14159 * this.jumpAngle / 180);
 			if(this.jumpAngle > 90){
 				this.bJumping = !this.map.collisionMoveDown(this.sprite);
-				
 			}
 
 		}
@@ -270,7 +287,7 @@ Player.prototype.update = function(deltaTime)
 	else
 	{
 		// Move Bub so that it is affected by gravity
-		this.sprite.y += 2;
+		this.sprite.y += 4;
 		if(!this.m_dead && this.map.collisionMoveDown(this.sprite))
 		{
 			
@@ -282,14 +299,17 @@ Player.prototype.update = function(deltaTime)
 				this.bJumping = true;
 				this.jumpAngle = 0;
 				this.startY = this.sprite.y;
-				/*if(this.sprite.currentAnimation != MARIO_JUMP)
-					this.sprite.setAnimation(MARIO_JUMP);
-					this.animjump = true;*/
-			}/*else if(this.animjump){
-				if(this.sprite.currentAnimation != MARIO_STOP_JUMP)
-					this.sprite.setAnimation(MARIO_STOP_JUMP);
-					this.animjump = false;
-			}*/
+			}else if(this.animjump){
+				if (this.direccionjump == "R"){
+					if(this.sprite.currentAnimation != MARIO_STOP_JUMP_R)
+					this.sprite.setAnimation(MARIO_STOP_JUMP_R);
+				}else{
+					if(this.sprite.currentAnimation != MARIO_STOP_JUMP_L)
+					this.sprite.setAnimation(MARIO_STOP_JUMP_L);
+				}
+				
+				this.animjump = false;
+			}
 		}
 		
 	}

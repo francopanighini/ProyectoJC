@@ -3,3 +3,6 @@ Franco Panighini - franco.panighini@estudiantat.upc.edu
 
 Para ver el resto del mapa (no de forma funcional),
 puede moverse con las teclas 'A' y 'D'
+
+Además, se puede ver el 2n nivel si en el archivo de scene.js se comenta la línea 9 y 10
+y se descomenta las líneas 12 y 13
