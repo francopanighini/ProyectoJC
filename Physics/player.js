@@ -12,6 +12,8 @@ const MARIO_DEAD = 8;
 
 function Player(x, y, map)
 {
+
+
 	// Loading spritesheets
 	var mario = new Texture("imgs/mario.png");
 
@@ -109,24 +111,33 @@ Player.prototype.update = function(deltaTime)
 	}
 	else if(keyboard[37]) // KEY_LEFT
 	{
-		if(this.sprite.currentAnimation != MARIO_WALK_LEFT)
+		if (!this.animjump ){
+			if(this.sprite.currentAnimation != MARIO_WALK_LEFT)
 			this.sprite.setAnimation(MARIO_WALK_LEFT);
+			
+			
+		}
 		this.sprite.x -= 2;
 		if(this.map.collisionMoveLeft(this.sprite))
 			this.sprite.x += 2;
 		this.direccionjump = "L";
+		
 	}
 	else if(keyboard[39]) // KEY_RIGHT
 	{
-		if(this.sprite.currentAnimation != MARIO_WALK_RIGHT)
-			this.sprite.setAnimation(MARIO_WALK_RIGHT);
+		if (!this.animjump ){
+			if(this.sprite.currentAnimation != MARIO_WALK_RIGHT)
+				this.sprite.setAnimation(MARIO_WALK_RIGHT);
+				
+			
+		}
 		this.sprite.x += 2;
 		if(this.map.collisionMoveRight(this.sprite)){
 			this.sprite.x -= 2;
 		}
-			
 		this.direccionjump = "R";
 	}
+
 	else if(keyboard[38]) // KEY_UP
 	{
 		if(this.direccionjump == "L"){
@@ -150,11 +161,11 @@ Player.prototype.update = function(deltaTime)
 	}
 
 
-	if (this.sprite.x < -2){
+	/*if (this.sprite.x < (-2 - this.pos)){
 		this.sprite.x += 2;
-	}else if(this.sprite.x > 480){
+	}else if(this.sprite.x > (480 + this.pos)){
 		this.sprite.x -= 2;
-	}
+	}*/
 
 	if(this.bJumping)
 	{

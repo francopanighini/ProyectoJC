@@ -6,11 +6,11 @@ function Scene()
 {
 	// Loading texture to use in a TileMap
 
-	var tilesheet = new Texture("imgs/CompleteTilesheetLvl1.png");
-	this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V3);
+	//var tilesheet = new Texture("imgs/CompleteTilesheetLvl1.png");
+	//this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V3);
 
-	//var tilesheet = new Texture("imgs/lava.png");
-	//this.map = new Tilemap(tilesheet, [16, 16], [6, 4], [0, 0], lava);
+	var tilesheet = new Texture("imgs/lava.png");
+	this.map = new Tilemap(tilesheet, [16, 16], [6, 4], [0, 0], lava);
 	
 	// Create entities
 	this.player = new Player(150, 384, this.map);
@@ -70,18 +70,27 @@ Scene.prototype.draw = function ()
 	context.fillRect(0, 0, canvas.width, canvas.height);
 
 
+
+	
 	if (keyboard[65]) {
 		this.pos = this.pos - 5;
-		this.map.basePos = [this.pos,0]
+		//this.map.basePos = [this.pos,0]
 	}
 	if (keyboard[68]) {
 		this.pos = this.pos + 5;
-		this.map.basePos = [this.pos,0]
+		//this.map.basePos = [this.pos,0]
 
 	}	
 
+	console.log(this.pos);
+	if(this.player.sprite.x >= (200+this.pos) && this.player.sprite.x < 3000){
+		this.pos +=2;
+	}
 	// Draw tilemap
+	context.save();
+	context.translate(-this.pos,0);
 	this.map.draw();
+	
 
 	this.question_box.draw();
 	// Draw entities
@@ -90,6 +99,9 @@ Scene.prototype.draw = function ()
 	if(this.goombaActive)
 		this.goomba.draw();
 	this.player.draw();
+	context.restore();
+
+
 }
 
 
