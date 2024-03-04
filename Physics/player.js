@@ -8,6 +8,8 @@ const MARIO_STOP_JUMP_R = 5;
 const MARIO_JUMP_L = 6;
 const MARIO_STOP_JUMP_L = 7;
 const MARIO_DEAD = 8;
+const MARIO_RUN_LEFT = 9;
+const MARIO_RUN_RIGHT = 10;
 
 
 function Player(x, y, map) {
@@ -27,11 +29,15 @@ function Player(x, y, map) {
 	this.sprite.addAnimation();
 	this.sprite.addKeyframe(MARIO_WALK_LEFT, [32, 16, 16, 16]);
 	this.sprite.addKeyframe(MARIO_WALK_LEFT, [0, 16, 16, 16]);
+	this.sprite.addKeyframe(MARIO_WALK_LEFT, [0, 16, 16, 16]);
+	this.sprite.addKeyframe(MARIO_WALK_LEFT, [16, 16, 16, 16]);
 	this.sprite.addKeyframe(MARIO_WALK_LEFT, [16, 16, 16, 16]);
 
 	this.sprite.addAnimation();
 	this.sprite.addKeyframe(MARIO_WALK_RIGHT, [0, 0, 16, 16]);
 	this.sprite.addKeyframe(MARIO_WALK_RIGHT, [32, 0, 16, 16]);
+	this.sprite.addKeyframe(MARIO_WALK_RIGHT, [32, 0, 16, 16]);
+	this.sprite.addKeyframe(MARIO_WALK_RIGHT, [16, 0, 16, 16]);
 	this.sprite.addKeyframe(MARIO_WALK_RIGHT, [16, 0, 16, 16]);
 
 	this.sprite.addAnimation();
@@ -49,6 +55,15 @@ function Player(x, y, map) {
 	this.sprite.addAnimation();
 	this.sprite.addKeyframe(MARIO_DEAD, [48, 0, 16, 16]);
 
+	this.sprite.addAnimation();
+	this.sprite.addKeyframe(MARIO_RUN_LEFT, [32, 16, 16, 16]);
+	this.sprite.addKeyframe(MARIO_RUN_LEFT, [0, 16, 16, 16]);
+	this.sprite.addKeyframe(MARIO_RUN_LEFT, [16, 16, 16, 16]);
+
+	this.sprite.addAnimation();
+	this.sprite.addKeyframe(MARIO_RUN_RIGHT, [0, 0, 16, 16]);
+	this.sprite.addKeyframe(MARIO_RUN_RIGHT, [32, 0, 16, 16]);
+	this.sprite.addKeyframe(MARIO_RUN_RIGHT, [16, 0, 16, 16]);
 
 	this.sprite.setAnimation(MARIO_STAND_RIGHT);
 
@@ -163,11 +178,11 @@ Player.prototype.moveMario = function (deltaTime) {
 	// Set animation according to current speed
 	if (this.speed > 0) {
 		if (!this.animjump) {
-			if (this.sprite.currentAnimation != MARIO_WALK_RIGHT)
+			if (this.speed > 120 && this.sprite.currentAnimation != MARIO_RUN_RIGHT)
+				this.sprite.setAnimation(MARIO_RUN_RIGHT);
+
+			if (this.speed < 120 && this.sprite.currentAnimation != MARIO_WALK_RIGHT)
 				this.sprite.setAnimation(MARIO_WALK_RIGHT);
-			// if(this.speed > 60){
-			// 	this.sprite.setAnimation(MARIO_RUN_RIGHT);
-			// }
 		} else {
 			if (this.sprite.currentAnimation != MARIO_JUMP_R)
 				this.sprite.setAnimation(MARIO_JUMP_R);
@@ -175,11 +190,10 @@ Player.prototype.moveMario = function (deltaTime) {
 		this.direccionjump = "R";
 	} else if (this.speed < 0) {
 		if (!this.animjump) {
-			if (this.sprite.currentAnimation != MARIO_WALK_LEFT)
+			if (this.speed < -120 && this.sprite.currentAnimation != MARIO_RUN_LEFT)
+				this.sprite.setAnimation(MARIO_RUN_LEFT);
+			if (this.speed > -120 && this.sprite.currentAnimation != MARIO_WALK_LEFT)
 				this.sprite.setAnimation(MARIO_WALK_LEFT);
-			// if(this.speed < -60){
-			// 	this.sprite.setAnimation(MARIO_RUN_LEFT);
-			// }
 		} else {
 			if (this.sprite.currentAnimation != MARIO_JUMP_L)
 				this.sprite.setAnimation(MARIO_JUMP_L);
@@ -226,9 +240,6 @@ Player.prototype.moveMario = function (deltaTime) {
 	} else if (this.sprite.x > 480) {
 		this.sprite.x = 480;
 	}
-
-	console.log("Speed = " + this.speed);
-	//console.log("Accel = " + accel);
 }
 
 Player.prototype.update = function (deltaTime) {
