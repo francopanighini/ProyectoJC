@@ -20,7 +20,7 @@ function Scene()
 	//this.bubbleActive = true;
 	this.goombaActive = true;
 
-	this.question_box = new Question_Box(224, 352);
+	this.question_box = new Question_Box(208, 320);
 
 
 	this.marioDead = false;
