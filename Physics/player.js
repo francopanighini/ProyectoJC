@@ -136,9 +136,10 @@ Player.prototype.moveMario = function (deltaTime) {
 
 	//check for collisions
 	//if speed is positive, use collisionMoveRight, else use collisionMoveLeft
-	if ((this.speed > 0 && this.map.collisionMoveRight(this.sprite))
-		|| (this.speed < 0 && this.map.collisionMoveLeft(this.sprite)))
-		this.sprite.x = prevX;
+
+	if ((this.speed > 0 && this.map.collisionMoveRight(this.collisionBox()))
+	|| (this.speed < 0 && this.map.collisionMoveLeft(this.collisionBox())))
+	this.sprite.x = prevX;
 
 
 	// Apply acceleration to current speed
@@ -282,7 +283,7 @@ Player.prototype.update = function (deltaTime) {
 
 			this.sprite.y = this.startY - 96 * Math.sin(3.14159 * this.jumpAngle / 180);
 			if (this.jumpAngle > 90) {
-				this.bJumping = !this.map.collisionMoveDown(this.sprite);
+				this.bJumping = !this.map.collisionMoveDown(this.collisionBox(), this.sprite);
 			}
 
 		}
@@ -290,7 +291,7 @@ Player.prototype.update = function (deltaTime) {
 	else {
 		// Move Bub so that it is affected by gravity
 		this.sprite.y += 4;
-		if (!this.m_dead && this.map.collisionMoveDown(this.sprite)) {
+		if (!this.m_dead && this.map.collisionMoveDown(this.collisionBox(), this.sprite)) {
 
 			//this.sprite.y -= 2;
 
@@ -323,7 +324,7 @@ Player.prototype.draw = function () {
 }
 
 Player.prototype.collisionBox = function () {
-	var box = new Box(this.sprite.x + 2, this.sprite.y, this.sprite.x + this.sprite.width - 4, this.sprite.y + this.sprite.height);
+	var box = new Box(this.sprite.x + 4, this.sprite.y, this.sprite.x + this.sprite.width - 5, this.sprite.y + this.sprite.height - 1);
 
 	return box;
 }
