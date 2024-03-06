@@ -26,7 +26,21 @@ function Scene()
 	this.marioDead = false;
 	this.startmarioDead = false;
 
-	
+	// Prepare sounds
+	this.music = AudioFX('sounds/1 - Running About.mp3', { loop: true });
+	this.oneUpSound = AudioFX('sounds/1up.wav', { volume: 0.5 });
+	this.jumpSound = AudioFX('sounds/Jump.wav');
+	this.coinSound = AudioFX('sounds/Coin.wav', { volume: 0.5 });
+	this.dieSound = AudioFX('sounds/Die.wav', { volume: 0.5 });
+	this.flagpoleSound = AudioFX('sounds/Flagpole.wav', { volume: 0.5 });
+	this.gameOverSound = AudioFX('sounds/GameOver.wav', { volume: 0.5 });
+	this.kickSound = AudioFX('sounds/Kick.wav', { volume: 0.5 });
+	this.pauseSound = AudioFX('sounds/Pause.wav', { volume: 0.5 });
+	this.powerUpSound = AudioFX('sounds/PowerUp.wav', { volume: 0.5 });
+	this.squishSound = AudioFX('sounds/Squish.wav', { volume: 0.5 });
+	this.vineSound = AudioFX('sounds/Vine.wav', { volume: 0.5 });
+	this.warpSound = AudioFX('sounds/Warp.wav', { volume: 0.5 });
+	this.bumpSound = AudioFX('sounds/Bump.wav', { volume: 0.5 });
 
 	// Store current time
 	this.currentTime = 0
@@ -57,6 +71,20 @@ Scene.prototype.update = function(deltaTime)
 		}
 		
 		this.marioDead = true;
+	}
+
+	// Init music once user has interacted
+	if(interacted)
+		this.music.play();
+	
+	// Play jump sound when up key is pressed
+	if(keyboard[38])
+		this.jumpSound.play();
+
+	// Play die sound when Mario dies
+	if(this.marioDead && !this.startmarioDead){
+		this.dieSound.play();
+		this.startmarioDead = true;
 	}
 
 }
