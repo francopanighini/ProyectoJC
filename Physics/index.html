@@ -4,13 +4,20 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>04 - Physics</title>
+	<title>Super mario bros</title>
+
+	<style>
+        @font-face {
+            font-family: 'mario'; /* Puedes elegir el nombre que desees */
+            src: url('imgs/super.ttf') format('truetype');
+        }
+    </style>
 </head>
 
 <body>
 
 	<!-- Title -->
-	<h1> Physics </h1>
+	<h1> Super mario bros</h1>
 
 	<!-- Canvas -->
 	<canvas id="game-layer" width="512" height="448"></canvas>
@@ -21,6 +28,9 @@
 
 	
 	<!-- All classes -->
+
+	<script src="quad.js"></script>
+	<script src="texturedQuad.js"></script>
 	<script src="box.js"></script>
 	<script src="bubble.js"></script>
 	<script src="goomba.js"></script>
@@ -30,7 +40,12 @@
 	<script src="texture.js"></script>
 	<script src="tilemap.js"></script>
 	<script src="scene.js"></script>
+	<script src="scene_start.js"></script>
+	<script src="scene_creditos.js"></script>
+	<script src="scene_instrucciones.js"></script>
 	<script src="game.js"></script>
+
+
 
 </body>
 

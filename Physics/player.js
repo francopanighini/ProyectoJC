@@ -303,6 +303,10 @@ Player.prototype.update = function (deltaTime) {
 
 	}
 
+	if (this.sprite.y>400){
+		this.m_dead = true;
+	}
+
 	// Update sprites
 	this.sprite.update(deltaTime);
 }

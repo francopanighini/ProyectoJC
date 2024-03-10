@@ -4,10 +4,20 @@
 const FRAME_RATE = 60;
 const TIME_PER_FRAME = 1000 / FRAME_RATE;
 
-var scene = new Scene();
+var scene = new Scene(); //Jugar nivel normal
+//Añadir pantalla de underworld
+var start = new SceneStart();
+var instrc = new SceneInstrucciones();
+var cred = new SceneCreditos();
 var previousTimestamp;
 var keyboard = [];
 var interacted;
+var soltar = false;
+
+
+var scen = [scene,cred,instrc,start];
+
+
 
 
 // Control keyboard events
@@ -16,12 +26,14 @@ function keyDown(keycode)
 {
 	if(keycode.which >= 0 && keycode.which < 256)
 		keyboard[keycode.which] = true;
+		soltar=false;
 }
 
 function keyUp(keycode)
 {
 	if(keycode.which >= 0 && keycode.which < 256)
 		keyboard[keycode.which] = false;
+		soltar = true;
 }
 
 function click()
@@ -46,19 +58,22 @@ function init()
 
 function frameUpdate(timestamp)
 {
+	var a = activa;
 	var bUpdated = false;
 	var deltaTime = timestamp - previousTimestamp;
 	
 	while(deltaTime > TIME_PER_FRAME)
 	{
 		bUpdated = true;
-		scene.update(TIME_PER_FRAME);
+		scen[a].update(TIME_PER_FRAME);
 		previousTimestamp += TIME_PER_FRAME;
 		deltaTime = timestamp - previousTimestamp;
 	}
 	if(bUpdated)
-		scene.draw();
+		scen[a].draw();
+	
 	window.requestAnimationFrame(frameUpdate)
+	
 }
 
 

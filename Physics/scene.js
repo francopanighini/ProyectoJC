@@ -6,6 +6,8 @@ function Scene()
 {
 	// Loading texture to use in a TileMap
 	this.pos = 0;
+	this.i=0;
+	this.sel=0;
 
 	var tilesheet = new Texture("imgs/CompleteTilesheetLvl1.png");
 	this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V3);
@@ -25,8 +27,6 @@ function Scene()
 
 	this.marioDead = false;
 	this.startmarioDead = false;
-
-	
 
 	// Store current time
 	this.currentTime = 0
@@ -68,7 +68,7 @@ Scene.prototype.draw = function ()
 	var context = canvas.getContext("2d");
 
 	// Clear background
-	context.fillStyle = "rgb(224, 224, 240)";
+	context.fillStyle = "rgb(160, 172, 254)";
 	context.fillRect(0, 0, canvas.width, canvas.height);
 
 
@@ -84,7 +84,7 @@ Scene.prototype.draw = function ()
 
 	}	
 
-	console.log(this.pos);
+	
 	if(this.player.sprite.x >= (200+this.pos) && this.player.sprite.x < 3000){
 		this.pos +=2;
 		this.player.posMap = this.pos;
