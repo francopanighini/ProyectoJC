@@ -8,6 +8,8 @@ const MARIO_STOP_JUMP_R = 5;
 const MARIO_JUMP_L = 6;
 const MARIO_STOP_JUMP_L = 7;
 const MARIO_DEAD = 8;
+const MARIO_RUN_LEFT = 9;
+const MARIO_RUN_RIGHT = 10;
 
 
 function Player(x, y, map, posMap) {
@@ -29,11 +31,15 @@ function Player(x, y, map, posMap) {
 	this.sprite.addAnimation();
 	this.sprite.addKeyframe(MARIO_WALK_LEFT, [32, 16, 16, 16]);
 	this.sprite.addKeyframe(MARIO_WALK_LEFT, [0, 16, 16, 16]);
+	this.sprite.addKeyframe(MARIO_WALK_LEFT, [0, 16, 16, 16]);
+	this.sprite.addKeyframe(MARIO_WALK_LEFT, [16, 16, 16, 16]);
 	this.sprite.addKeyframe(MARIO_WALK_LEFT, [16, 16, 16, 16]);
 
 	this.sprite.addAnimation();
 	this.sprite.addKeyframe(MARIO_WALK_RIGHT, [0, 0, 16, 16]);
 	this.sprite.addKeyframe(MARIO_WALK_RIGHT, [32, 0, 16, 16]);
+	this.sprite.addKeyframe(MARIO_WALK_RIGHT, [32, 0, 16, 16]);
+	this.sprite.addKeyframe(MARIO_WALK_RIGHT, [16, 0, 16, 16]);
 	this.sprite.addKeyframe(MARIO_WALK_RIGHT, [16, 0, 16, 16]);
 
 	this.sprite.addAnimation();
@@ -51,6 +57,15 @@ function Player(x, y, map, posMap) {
 	this.sprite.addAnimation();
 	this.sprite.addKeyframe(MARIO_DEAD, [48, 0, 16, 16]);
 
+	this.sprite.addAnimation();
+	this.sprite.addKeyframe(MARIO_RUN_LEFT, [32, 16, 16, 16]);
+	this.sprite.addKeyframe(MARIO_RUN_LEFT, [0, 16, 16, 16]);
+	this.sprite.addKeyframe(MARIO_RUN_LEFT, [16, 16, 16, 16]);
+
+	this.sprite.addAnimation();
+	this.sprite.addKeyframe(MARIO_RUN_RIGHT, [0, 0, 16, 16]);
+	this.sprite.addKeyframe(MARIO_RUN_RIGHT, [32, 0, 16, 16]);
+	this.sprite.addKeyframe(MARIO_RUN_RIGHT, [16, 0, 16, 16]);
 
 	this.sprite.setAnimation(MARIO_STAND_RIGHT);
 
@@ -121,9 +136,10 @@ Player.prototype.moveMario = function (deltaTime) {
 
 	//check for collisions
 	//if speed is positive, use collisionMoveRight, else use collisionMoveLeft
-	if ((this.speed > 0 && this.map.collisionMoveRight(this.sprite))
-		|| (this.speed < 0 && this.map.collisionMoveLeft(this.sprite)))
-		this.sprite.x = prevX;
+
+	if ((this.speed > 0 && this.map.collisionMoveRight(this.collisionBox()))
+	|| (this.speed < 0 && this.map.collisionMoveLeft(this.collisionBox())))
+	this.sprite.x = prevX;
 
 
 	// Apply acceleration to current speed
@@ -165,11 +181,11 @@ Player.prototype.moveMario = function (deltaTime) {
 	// Set animation according to current speed
 	if (this.speed > 0) {
 		if (!this.animjump) {
-			if (this.sprite.currentAnimation != MARIO_WALK_RIGHT)
+			if (this.speed > 120 && this.sprite.currentAnimation != MARIO_RUN_RIGHT)
+				this.sprite.setAnimation(MARIO_RUN_RIGHT);
+
+			if (this.speed < 120 && this.sprite.currentAnimation != MARIO_WALK_RIGHT)
 				this.sprite.setAnimation(MARIO_WALK_RIGHT);
-			// if(this.speed > 60){
-			// 	this.sprite.setAnimation(MARIO_RUN_RIGHT);
-			// }
 		} else {
 			if (this.sprite.currentAnimation != MARIO_JUMP_R)
 				this.sprite.setAnimation(MARIO_JUMP_R);
@@ -177,11 +193,10 @@ Player.prototype.moveMario = function (deltaTime) {
 		this.direccionjump = "R";
 	} else if (this.speed < 0) {
 		if (!this.animjump) {
-			if (this.sprite.currentAnimation != MARIO_WALK_LEFT)
+			if (this.speed < -120 && this.sprite.currentAnimation != MARIO_RUN_LEFT)
+				this.sprite.setAnimation(MARIO_RUN_LEFT);
+			if (this.speed > -120 && this.sprite.currentAnimation != MARIO_WALK_LEFT)
 				this.sprite.setAnimation(MARIO_WALK_LEFT);
-			// if(this.speed < -60){
-			// 	this.sprite.setAnimation(MARIO_RUN_LEFT);
-			// }
 		} else {
 			if (this.sprite.currentAnimation != MARIO_JUMP_L)
 				this.sprite.setAnimation(MARIO_JUMP_L);
@@ -228,9 +243,6 @@ Player.prototype.moveMario = function (deltaTime) {
 	} else if (this.sprite.x > 480  + this.posMap) {
 		this.sprite.x = 480 + this.posMap;
 	}
-
-	console.log("Speed = " + this.speed);
-	//console.log("Accel = " + accel);
 }
 
 Player.prototype.update = function (deltaTime) {
@@ -271,7 +283,7 @@ Player.prototype.update = function (deltaTime) {
 
 			this.sprite.y = this.startY - 96 * Math.sin(3.14159 * this.jumpAngle / 180);
 			if (this.jumpAngle > 90) {
-				this.bJumping = !this.map.collisionMoveDown(this.sprite);
+				this.bJumping = !this.map.collisionMoveDown(this.collisionBox(), this.sprite);
 			}
 
 		}
@@ -279,7 +291,7 @@ Player.prototype.update = function (deltaTime) {
 	else {
 		// Move Bub so that it is affected by gravity
 		this.sprite.y += 4;
-		if (!this.m_dead && this.map.collisionMoveDown(this.sprite)) {
+		if (!this.m_dead && this.map.collisionMoveDown(this.collisionBox(), this.sprite)) {
 
 			//this.sprite.y -= 2;
 
@@ -316,7 +328,7 @@ Player.prototype.draw = function () {
 }
 
 Player.prototype.collisionBox = function () {
-	var box = new Box(this.sprite.x + 2, this.sprite.y, this.sprite.x + this.sprite.width - 4, this.sprite.y + this.sprite.height);
+	var box = new Box(this.sprite.x + 4, this.sprite.y, this.sprite.x + this.sprite.width - 5, this.sprite.y + this.sprite.height - 1);
 
 	return box;
 }
