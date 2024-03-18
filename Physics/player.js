@@ -13,7 +13,7 @@ const MARIO_RUN_RIGHT = 10;
 
 
 function Player(x, y, map, posMap) {
-	// Loading spritesheets
+	// Loading sprite sheets
 	var mario = new Texture("imgs/mario.png");
 
 	// Prepare Bub sprite & its animations
@@ -260,30 +260,42 @@ Player.prototype.update = function (deltaTime) {
 	}
 
 	if (this.bJumping) {
-
 		this.jumpAngle += 4;
 		if (this.jumpAngle == 180) {
 			this.bJumping = false;
 			this.sprite.y = this.startY;
-			if (this.animjump) {
+			// if (this.animjump) {
 
+			// 	if (this.direccionjump == "R") {
+			// 		if (this.sprite.currentAnimation != MARIO_STOP_JUMP_R)
+			// 			this.sprite.setAnimation(MARIO_STOP_JUMP_R);
+			// 	} else {
+			// 		if (this.sprite.currentAnimation != MARIO_STOP_JUMP_L)
+			// 			this.sprite.setAnimation(MARIO_STOP_JUMP_L);
+			// 	}
 
-				if (this.direccionjump == "R") {
-					if (this.sprite.currentAnimation != MARIO_STOP_JUMP_R)
-						this.sprite.setAnimation(MARIO_STOP_JUMP_R);
-				} else {
-					if (this.sprite.currentAnimation != MARIO_STOP_JUMP_L)
-						this.sprite.setAnimation(MARIO_STOP_JUMP_L);
-				}
-
-				this.animjump = false;
-			}
+			// 	this.animjump = false;
+			// }
 		}
 		else {
 
 			this.sprite.y = this.startY - 96 * Math.sin(3.14159 * this.jumpAngle / 180);
 			if (this.jumpAngle > 90) {
 				this.bJumping = !this.map.collisionMoveDown(this.collisionBox(), this.sprite);
+				if (!this.bJumping) {
+					if (this.animjump) {
+
+						if (this.direccionjump == "R") {
+							if (this.sprite.currentAnimation != MARIO_STOP_JUMP_R)
+								this.sprite.setAnimation(MARIO_STOP_JUMP_R);
+						} else {
+							if (this.sprite.currentAnimation != MARIO_STOP_JUMP_L)
+								this.sprite.setAnimation(MARIO_STOP_JUMP_L);
+						}
+		
+						this.animjump = false;
+					}
+				}
 			}
 
 		}
