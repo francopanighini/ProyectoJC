@@ -22,7 +22,25 @@ function Scene()
 	//this.bubbleActive = true;
 	this.goombaActive = true;
 
-	this.question_box = new Question_Box(208, 320);
+	this.question_box = new Array();
+	this.question_box[0] = new Question_Box(208, 320);
+	this.question_box[1] = new Question_Box(37*16, 320);
+	this.question_box[2] = new Question_Box(41*16, 320);
+	this.question_box[3] = new Question_Box(49*16, 320);
+	this.question_box[4] = new Question_Box(55*16, 9*16);
+	this.question_box[5] = new Question_Box(76*16, 13*16);
+	this.question_box[6] = new Question_Box(121*16, 9*16);
+	this.question_box[7] = new Question_Box(125*16, 9*16);
+	this.question_box[8] = new Question_Box(125*16, 26*16);
+	this.question_box[9] = new Question_Box(144*16, 20*16);
+	this.question_box[10] = new Question_Box(149*16, 9*16);
+	this.question_box[11] = new Question_Box(155*16, 18*16);
+	this.question_box[12] = new Question_Box(158*16, 9*16);
+	this.question_box[13] = new Question_Box(164*16, 20*16);
+	this.question_box[14] = new Question_Box(169*16, 9*16);
+	this.question_box[15] = new Question_Box(175*16, 9*16);
+
+	this.coin = new Coin(165, 24);
 
 
 	this.marioDead = false;
@@ -60,7 +78,10 @@ Scene.prototype.update = function(deltaTime)
 	//this.bubble.update(deltaTime);
 	this.goomba.update(deltaTime);
 
-	this.question_box.update(deltaTime);
+	for(var i=0;i<16;i++){
+		this.question_box[i].update(deltaTime);
+	}
+	this.coin.update(deltaTime);
 	
 	// Check for collision between entities
 	/*if(this.player.collisionBox().intersect(this.bubble.collisionBox()))
@@ -125,16 +146,62 @@ Scene.prototype.draw = function ()
 	this.map.draw();
 	
 
-	this.question_box.draw();
+	for(var i=0;i<16;i++){
+		this.question_box[i].draw();
+	}
 	// Draw entities
 	/*if(this.bubbleActive)
 		this.bubble.draw();*/
 	if(this.goombaActive)
 		this.goomba.draw();
 	this.player.draw();
+	this.coin.draw();
 	context.restore();
 
+	// Draw UI
 
+		// Draw text
+	var text = "TIME";
+	context.font = "18px mario";
+	var textSize = context.measureText(text);
+	context.fillStyle = "White";
+	// right side of the screen
+	context.fillText(text, 400, 24);
+	
+	text = Math.floor(400 - this.currentTime / 1000);
+	var textSize = context.measureText(text);
+	if(textSize.width < 20)
+		context.fillText(text, 454, 48);
+	else if(textSize.width < 40)
+		context.fillText(text, 436, 48);
+	else
+		context.fillText(text, 418, 48);
+
+	// Draw text
+	var text = "WORLD";
+	var textSize = context.measureText(text);
+	context.fillStyle = "White";
+	context.fillText(text, 286, 24);
+
+	text = "1-1";
+	var textSize = context.measureText(text);
+	context.fillText(text, 286, 48);
+
+	// Draw text
+	var text = "x00";
+	var textSize = context.measureText(text);
+	context.fillStyle = "White";
+	context.fillText(text, 190, 48);
+
+	// Draw text
+	var text = "MARIO";
+	var textSize = context.measureText(text);
+	context.fillStyle = "White";
+	context.fillText(text, 32, 24);
+
+	text = "000000";
+	var textSize = context.measureText(text);
+	context.fillText(text, 32, 48);
 }
 
 
