@@ -17,6 +17,8 @@ function Player(x, y, map, posMap) {
 	var mario = new Texture("imgs/mario.png");
 
 	// Prepare Bub sprite & its animations
+	// this.marioSprite = new Sprite(x, y, 32, 32, 7, mario);
+	// this.superMarioSprite = new Sprite(x, y, 32, 32, 7, mario);
 	this.sprite = new Sprite(x, y, 32, 32, 7, mario);
 
 	this.posMap = posMap;
