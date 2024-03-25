@@ -83,6 +83,7 @@ function Player(x, y, map, posMap) {
 	this.c_dead = 0;
 
 	this.speed = 0;
+	this.mata = false;
 }
 
 let minWalkSpeed = 60;
@@ -247,6 +248,10 @@ Player.prototype.moveMario = function (deltaTime) {
 
 Player.prototype.update = function (deltaTime) {
 
+
+	if (this.mata){
+		this.mata=this.mata;
+	}
 	if (this.m_dead) {
 		if (this.sprite.currentAnimation != MARIO_DEAD)
 			this.sprite.setAnimation(MARIO_DEAD);
@@ -284,13 +289,20 @@ Player.prototype.update = function (deltaTime) {
 			this.sprite.y = this.startY - 96 * Math.sin(3.14159 * this.jumpAngle / 180);
 			if (this.jumpAngle > 90) {
 				this.bJumping = !this.map.collisionMoveDown(this.collisionBox(), this.sprite);
+			}else{
+				this.bJumping = !this.map.collisionMoveUP(this.collisionBox(), this.sprite);
 			}
 
+		}
+
+		if (!this.bJumping){
+			this.mata = false;
 		}
 	}
 	else {
 		// Move Bub so that it is affected by gravity
 		this.sprite.y += 4;
+		
 		if (!this.m_dead && this.map.collisionMoveDown(this.collisionBox(), this.sprite)) {
 
 			//this.sprite.y -= 2;
@@ -315,6 +327,8 @@ Player.prototype.update = function (deltaTime) {
 
 	}
 
+
+
 	if (this.sprite.y>400){
 		this.m_dead = true;
 	}
@@ -329,13 +343,65 @@ Player.prototype.draw = function () {
 
 Player.prototype.collisionBox = function () {
 	var box = new Box(this.sprite.x + 4, this.sprite.y, this.sprite.x + this.sprite.width - 5, this.sprite.y + this.sprite.height - 1);
-
 	return box;
 }
 
 Player.prototype.dead = function () {
 	this.m_dead = true;
 }
+
+Player.prototype.collisionPosition = function (posM,posE){
+	console.log(posM);
+
+
+	// Calcular las coordenadas del punto central en cada dimensión
+    var centerMX = (posM.max_x + posM.min_x) / 2;
+    var centerMY = (posM.max_y + posM.min_y) / 2;
+
+    // Mostrar el punto central en la consola
+    /*console.log("Punto central:");
+    console.log("x:", centerMX);
+    console.log("y:", centerMY);*/
+
+	var centerM = { x: centerMX, y: centerMY };
+
+
+	// Calcular las coordenadas del punto central en cada dimensión
+    var centerEX = (posE.max_x + posE.min_x) / 2;
+    var centerEY = (posE.max_y + posE.min_y) / 2;
+
+    // Mostrar el punto central en la consola
+    /*console.log("Punto central:");
+    console.log("x:", centerEX);
+    console.log("y:", centerEY);*/
+
+	var centerE = { x: centerEX, y: centerEY };
+    // Devolver el punto central como un objeto
+
+	// Calcular las componentes del vector que apunta desde el centro de posM hacia el centro de posE
+    var vectorX = centerEX - centerMX;
+    var vectorY = centerEY - centerMY;
+
+    // Crear el vector como un objeto con las componentes calculadas
+    var collisionVector = { x: vectorX, y: vectorY };
+	
+
+	var angleradi = Math.atan2(collisionVector.y, collisionVector.x);
+	
+	var ang = (angleradi * 180) / Math.PI;
+	
+
+
+	var direction;
+    if (ang >= 45 && ang <= 135) {
+        direction = "Abajo";
+    } else  {
+		direction = "Otra"
+	}
+    return direction;
+}
+
+
 
 
 

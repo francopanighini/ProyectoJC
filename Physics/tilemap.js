@@ -122,3 +122,21 @@ Tilemap.prototype.collisionMoveDown = function(box, sprite)
 	
 	return false;
 }
+
+Tilemap.prototype.collisionMoveUP = function(box, sprite)
+{
+	var y = Math.floor((box.min_y - this.basePos[1]) / this.tileSize[1]);
+	var x0 = Math.floor((box.min_x - this.basePos[0]) / this.tileSize[0]);
+	var x1 = Math.floor((box.max_x - this.basePos[0]) / this.tileSize[0]);
+	
+	for(var x=x0; x<=x1; x++)
+	{
+		if(this.map.layers[0].data[y * this.map.width + x] != 0 || this.map.layers[2].data[y * this.map.width + x] != 0)
+		{
+			sprite.y = (y+1) * this.tileSize[1] + this.basePos[1];
+			return true;
+		}
+	}
+	
+	return false;
+}

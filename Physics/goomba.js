@@ -1,4 +1,7 @@
-function Goomba(x, y)
+const GOOMBA_VIVO = 0;
+const GOOMBA_MUERTO = 1;
+//dir = true izquierda, false derecha
+function Goomba(x, y, map, dir)
 {
 	var goomba = new Texture("imgs/goomba.png");
 
@@ -9,36 +12,53 @@ function Goomba(x, y)
 
 
 	this.sprite.addAnimation();
-	this.sprite.addKeyframe(0, [0, 0, 16, 16]);
-	this.sprite.addKeyframe(0, [16, 0, 16, 16]);
+	this.sprite.addKeyframe(GOOMBA_VIVO, [0, 0, 16, 16]);
+	this.sprite.addKeyframe(GOOMBA_VIVO, [16, 0, 16, 16]);
+
+	this.sprite.addAnimation();
+	this.sprite.addKeyframe(GOOMBA_MUERTO, [0, 16, 16, 16]);
+
+
+	this.sprite.setAnimation(GOOMBA_VIVO);
+	this.muerto = false;
+
+	this.map = map;
+
+	this.direccion = dir;
 }
 
 
 Goomba.prototype.update = function update(deltaTime)
 {
 
-	// if(this.movR){
-	// 	if(this.sprite.x >= 260){
-	// 		this.movR = false;
-	// 	}else{
-	// 		this.sprite.x += 1;
-	// 	}
-	// }else{
-		
-	// 	if(this.sprite.x <= 180){
-	// 		this.movR = true;
-	// 	}else{
-	// 		this.sprite.x -= 1;
-	// 	}
-	// }
 
-	// Move the Goomba to the left
-    this.sprite.x -= 1;
+	if(!this.muerto){
+		// Move the Goomba to the left
 
-    // Check if the Goomba has left the map
-    if (this.sprite.x < -32) {
-        //this.sprite.destroy();
-    }
+		if(this.direccion){
+			this.sprite.x += 1;
+		}else{
+			this.sprite.x -= 1;
+		}
+
+
+		this.sprite.y += 4;
+
+
+		this.map.collisionMoveDown(this.collisionBox(), this.sprite);
+
+
+		if ((this.map.collisionMoveRight(this.collisionBox()))
+		|| (this.map.collisionMoveLeft(this.collisionBox()))){
+			this.direccion = !this.direccion;
+		}
+
+
+			
+	}else{
+		this.sprite.setAnimation(GOOMBA_MUERTO);
+	}
+	
 
 	this.sprite.update(deltaTime);
 }
