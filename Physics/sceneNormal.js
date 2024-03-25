@@ -15,7 +15,7 @@ function SceneNormal()
 	// Create entities
 	this.player = new Player(150, 384, this.map,this.pos);
 	//this.bubble = new Bubble(360, 112);
-	this.goomba = new Goomba(512, 384);
+	this.goomba = new Goomba(512, 200, this.map,false);
 	//this.bubbleActive = true;
 	this.goombaActive = true;
 
@@ -60,7 +60,9 @@ function SceneNormal()
 	this.bumpSound = AudioFX('sounds/Bump.wav', { volume: 0.5 });
 
 	// Store current time
-	this.currentTime = 0
+	this.currentTime = 0;
+
+	this.contBoomba = 0;
 }
 
 SceneNormal.prototype.update = function(deltaTime)
@@ -84,15 +86,38 @@ SceneNormal.prototype.update = function(deltaTime)
 	/*if(this.player.collisionBox().intersect(this.bubble.collisionBox()))
 		this.bubbleActive = false;*/
 	
-	if(this.player.collisionBox().intersect(this.goomba.collisionBox())){
-		//this.goombaActive = false;
-		if(!this.marioDead){
-			this.music.stop();
-			this.player.dead();
+		if( this.goombaActive && this.player.collisionBox().intersect(this.goomba.collisionBox())){ 
+			//this.goombaActive = false;
+	
+			/*console.log(this.player.collisionBox().intersect(this.goomba.collisionBox()));
+			console.log(this.player.collisionBox())
+			console.log(this.goomba.collisionBox())
+			var col = this.player.collisionBox();
+			var col2 = this.goomba.collisionBox();
+			console.log(col.min_x);
+			console.log(col2.min_x);*/
+			if (!this.player.mata){
+				console.log("hola");
+				var vector = this.player.collisionPosition(this.player.collisionBox(),this.goomba.collisionBox())
+				console.log(vector);
+				
+				if(!this.marioDead && vector == "Otra"){
+					this.music.stop();
+					this.player.dead();
+					this.marioDead = true;
+				}else {
+					this.player.mata = true;
+					this.player.bJumping = true;
+					this.player.jumpAngle = 0;
+					this.player.startY = this.player.sprite.y;
+					this.goomba.muerto = true;
+					this.squishSound.play();
+				}	
+			}
+				
+			
+			
 		}
-		
-		this.marioDead = true;
-	}
 
 	// Init music once user has interacted
 	if(interacted && !this.marioDead)
@@ -106,6 +131,13 @@ SceneNormal.prototype.update = function(deltaTime)
 	if(this.marioDead && !this.startmarioDead){
 		this.dieSound.play();
 		this.startmarioDead = true;
+	}
+
+	if (this.goomba.muerto){
+		this.contBoomba += 1;
+		if(this.contBoomba >= 20){
+			this.goombaActive = false;
+		}
 	}
 
 	// if key 2 is pressed, change scene to lava map (sceneLava.js)

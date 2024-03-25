@@ -107,6 +107,7 @@ Tilemap.prototype.collisionMoveRight = function(box)
 
 Tilemap.prototype.collisionMoveDown = function(box, sprite)
 {
+	
 	var y = Math.floor((box.max_y - this.basePos[1]) / this.tileSize[1]);
 	var x0 = Math.floor((box.min_x - this.basePos[0]) / this.tileSize[0]);
 	var x1 = Math.floor((box.max_x - this.basePos[0]) / this.tileSize[0]);
