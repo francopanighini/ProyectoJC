@@ -4,7 +4,8 @@
 const FRAME_RATE = 60;
 const TIME_PER_FRAME = 1000 / FRAME_RATE;
 
-var scene = new Scene(); //Jugar nivel normal
+var sceneNormal = new SceneNormal(); //Jugar nivel normal
+var sceneLava = new SceneLava(); //Jugar nivel lava
 //Añadir pantalla de underworld
 var start = new SceneStart();
 var instrc = new SceneInstrucciones();
@@ -15,7 +16,7 @@ var interacted;
 var soltar = false;
 
 
-var scen = [scene,cred,instrc,start];
+var scen = [sceneNormal,cred,instrc,start,sceneLava];
 
 
 

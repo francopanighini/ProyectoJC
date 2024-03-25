@@ -13,10 +13,12 @@ const MARIO_RUN_RIGHT = 10;
 
 
 function Player(x, y, map, posMap) {
-	// Loading spritesheets
+	// Loading sprite sheets
 	var mario = new Texture("imgs/mario.png");
 
 	// Prepare Bub sprite & its animations
+	// this.marioSprite = new Sprite(x, y, 32, 32, 7, mario);
+	// this.superMarioSprite = new Sprite(x, y, 32, 32, 7, mario);
 	this.sprite = new Sprite(x, y, 32, 32, 7, mario);
 
 	this.posMap = posMap;
@@ -265,24 +267,22 @@ Player.prototype.update = function (deltaTime) {
 	}
 
 	if (this.bJumping) {
-
 		this.jumpAngle += 4;
 		if (this.jumpAngle == 180) {
 			this.bJumping = false;
 			this.sprite.y = this.startY;
-			if (this.animjump) {
+			// if (this.animjump) {
 
+			// 	if (this.direccionjump == "R") {
+			// 		if (this.sprite.currentAnimation != MARIO_STOP_JUMP_R)
+			// 			this.sprite.setAnimation(MARIO_STOP_JUMP_R);
+			// 	} else {
+			// 		if (this.sprite.currentAnimation != MARIO_STOP_JUMP_L)
+			// 			this.sprite.setAnimation(MARIO_STOP_JUMP_L);
+			// 	}
 
-				if (this.direccionjump == "R") {
-					if (this.sprite.currentAnimation != MARIO_STOP_JUMP_R)
-						this.sprite.setAnimation(MARIO_STOP_JUMP_R);
-				} else {
-					if (this.sprite.currentAnimation != MARIO_STOP_JUMP_L)
-						this.sprite.setAnimation(MARIO_STOP_JUMP_L);
-				}
-
-				this.animjump = false;
-			}
+			// 	this.animjump = false;
+			// }
 		}
 		else {
 
@@ -291,6 +291,20 @@ Player.prototype.update = function (deltaTime) {
 				this.bJumping = !this.map.collisionMoveDown(this.collisionBox(), this.sprite);
 			}else{
 				this.bJumping = !this.map.collisionMoveUP(this.collisionBox(), this.sprite);
+				if (!this.bJumping) {
+					if (this.animjump) {
+
+						if (this.direccionjump == "R") {
+							if (this.sprite.currentAnimation != MARIO_STOP_JUMP_R)
+								this.sprite.setAnimation(MARIO_STOP_JUMP_R);
+						} else {
+							if (this.sprite.currentAnimation != MARIO_STOP_JUMP_L)
+								this.sprite.setAnimation(MARIO_STOP_JUMP_L);
+						}
+		
+						this.animjump = false;
+					}
+				}
 			}
 
 		}
