@@ -104,7 +104,7 @@ SceneLava.prototype.update = function(deltaTime)
 			console.log(col.min_x);
 			console.log(col2.min_x);*/
 			if (!this.player.mata){
-				console.log("hola");
+				
 				var vector = this.player.collisionPosition(this.player.collisionBox(),this.goomba.collisionBox())
 				console.log(vector);
 				
@@ -112,7 +112,7 @@ SceneLava.prototype.update = function(deltaTime)
 					this.music.stop();
 					this.player.dead();
 					this.marioDead = true;
-				}else {
+				}else if(!this.marioDead) {
 					this.player.mata = true;
 					this.player.bJumping = true;
 					this.player.jumpAngle = 0;
@@ -148,26 +148,26 @@ SceneLava.prototype.update = function(deltaTime)
 	}
 
 	// if key 2 is pressed, change scene to lava map (sceneLava.js)
+	if(!keyboard[50] && keyboard[49]){
+		this.music.stop();
+
+		this.marioDead = false;
+		this.startmarioDead = false;
+		interacted = false;
+		activa = 0;
+	}
+
+	// if key 2 is pressed reset the scene
 	if(keyboard[50] && !keyboard[49]){
 		this.music.stop();
 
 		this.marioDead = false;
 		this.startmarioDead = false;
 		interacted = false;
-		activa = 4;
-	}
-
-	// if key 1 is pressed reset the scene
-	if(keyboard[49] && !keyboard[50]){
-		this.music.stop();
-
-		this.marioDead = false;
-		this.startmarioDead = false;
-		interacted = false;
 		// restart scene
-		this.player = new Player(150, 384, this.map,this.pos);
+		this.player = new Player(10, 50, this.map, this.pos);
 		//this.bubble = new Bubble(360, 112);
-		this.goomba = new Goomba(512, 384);
+		this.goomba = new Goomba(200, 100, this.map, false);
 		//this.bubbleActive = true;
 		this.goombaActive = true;
 		this.currentTime = 0;
@@ -176,21 +176,22 @@ SceneLava.prototype.update = function(deltaTime)
 		this.player.posMap = this.pos;
 		this.map.basePos = [this.pos,0]
 		this.coin = new Coin(165, 24)
-		this.question_box[0] = new Question_Box(27 * 16, 9 * 16);
-		this.question_box[1] = new Question_Box(27 * 16, 12 * 16);
-		this.question_box[2] = new Question_Box(39 * 16, 13 * 16);
-		this.question_box[3] = new Question_Box(40 * 16, 10 * 16);
-		this.question_box[4] = new Question_Box(41 * 16, 13 * 16);
-		this.question_box[5] = new Question_Box(74 * 16, 16 * 16);
+		this.question_box[0] = new Question_Box(27 * 16, 3 * 16);
+		this.question_box[1] = new Question_Box(39 * 16, 12 * 16);
+		this.question_box[2] = new Question_Box(40 * 16, 7 * 16);
+		this.question_box[3] = new Question_Box(41 * 16, 12 * 16);
+		this.question_box[4] = new Question_Box(74 * 16, 14 * 16);
+		this.question_box[5] = new Question_Box(116 * 16, 6 * 16);
+
 
 		this.coins[0] = new SmallCoin(38 * 16, 15 * 16);
 		this.coins[1] = new SmallCoin(39 * 16, 15 * 16);
 		this.coins[2] = new SmallCoin(40 * 16, 15 * 16);
 		this.coins[3] = new SmallCoin(41 * 16, 15 * 16);
 		this.coins[4] = new SmallCoin(42 * 16, 15 * 16);
-		this.coins[5] = new SmallCoin(73 * 16, 14 * 16);
-		this.coins[6] = new SmallCoin(74 * 16, 14 * 16);
-		this.coins[7] = new SmallCoin(75 * 16, 14 * 16);
+		this.coins[5] = new SmallCoin(73 * 16, 11 * 16);
+		this.coins[6] = new SmallCoin(74 * 16, 11 * 16);
+		this.coins[7] = new SmallCoin(75 * 16, 11 * 16);
 		this.coins[8] = new SmallCoin(73 * 16, 18 * 16);
 		this.coins[9] = new SmallCoin(74 * 16, 18 * 16);
 		this.coins[10] = new SmallCoin(75 * 16, 18 * 16);

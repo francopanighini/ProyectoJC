@@ -97,7 +97,7 @@ SceneNormal.prototype.update = function(deltaTime)
 			console.log(col.min_x);
 			console.log(col2.min_x);*/
 			if (!this.player.mata){
-				console.log("hola");
+				
 				var vector = this.player.collisionPosition(this.player.collisionBox(),this.goomba.collisionBox())
 				console.log(vector);
 				
@@ -105,7 +105,7 @@ SceneNormal.prototype.update = function(deltaTime)
 					this.music.stop();
 					this.player.dead();
 					this.marioDead = true;
-				}else {
+				}else if(!this.marioDead) {
 					this.player.mata = true;
 					this.player.bJumping = true;
 					this.player.jumpAngle = 0;
@@ -158,9 +158,10 @@ SceneNormal.prototype.update = function(deltaTime)
 		this.startmarioDead = false;
 		interacted = false;
 		// restart scene
+		// Create entities
 		this.player = new Player(150, 384, this.map,this.pos);
 		//this.bubble = new Bubble(360, 112);
-		this.goomba = new Goomba(512, 384);
+		this.goomba = new Goomba(512, 200, this.map,false);
 		//this.bubbleActive = true;
 		this.goombaActive = true;
 		this.currentTime = 0;
