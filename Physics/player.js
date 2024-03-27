@@ -365,7 +365,7 @@ Player.prototype.dead = function () {
 }
 
 Player.prototype.collisionPosition = function (posM,posE){
-	console.log(posM);
+	//console.log(posM);
 
 
 	// Calcular las coordenadas del punto central en cada dimensión
@@ -404,12 +404,18 @@ Player.prototype.collisionPosition = function (posM,posE){
 	
 	var ang = (angleradi * 180) / Math.PI;
 	
+	//console.log(ang);
 
 
 	var direction;
-    if (ang >= 45 && ang <= 135) {
-        direction = "Abajo";
-    } else  {
+    //if (ang >= 45 && ang <= 135) {
+	if (ang >= 45 && ang <= 75) {
+        direction = "AbajoI";
+    } else if (ang > 75 && ang <= 105){
+		direction  = "Abajo";
+	} else if (ang > 105 && ang <= 135){
+		direction  = "AbajoD";
+	}else  {
 		direction = "Otra"
 	}
     return direction;

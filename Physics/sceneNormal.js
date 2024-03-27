@@ -19,6 +19,10 @@ function SceneNormal()
 	//this.bubbleActive = true;
 	this.goombaActive = true;
 
+	this.koopaActive = true;
+
+	this.koopa = new Koopa(360, 384, this.map,true);
+
 	this.question_box = new Array();
 	this.question_box[0] = new Question_Box(208, 320);
 	this.question_box[1] = new Question_Box(37*16, 320);
@@ -77,6 +81,8 @@ SceneNormal.prototype.update = function(deltaTime)
 	//this.bubble.update(deltaTime);
 	this.goomba.update(deltaTime);
 
+	this.koopa.update(deltaTime);
+
 	for(var i=0;i<16;i++){
 		this.question_box[i].update(deltaTime);
 	}
@@ -99,7 +105,7 @@ SceneNormal.prototype.update = function(deltaTime)
 			if (!this.player.mata){
 				
 				var vector = this.player.collisionPosition(this.player.collisionBox(),this.goomba.collisionBox())
-				console.log(vector);
+				//console.log(vector);
 				
 				if(!this.marioDead && vector == "Otra"){
 					this.music.stop();
@@ -118,6 +124,49 @@ SceneNormal.prototype.update = function(deltaTime)
 			
 			
 		}
+
+		if( this.koopaActive && this.player.collisionBox().intersect(this.koopa.collisionBox())){ 
+
+			if (!this.player.mata){
+				
+				var vector = this.player.collisionPosition(this.player.collisionBox(),this.koopa.collisionBox())
+				//console.log(vector);
+				
+				if(!this.marioDead && vector == "Otra"){
+					this.music.stop();
+					this.player.dead();
+					this.marioDead = true;
+				}else if (this.koopa.caparazon){
+					//console.log("hola");
+					this.player.bJumping = true;
+					this.player.jumpAngle = 0;
+					this.player.startY = this.player.sprite.y;
+					this.koopa.dirCap = vector;
+					if(vector == "AbajoD"){
+						this.koopa.direccion = true;
+					}else if(vector == "AbajoI"){
+						this.koopa.direccion = false;
+					}
+				}else if(!this.marioDead) {
+					this.player.bJumping = true;
+					this.player.jumpAngle = 0;
+					this.player.startY = this.player.sprite.y;
+					this.koopa.caparazon = true;
+				}
+
+				
+			}
+				
+			
+			
+		}
+
+
+		if( this.goombaActive && this.koopaActive &&this.koopa.collisionBox().intersect(this.goomba.collisionBox())){ 
+			this.goomba.muerto = true;
+			this.squishSound.play();
+		}
+		
 
 	// Init music once user has interacted
 	if(interacted && !this.marioDead)
@@ -241,6 +290,9 @@ SceneNormal.prototype.draw = function ()
 	if(this.goombaActive)
 		this.goomba.draw();
 	this.player.draw();
+
+	if(this.koopaActive)
+		this.koopa.draw();
 	context.restore();
 
 	// Draw UI
