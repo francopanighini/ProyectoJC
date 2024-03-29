@@ -14,15 +14,69 @@ function SceneNormal()
 
 	// Create entities
 	this.player = new Player(150, 384, this.map,this.pos);
-	//this.bubble = new Bubble(360, 112);
-	this.goomba = new Goomba(512, 200, this.map,false);
-	//this.bubbleActive = true;
-	this.goombaActive = true;
 
-	this.koopaActive = true;
+	//--------------Goomba-----------------------
+	//this.goomba = new Goomba(512, 200, this.map,false);
+	//this.goombaActive = true;
+	//this.contBoomba = 0;
 
-	this.koopa = new Koopa(360, 384, this.map,true);
+	this.goomba_array = new Array();
+	this.goomba_array[0] = new Goomba(512, 200, this.map,false);
+	this.goomba_array[1] = new Goomba(52*16, 25*16 - 16, this.map,true);
+	this.goomba_array[2] = new Goomba(53*16, 25*16 - 16, this.map,false);
+	this.goomba_array[3] = new Goomba(105*16, 25*16 - 16, this.map,false);
+	this.goomba_array[4] = new Goomba(108*16, 25*16 - 16, this.map,false);
+	this.goomba_array[5] = new Goomba(115*16, 25*16 - 16, this.map,false);
+	this.goomba_array[6] = new Goomba(161*16, 25*16 - 16, this.map,false);
+	this.goomba_array[7] = new Goomba(192*16, 25*16 - 16, this.map,false);
 
+
+	this.goomba_active_array = new Array();
+	this.goomba_active_array[0] = true;
+	this.goomba_active_array[1] = true;
+	this.goomba_active_array[2] = true;
+	this.goomba_active_array[3] = true;
+	this.goomba_active_array[4] = true;
+	this.goomba_active_array[5] = true;
+	this.goomba_active_array[6] = true;
+	this.goomba_active_array[7] = true;
+
+	this.goomba_cont_array = new Array();
+	this.goomba_cont_array[0] = 0;
+	this.goomba_cont_array[1] = 0;
+	this.goomba_cont_array[2] = 0;
+	this.goomba_cont_array[3] = 0;
+	this.goomba_cont_array[4] = 0;
+	this.goomba_cont_array[5] = 0;
+	this.goomba_cont_array[6] = 0;
+	this.goomba_cont_array[7] = 0;
+
+
+
+	//--------------KOOPA-----------------------
+	//this.koopaActive = true;
+	//this.koopa = new Koopa(360, 384, this.map,true);
+	//this.pointskoopa = 100;
+	//this.contkoopa = 0;
+
+	this.koopa_array = new Array();
+	this.koopa_array[0] = new Koopa(360, 384, this.map,true);
+	this.koopa_array[1] = new Koopa(126*16, 13*16 - 16, this.map,false);
+
+	this.koopa_active_array = new Array();
+	this.koopa_active_array[0] = true;
+	this.koopa_active_array[1] = true;
+
+	this.koopa_cont_array = new Array();
+	this.koopa_cont_array[0] = 0;
+	this.koopa_cont_array[1] = 0;
+
+	this.koopa_points_array = new Array();
+	this.koopa_points_array[0] = 100;
+	this.koopa_points_array[1] = 100;
+
+
+	//--------------Question_box-----------------------
 	this.question_box = new Array();
 	this.question_box[0] = new Question_Box(208, 320);
 	this.question_box[1] = new Question_Box(37*16, 320);
@@ -42,7 +96,6 @@ function SceneNormal()
 	this.question_box[15] = new Question_Box(175*16, 9*16);
 
 	this.coin = new Coin(165, 24);
-
 
 	this.marioDead = false;
 	this.startmarioDead = false;
@@ -66,11 +119,6 @@ function SceneNormal()
 	// Store current time
 	this.currentTime = 0;
 
-	this.contBoomba = 0;
-
-	this.pointskoopa = 100;
-	this.contkoopa = 0;
-
 	this.points = "000000";
 }
 
@@ -78,40 +126,35 @@ SceneNormal.prototype.update = function(deltaTime)
 {
 	// Keep track of time
 	this.currentTime += deltaTime;
-	
+
 	this.player.moveMario(deltaTime);
 
 	// Update entities
 	this.player.update(deltaTime);
-	//this.bubble.update(deltaTime);
-	this.goomba.update(deltaTime);
 
-	this.koopa.update(deltaTime);
+	
+	//this.goomba.update(deltaTime);
+	for (i = 0; i < this.goomba_array.length; i++){
+		this.goomba_array[i].update(deltaTime);
+	}
+
+	//this.koopa.update(deltaTime);
+	for (i = 0; i < this.koopa_array.length; i++){
+		this.koopa_array[i].update(deltaTime);
+	}
 
 	for(var i=0;i<16;i++){
 		this.question_box[i].update(deltaTime);
 	}
+	
 	this.coin.update(deltaTime);
-	
-	// Check for collision between entities
-	/*if(this.player.collisionBox().intersect(this.bubble.collisionBox()))
-		this.bubbleActive = false;*/
-	
-		if( this.goombaActive && this.player.collisionBox().intersect(this.goomba.collisionBox())){ 
-			//this.goombaActive = false;
-	
-			/*console.log(this.player.collisionBox().intersect(this.goomba.collisionBox()));
-			console.log(this.player.collisionBox())
-			console.log(this.goomba.collisionBox())
-			var col = this.player.collisionBox();
-			var col2 = this.goomba.collisionBox();
-			console.log(col.min_x);
-			console.log(col2.min_x);*/
+
+
+	for (i = 0; i < this.goomba_array.length; i++){
+		//if( this.goombaActive && this.player.collisionBox().intersect(this.goomba.collisionBox())){
+		if( this.goomba_active_array[i] && this.player.collisionBox().intersect(this.goomba_array[i].collisionBox())){
 			if (!this.player.mata){
-				
-				var vector = this.player.collisionPosition(this.player.collisionBox(),this.goomba.collisionBox())
-				//console.log(vector);
-				
+				var vector = this.player.collisionPosition(this.player.collisionBox(),this.goomba_array[i].collisionBox())
 				if(!this.marioDead && vector == "Otra"){
 					this.music.stop();
 					this.player.dead();
@@ -121,80 +164,74 @@ SceneNormal.prototype.update = function(deltaTime)
 					this.player.bJumping = true;
 					this.player.jumpAngle = 0;
 					this.player.startY = this.player.sprite.y;
-					this.goomba.muerto = true;
+					this.goomba_array[i].muerto = true;
 					this.squishSound.play();
-					// sumer puntuación
 					var currentNumber = parseInt(this.points);
 					var newNumber = currentNumber + 100;
 					var formattedNumber = ("000000" + newNumber).slice(-6);
 					this.points = formattedNumber;
-				
-				}	
+				}
 			}
-				
-			
-			
 		}
-
-		if( this.koopaActive && this.player.collisionBox().intersect(this.koopa.collisionBox())){ 
-
+	}
+	
+	for (i = 0; i < this.koopa_array.length; i++){
+		if( this.koopa_active_array[i] && this.player.collisionBox().intersect(this.koopa_array[i].collisionBox())){
 			if (!this.player.mata){
-				
-				var vector = this.player.collisionPosition(this.player.collisionBox(),this.koopa.collisionBox())
-				//console.log(vector);
-				
+				var vector = this.player.collisionPosition(this.player.collisionBox(),this.koopa_array[i].collisionBox())
 				if(!this.marioDead && vector == "Otra"){
 					this.music.stop();
 					this.player.dead();
 					this.marioDead = true;
-				}else if (this.koopa.caparazon){
-					//console.log("hola");
+				}else if (this.koopa_array[i].caparazon){
 					this.player.bJumping = true;
 					this.player.jumpAngle = 0;
 					this.player.startY = this.player.sprite.y;
-					this.koopa.dirCap = vector;
+					this.koopa_array[i].dirCap = vector;
 					if(vector == "AbajoD"){
-						this.koopa.direccion = true;
+						this.koopa_array[i].direccion = true;
 					}else if(vector == "AbajoI"){
-						this.koopa.direccion = false;
+						this.koopa_array[i].direccion = false;
 					}
-					this.pointskoopa = 500;
+					this.koopa_points_array[i] = 500;
 					var currentNumber = parseInt(this.points);
 					var newNumber = currentNumber + 500;
 					var formattedNumber = ("000000" + newNumber).slice(-6);
 					this.points = formattedNumber;
-					this.contkoopa = 100;
+					this.koopa_cont_array[i] = 100;
 				}else if(!this.marioDead) {
 					this.player.bJumping = true;
 					this.player.jumpAngle = 0;
 					this.player.startY = this.player.sprite.y;
-					this.koopa.caparazon = true;
+					this.koopa_array[i].caparazon = true;
 					var currentNumber = parseInt(this.points);
 					var newNumber = currentNumber + 100;
 					var formattedNumber = ("000000" + newNumber).slice(-6);
 					this.points = formattedNumber;
-					this.pointskoopa = 100;
-					this.contkoopa = 1;
+					this.koopa_points_array[i] = 100;
+					this.koopa_cont_array[i] = 1;
 				}
-
-				
 			}
-				
-			
-			
 		}
-
-
-		if( this.goombaActive && this.koopaActive &&this.koopa.collisionBox().intersect(this.goomba.collisionBox())){ 
-			this.goomba.muerto = true;
-			this.squishSound.play();
-		}
+	}
 		
+
+
+	for (i = 0; i < this.goomba_array.length; i++){	
+		for(j = 0; j < this.koopa_array.length; j++){
+			if( this.koopa_array[j].caparazon && this.goomba_active_array[i] && this.koopa_active_array[j] && this.koopa_array[j].collisionBox().intersect(this.goomba_array[i].collisionBox())){
+				this.goomba_array[i].muerto = true;
+				this.squishSound.play();
+				break;
+			}
+		}
+	}
+
 
 	// Init music once user has interacted
 	if(interacted && !this.marioDead)
 		this.music.play();
-	
+
 	// Play jump sound when up key is pressed
 	if(keyboard[38])
 		this.jumpSound.play();
@@ -205,10 +242,12 @@ SceneNormal.prototype.update = function(deltaTime)
 		this.startmarioDead = true;
 	}
 
-	if (this.goomba.muerto){
-		this.contBoomba += 1;
-		if(this.contBoomba >= 20){
-			this.goombaActive = false;
+	for (i = 0; i < this.goomba_array.length; i++){
+		if (this.goomba_array[i].muerto){
+			this.goomba_cont_array[i] += 1;
+			if(this.goomba_cont_array[i] >= 20){
+				this.goomba_active_array[i] = false;
+			}
 		}
 	}
 
@@ -232,10 +271,18 @@ SceneNormal.prototype.update = function(deltaTime)
 		// restart scene
 		// Create entities
 		this.player = new Player(150, 384, this.map,this.pos);
-		//this.bubble = new Bubble(360, 112);
-		this.goomba = new Goomba(512, 200, this.map,false);
-		//this.bubbleActive = true;
-		this.goombaActive = true;
+		
+		this.goomba_array = new Array();
+		this.goomba_array[0] = new Goomba(512, 200, this.map,false);
+		this.goomba_array[1] = new Goomba(0, 384, this.map,true);
+	
+		this.goomba_active_array = new Array();
+		this.goomba_active_array[0] = true;
+		this.goomba_active_array[1] = true;
+	
+		this.goomba_cont_array = new Array();
+		this.goomba_cont_array[0] = 0;
+		this.goomba_cont_array[1] = 0;
 
 		this.koopaActive = true;
 
@@ -264,9 +311,6 @@ SceneNormal.prototype.update = function(deltaTime)
 		this.question_box[14] = new Question_Box(169*16, 9*16);
 		this.question_box[15] = new Question_Box(175*16, 9*16);
 
-
-		this.contBoomba = 0;
-
 		this.points = "000000";
 	}
 
@@ -284,16 +328,13 @@ SceneNormal.prototype.draw = function ()
 
 
 
-	
+
 	if (keyboard[65]) {
 		this.pos = this.pos - 5;
-		//this.map.basePos = [this.pos,0]
 	}
 	if (keyboard[68]) {
 		this.pos = this.pos + 5;
-		//this.map.basePos = [this.pos,0]
-
-	}	
+	}
 
 	// Transform to super mario if M key is pressed
 	// if(keyboard[77])
@@ -303,7 +344,7 @@ SceneNormal.prototype.draw = function ()
 	// if(keyboard[71])
 	// 	this.player.starMario();
 
-	
+
 	if(this.player.sprite.x >= (200+this.pos) && this.player.sprite.x < 3000){
 		this.pos +=2;
 		this.player.posMap = this.pos;
@@ -312,44 +353,56 @@ SceneNormal.prototype.draw = function ()
 	context.save();
 	context.translate(-this.pos,0);
 	this.map.draw();
-	
+
 
 	for(var i=0;i<16;i++){
 		this.question_box[i].draw();
 	}
-	// Draw entities
-	/*if(this.bubbleActive)
-		this.bubble.draw();*/
-	if(this.goombaActive)
-		this.goomba.draw();
-	else if(this.contBoomba <= 80){
-		var text = "100";
-		context.font = "12px mario";
-		context.fillStyle = "White";
-		context.fillText(text, this.goomba.sprite.x, this.goomba.sprite.y);
+	
+	for (i = 0; i < this.goomba_array.length; i++){
+		if(this.goomba_active_array[i])
+			this.goomba_array[i].draw();
+		else if(this.goomba_cont_array[i] <= 80){
+			var text = "100";
+			context.font = "12px mario";
+			context.fillStyle = "White";
+			context.fillText(text, this.goomba_array[i].sprite.x, this.goomba_array[i].sprite.y);
+		}
 	}
+	
+	
+
+
 	this.player.draw();
 
-	if(this.koopaActive)
-		this.koopa.draw();
-
-	if(this.contkoopa < 50 && this.contkoopa > 0){
-		var text = this.pointskoopa;
-		context.font = "12px mario";
-		context.fillStyle = "White";
-		context.fillText(text, this.koopa.sprite.x, this.koopa.sprite.y);
-		this.contkoopa += 1;
+	for (i = 0; i < this.koopa_array.length; i++){
+		if(this.koopa_active_array[i])
+			this.koopa_array[i].draw();
 	}
 
-	if(this.contkoopa < 200 && this.contkoopa >= 100){
-		var text = this.pointskoopa;
-		context.font = "12px mario";
-		context.fillStyle = "White";
-		context.fillText(text, this.koopa.sprite.x, this.koopa.sprite.y);
-		this.contkoopa += 1;
+
+	for (i = 0; i < this.koopa_array.length; i++){
+		if(this.koopa_cont_array[i] < 50 && this.koopa_cont_array[i] > 0){
+			var text = this.koopa_points_array[i];
+			context.font = "12px mario";
+			context.fillStyle = "White";
+			context.fillText(text, this.koopa_array[i].sprite.x, this.koopa_array[i].sprite.y);
+			this.koopa_cont_array[i] += 1;
+		}
 	}
-	
-	
+
+	for (i = 0; i < this.koopa_array.length; i++){
+		if(this.koopa_cont_array[i] < 200 && this.koopa_cont_array[i] >= 100){
+			var text = this.koopa_points_array[i];
+			context.font = "12px mario";
+			context.fillStyle = "White";
+			context.fillText(text, this.koopa_array[i].sprite.x, this.koopa_array[i].sprite.y);
+			this.koopa_cont_array[i] += 1;
+		}
+	}
+
+
+
 	context.restore();
 
 	// Draw UI
@@ -361,7 +414,7 @@ SceneNormal.prototype.draw = function ()
 	context.fillStyle = "White";
 	// right side of the screen
 	context.fillText(text, 400, 24);
-	
+
 	text = Math.floor(400 - this.currentTime / 1000);
 	var textSize = context.measureText(text);
 	if(textSize.width < 20)
