@@ -67,6 +67,11 @@ function SceneNormal()
 	this.currentTime = 0;
 
 	this.contBoomba = 0;
+
+	this.pointskoopa = 100;
+	this.contkoopa = 0;
+
+	this.points = "000000";
 }
 
 SceneNormal.prototype.update = function(deltaTime)
@@ -118,6 +123,12 @@ SceneNormal.prototype.update = function(deltaTime)
 					this.player.startY = this.player.sprite.y;
 					this.goomba.muerto = true;
 					this.squishSound.play();
+					// sumer puntuación
+					var currentNumber = parseInt(this.points);
+					var newNumber = currentNumber + 100;
+					var formattedNumber = ("000000" + newNumber).slice(-6);
+					this.points = formattedNumber;
+				
 				}	
 			}
 				
@@ -147,11 +158,23 @@ SceneNormal.prototype.update = function(deltaTime)
 					}else if(vector == "AbajoI"){
 						this.koopa.direccion = false;
 					}
+					this.pointskoopa = 500;
+					var currentNumber = parseInt(this.points);
+					var newNumber = currentNumber + 500;
+					var formattedNumber = ("000000" + newNumber).slice(-6);
+					this.points = formattedNumber;
+					this.contkoopa = 100;
 				}else if(!this.marioDead) {
 					this.player.bJumping = true;
 					this.player.jumpAngle = 0;
 					this.player.startY = this.player.sprite.y;
 					this.koopa.caparazon = true;
+					var currentNumber = parseInt(this.points);
+					var newNumber = currentNumber + 100;
+					var formattedNumber = ("000000" + newNumber).slice(-6);
+					this.points = formattedNumber;
+					this.pointskoopa = 100;
+					this.contkoopa = 1;
 				}
 
 				
@@ -213,6 +236,11 @@ SceneNormal.prototype.update = function(deltaTime)
 		this.goomba = new Goomba(512, 200, this.map,false);
 		//this.bubbleActive = true;
 		this.goombaActive = true;
+
+		this.koopaActive = true;
+
+		this.koopa = new Koopa(360, 384, this.map,true);
+
 		this.currentTime = 0;
 		this.music.play()
 		this.pos = 0;
@@ -235,6 +263,11 @@ SceneNormal.prototype.update = function(deltaTime)
 		this.question_box[13] = new Question_Box(164*16, 20*16);
 		this.question_box[14] = new Question_Box(169*16, 9*16);
 		this.question_box[15] = new Question_Box(175*16, 9*16);
+
+
+		this.contBoomba = 0;
+
+		this.points = "000000";
 	}
 
 }
@@ -289,10 +322,34 @@ SceneNormal.prototype.draw = function ()
 		this.bubble.draw();*/
 	if(this.goombaActive)
 		this.goomba.draw();
+	else if(this.contBoomba <= 80){
+		var text = "100";
+		context.font = "12px mario";
+		context.fillStyle = "White";
+		context.fillText(text, this.goomba.sprite.x, this.goomba.sprite.y);
+	}
 	this.player.draw();
 
 	if(this.koopaActive)
 		this.koopa.draw();
+
+	if(this.contkoopa < 50 && this.contkoopa > 0){
+		var text = this.pointskoopa;
+		context.font = "12px mario";
+		context.fillStyle = "White";
+		context.fillText(text, this.koopa.sprite.x, this.koopa.sprite.y);
+		this.contkoopa += 1;
+	}
+
+	if(this.contkoopa < 200 && this.contkoopa >= 100){
+		var text = this.pointskoopa;
+		context.font = "12px mario";
+		context.fillStyle = "White";
+		context.fillText(text, this.koopa.sprite.x, this.koopa.sprite.y);
+		this.contkoopa += 1;
+	}
+	
+	
 	context.restore();
 
 	// Draw UI
@@ -336,9 +393,8 @@ SceneNormal.prototype.draw = function ()
 	context.fillStyle = "White";
 	context.fillText(text, 32, 24);
 
-	text = "000000";
-	var textSize = context.measureText(text);
-	context.fillText(text, 32, 48);
+	var textSize = context.measureText(this.points);
+	context.fillText(this.points, 32, 48);
 
 	this.coin.draw();
 }
