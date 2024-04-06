@@ -15,6 +15,18 @@ function SceneNormal()
 	// Create entities
 	this.player = new Player(150, 384, this.map,this.pos);
 
+	//-------------- Setas, estrella y bandera
+
+	this.seta = new Seta(13*16 - 7, 19*16 - 16,this.map,true);
+	this.seta_cont = 0;
+
+	this.star = new Star(76*16 - 7, 12*16 - 16,this.map,true);
+	this.star_cont = 0;
+	
+	this.bandera = new Bandera(195*16+8, 16*16 ,this.map,true);
+	this.bandera_cont = 0;
+
+
 	//--------------Goomba-----------------------
 	//this.goomba = new Goomba(512, 200, this.map,false);
 	//this.goombaActive = true;
@@ -86,12 +98,12 @@ function SceneNormal()
 
 	//--------------Question_box-----------------------
 	this.question_box = new Array();
-	this.question_box[0] = new Question_Box(208, 320);
+	this.question_box[0] = new Question_Box(13*16, 20*16+4); //seta
 	this.question_box[1] = new Question_Box(37*16, 320);
 	this.question_box[2] = new Question_Box(41*16, 320);
 	this.question_box[3] = new Question_Box(49*16, 320);
 	this.question_box[4] = new Question_Box(55*16, 9*16);
-	this.question_box[5] = new Question_Box(76*16, 13*16);
+	this.question_box[5] = new Question_Box(76*16, 13*16+4); //esctrella
 	this.question_box[6] = new Question_Box(121*16, 9*16);
 	this.question_box[7] = new Question_Box(125*16, 9*16);
 	this.question_box[8] = new Question_Box(125*16, 26*16);
@@ -103,10 +115,33 @@ function SceneNormal()
 	this.question_box[14] = new Question_Box(169*16, 9*16);
 	this.question_box[15] = new Question_Box(175*16, 9*16);
 
+
+	this.question_box_active_array = new Array();
+	this.question_box_active_array[0] = true;
+	this.question_box_active_array[1] = true;
+	this.question_box_active_array[2] = true;
+	this.question_box_active_array[3] = true;
+	this.question_box_active_array[4] = true;
+	this.question_box_active_array[5] = true;
+	this.question_box_active_array[6] = true;
+	this.question_box_active_array[7] = true;
+	this.question_box_active_array[8] = true;
+	this.question_box_active_array[9] = true;
+	this.question_box_active_array[10] = true;
+	this.question_box_active_array[11] = true;
+	this.question_box_active_array[12] = true;
+	this.question_box_active_array[13] = true;
+	this.question_box_active_array[14] = true;
+	this.question_box_active_array[15] = true;
+
+
 	this.coin = new Coin(165, 24);
 
 	this.marioDead = false;
 	this.startmarioDead = false;
+	this.supermario = false;
+	this.starmario = false;
+	this.invulnerable = false;
 
 	// Prepare sounds
 	this.music = AudioFX('sounds/1 - Running About.mp3', { loop: true });
@@ -123,6 +158,7 @@ function SceneNormal()
 	this.vineSound = AudioFX('sounds/Vine.wav', { volume: 0.5 });
 	this.warpSound = AudioFX('sounds/Warp.wav', { volume: 0.5 });
 	this.bumpSound = AudioFX('sounds/Bump.wav', { volume: 0.5 });
+	this.itemSound = AudioFX('sounds/Item.wav', { volume: 0.5 });
 
 	// Store current time
 	this.currentTime = 0;
@@ -139,6 +175,20 @@ SceneNormal.prototype.update = function(deltaTime)
 
 	// Update entities
 	this.player.update(deltaTime);
+
+	this.seta.update(deltaTime);
+
+	this.star.update(deltaTime);
+
+	this.bandera.update(deltaTime);
+
+	if (this.supermario){
+		this.seta_cont += 1;
+	}
+
+	if (this.invulnerable){
+		this.star_cont += 1;
+	}
 
 	
 	//this.goomba.update(deltaTime);
@@ -161,65 +211,121 @@ SceneNormal.prototype.update = function(deltaTime)
 	for (i = 0; i < this.goomba_array.length; i++){
 		//if( this.goombaActive && this.player.collisionBox().intersect(this.goomba.collisionBox())){
 		if( this.goomba_active_array[i] && this.player.collisionBox().intersect(this.goomba_array[i].collisionBox())){
-			if (!this.player.mata){
-				var vector = this.player.collisionPosition(this.player.collisionBox(),this.goomba_array[i].collisionBox())
-				if(!this.marioDead && vector == "Otra"){
-					this.music.stop();
-					this.player.dead();
-					this.marioDead = true;
-				}else if(!this.marioDead) {
-					this.player.mata = true;
-					this.player.bJumping = true;
-					this.player.jumpAngle = 0;
-					this.player.startY = this.player.sprite.y;
-					this.goomba_array[i].muerto = true;
-					this.squishSound.play();
-					var currentNumber = parseInt(this.points);
-					var newNumber = currentNumber + 100;
-					var formattedNumber = ("000000" + newNumber).slice(-6);
-					this.points = formattedNumber;
+			if (!this.invulnerable){
+				if (!this.player.mata){
+					var vector = this.player.collisionPosition(this.player.collisionBox(),this.goomba_array[i].collisionBox())
+					if(!this.marioDead && vector == "Otra"){	
+						this.music.stop();
+						this.player.dead();
+						this.marioDead = true;
+					}else if(!this.marioDead) {
+						this.player.mata = true;
+						this.player.bJumping = true;
+						this.player.jumpAngle = 0;
+						this.player.startY = this.player.sprite.y;
+						this.goomba_array[i].muerto = true;
+						this.squishSound.play();
+						var currentNumber = parseInt(this.points);
+						var newNumber = currentNumber + 100;
+						var formattedNumber = ("000000" + newNumber).slice(-6);
+						this.points = formattedNumber;
+					}
 				}
+			}else{
+				this.player.startY = this.player.sprite.y;
+				this.goomba_array[i].muerto = true;
+				this.squishSound.play();
+				var currentNumber = parseInt(this.points);
+				var newNumber = currentNumber + 100;
+				var formattedNumber = ("000000" + newNumber).slice(-6);
+				this.points = formattedNumber;
 			}
 		}
 	}
+
+	if (this.question_box_active_array[0] && this.player.collisionBox().intersect(this.question_box[0].collisionBox())){
+		this.seta.activa = true;
+		this.question_box_active_array[0] = false;
+	}
+
+	if (this.question_box_active_array[5] && this.seta.activa && this.player.collisionBox().intersect(this.seta.collisionBox())){
+		this.seta.activa = false;
+		this.itemSound.play();
+		this.supermario = true;
+		this.player.romper = true;
+		var currentNumber = parseInt(this.points);
+		var newNumber = currentNumber + 1000;
+		var formattedNumber = ("000000" + newNumber).slice(-6);
+		this.points = formattedNumber;
+	}
+
+	if (this.player.collisionBox().intersect(this.question_box[5].collisionBox())){
+		this.star.activa = true;
+		this.question_box_active_array[5] = false;
+	}
 	
+
+	if (this.star.activa && this.player.collisionBox().intersect(this.star.collisionBox())){
+		this.star.activa = false;
+		this.starmario = true;
+		this.invulnerable = true;
+		var currentNumber = parseInt(this.points);
+		var newNumber = currentNumber + 1000;
+		var formattedNumber = ("000000" + newNumber).slice(-6);
+		this.points = formattedNumber;
+	}
+
 	for (i = 0; i < this.koopa_array.length; i++){
 		if( this.koopa_active_array[i] && this.player.collisionBox().intersect(this.koopa_array[i].collisionBox())){
-			if (!this.player.mata){
-				var vector = this.player.collisionPosition(this.player.collisionBox(),this.koopa_array[i].collisionBox())
-				if(!this.marioDead && vector == "Otra"){
-					this.music.stop();
-					this.player.dead();
-					this.marioDead = true;
-				}else if (this.koopa_array[i].caparazon){
-					this.player.bJumping = true;
-					this.player.jumpAngle = 0;
-					this.player.startY = this.player.sprite.y;
-					this.koopa_array[i].dirCap = vector;
-					if(vector == "AbajoD"){
-						this.koopa_array[i].direccion = true;
-					}else if(vector == "AbajoI"){
-						this.koopa_array[i].direccion = false;
+			
+			if (!this.invulnerable){
+				if (!this.player.mata){
+					var vector = this.player.collisionPosition(this.player.collisionBox(),this.koopa_array[i].collisionBox())
+					if(!this.marioDead && vector == "Otra"){
+						if (!this.invulnerable){
+							this.music.stop();
+							this.player.dead();
+							this.marioDead = true;
+						}
+					}else if (this.koopa_array[i].caparazon){
+						this.player.bJumping = true;
+						this.player.jumpAngle = 0;
+						this.player.startY = this.player.sprite.y;
+						this.koopa_array[i].dirCap = vector;
+						if(vector == "AbajoD"){
+							this.koopa_array[i].direccion = true;
+						}else if(vector == "AbajoI"){
+							this.koopa_array[i].direccion = false;
+						}
+						this.koopa_points_array[i] = 500;
+						var currentNumber = parseInt(this.points);
+						var newNumber = currentNumber + 500;
+						var formattedNumber = ("000000" + newNumber).slice(-6);
+						this.points = formattedNumber;
+						this.koopa_cont_array[i] = 100;
+					}else if(!this.marioDead) {
+						this.player.bJumping = true;
+						this.player.jumpAngle = 0;
+						this.player.startY = this.player.sprite.y;
+						this.koopa_array[i].caparazon = true;
+						var currentNumber = parseInt(this.points);
+						var newNumber = currentNumber + 100;
+						var formattedNumber = ("000000" + newNumber).slice(-6);
+						this.points = formattedNumber;
+						this.koopa_points_array[i] = 100;
+						this.koopa_cont_array[i] = 1;
 					}
-					this.koopa_points_array[i] = 500;
-					var currentNumber = parseInt(this.points);
-					var newNumber = currentNumber + 500;
-					var formattedNumber = ("000000" + newNumber).slice(-6);
-					this.points = formattedNumber;
-					this.koopa_cont_array[i] = 100;
-				}else if(!this.marioDead) {
-					this.player.bJumping = true;
-					this.player.jumpAngle = 0;
-					this.player.startY = this.player.sprite.y;
-					this.koopa_array[i].caparazon = true;
-					var currentNumber = parseInt(this.points);
-					var newNumber = currentNumber + 100;
-					var formattedNumber = ("000000" + newNumber).slice(-6);
-					this.points = formattedNumber;
-					this.koopa_points_array[i] = 100;
-					this.koopa_cont_array[i] = 1;
 				}
+			}else{
+				var currentNumber = parseInt(this.points);
+				var newNumber = currentNumber + 600;
+				var formattedNumber = ("000000" + newNumber).slice(-6);
+				this.points = formattedNumber;
+				this.koopa_points_array[i] = 100;
+				this.koopa_cont_array[i] = 1;
+				this.koopa_active_array[i] = false;
 			}
+
 		}
 	}
 		
@@ -444,9 +550,19 @@ SceneNormal.prototype.draw = function ()
 	context.translate(-this.pos,0);
 	this.map.draw();
 
+	if (this.seta.activa){
+		this.seta.draw();
+	}
+
+	if (this.star.activa){
+		this.star.draw();
+	}
+
+	this.bandera.draw();
 
 	for(var i=0;i<16;i++){
-		this.question_box[i].draw();
+		if (this.question_box_active_array[i] == true)
+			this.question_box[i].draw();
 	}
 	
 	for (i = 0; i < this.goomba_array.length; i++){
@@ -458,6 +574,21 @@ SceneNormal.prototype.draw = function ()
 			context.fillStyle = "White";
 			context.fillText(text, this.goomba_array[i].sprite.x, this.goomba_array[i].sprite.y);
 		}
+	}
+
+	if(this.seta_cont > 0 && this.seta_cont <= 80){
+		var text = "1000";
+		context.font = "12px mario";
+		context.fillStyle = "White";
+		context.fillText(text, this.seta.sprite.x, this.seta.sprite.y);
+	}
+
+	
+	if(this.star_cont > 0 && this.star_cont <= 80){
+		var text = "1000";
+		context.font = "12px mario";
+		context.fillStyle = "White";
+		context.fillText(text, this.star.sprite.x, this.star.sprite.y);
 	}
 	
 	

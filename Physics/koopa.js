@@ -6,7 +6,6 @@ function Koopa(x, y, map, dir)
 {
 	var koopa = new Texture("imgs/koopa.png");
 
-	this.movR = true;
 
 	// Prepare goomba sprite & its animation
 	this.sprite = new Sprite(x, y, 32, 32, 3, koopa);

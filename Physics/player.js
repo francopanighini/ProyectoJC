@@ -87,7 +87,7 @@ function Player(x, y, map, posMap) {
 	this.speed = 0;
 	this.mata = false;
 
-	this.romper = true;
+	this.romper = false;
 }
 
 let minWalkSpeed = 60;

@@ -103,13 +103,14 @@ Tilemap.prototype.collisionMoveLeft = function(box)
 Tilemap.prototype.collisionMoveRight = function(box)
 {
 
-	
 	var x = Math.floor((box.max_x - this.basePos[0]) / this.tileSize[0]);
 	var y0 = Math.floor((box.min_y - this.basePos[1]) / this.tileSize[1]);
 	var y1 = Math.floor((box.max_y - this.basePos[1]) / this.tileSize[1]);
 	
 	for(var y=y0; y<=y1; y++)
 	{
+		console.log(this.map.layers[0].data[y * this.map.width + x] );
+
 		if(this.map.layers[0].data[y * this.map.width + x] != 0 || this.map.layers[2].data[y * this.map.width + x] != 0)
 			return true;
 	}
@@ -154,7 +155,7 @@ Tilemap.prototype.collisionMoveDown = function(box, sprite)
 
 Tilemap.prototype.collisionMoveUP = function(box, sprite, romper)
 {
-	
+	var res = false;
 	var y = Math.floor((box.min_y - this.basePos[1]) / this.tileSize[1]);
 	var x0 = Math.floor((box.min_x - this.basePos[0]) / this.tileSize[0]);
 	var x1 = Math.floor((box.max_x - this.basePos[0]) / this.tileSize[0]);
@@ -162,9 +163,7 @@ Tilemap.prototype.collisionMoveUP = function(box, sprite, romper)
 	for(var x=x0; x<=x1; x++)
 	{
 		//console.log(this.map.layers[2].data[y * this.map.width + x]);
-		if (romper && this.map.layers[2].data[y * this.map.width + x] == 18){
-			this.tochos.push([x,y]);
-		}
+
 
 		var skipTile = false;
 		for (var k = 0; k < this.tochos.length; k++) {
@@ -178,10 +177,14 @@ Tilemap.prototype.collisionMoveUP = function(box, sprite, romper)
 			if(this.map.layers[0].data[y * this.map.width + x] != 0 || this.map.layers[2].data[y * this.map.width + x] != 0)
 			{
 				sprite.y = (y+1) * this.tileSize[1] + this.basePos[1];
-				return true;
+				res = true;
 			}
+		}
+
+		if (romper && this.map.layers[2].data[y * this.map.width + x] == 18){
+			this.tochos.push([x,y]);
 		}
 	}
 	
-	return false;
+	return res;
 }
