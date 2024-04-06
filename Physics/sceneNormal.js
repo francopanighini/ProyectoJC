@@ -62,18 +62,26 @@ function SceneNormal()
 	this.koopa_array = new Array();
 	this.koopa_array[0] = new Koopa(360, 384, this.map,true);
 	this.koopa_array[1] = new Koopa(126*16, 13*16 - 16, this.map,false);
+	this.koopa_array[2] = new Koopa(140*16, 25*16 - 16, this.map,false);
+	this.koopa_array[3] = new Koopa(152*16, 25*16 - 16, this.map,false);
 
 	this.koopa_active_array = new Array();
 	this.koopa_active_array[0] = true;
 	this.koopa_active_array[1] = true;
+	this.koopa_active_array[2] = true;
+	this.koopa_active_array[3] = true;
 
 	this.koopa_cont_array = new Array();
 	this.koopa_cont_array[0] = 0;
 	this.koopa_cont_array[1] = 0;
+	this.koopa_cont_array[2] = 0;
+	this.koopa_cont_array[3] = 0;
 
 	this.koopa_points_array = new Array();
 	this.koopa_points_array[0] = 100;
 	this.koopa_points_array[1] = 100;
+	this.koopa_points_array[2] = 100;
+	this.koopa_points_array[3] = 100;
 
 
 	//--------------Question_box-----------------------
@@ -270,30 +278,88 @@ SceneNormal.prototype.update = function(deltaTime)
 		interacted = false;
 		// restart scene
 		// Create entities
+		// Loading texture to use in a TileMap
+		this.pos = 0;
+		this.i=0;
+		this.sel=0;
+
+		var tilesheet = new Texture("imgs/CompleteTilesheetLvl1.png");
+		this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V4);
+
+		// Create entities
 		this.player = new Player(150, 384, this.map,this.pos);
-		
+
+		//--------------Goomba-----------------------
+		//this.goomba = new Goomba(512, 200, this.map,false);
+		//this.goombaActive = true;
+		//this.contBoomba = 0;
+
 		this.goomba_array = new Array();
 		this.goomba_array[0] = new Goomba(512, 200, this.map,false);
-		this.goomba_array[1] = new Goomba(0, 384, this.map,true);
-	
+		this.goomba_array[1] = new Goomba(52*16, 25*16 - 16, this.map,true);
+		this.goomba_array[2] = new Goomba(53*16, 25*16 - 16, this.map,false);
+		this.goomba_array[3] = new Goomba(105*16, 25*16 - 16, this.map,false);
+		this.goomba_array[4] = new Goomba(108*16, 25*16 - 16, this.map,false);
+		this.goomba_array[5] = new Goomba(115*16, 25*16 - 16, this.map,false);
+		this.goomba_array[6] = new Goomba(161*16, 25*16 - 16, this.map,false);
+		this.goomba_array[7] = new Goomba(192*16, 25*16 - 16, this.map,false);
+
+
 		this.goomba_active_array = new Array();
 		this.goomba_active_array[0] = true;
 		this.goomba_active_array[1] = true;
-	
+		this.goomba_active_array[2] = true;
+		this.goomba_active_array[3] = true;
+		this.goomba_active_array[4] = true;
+		this.goomba_active_array[5] = true;
+		this.goomba_active_array[6] = true;
+		this.goomba_active_array[7] = true;
+
 		this.goomba_cont_array = new Array();
 		this.goomba_cont_array[0] = 0;
 		this.goomba_cont_array[1] = 0;
+		this.goomba_cont_array[2] = 0;
+		this.goomba_cont_array[3] = 0;
+		this.goomba_cont_array[4] = 0;
+		this.goomba_cont_array[5] = 0;
+		this.goomba_cont_array[6] = 0;
+		this.goomba_cont_array[7] = 0;
 
-		this.koopaActive = true;
 
-		this.koopa = new Koopa(360, 384, this.map,true);
 
-		this.currentTime = 0;
-		this.music.play()
-		this.pos = 0;
-		this.player.posMap = this.pos;
-		this.map.basePos = [this.pos,0]
-		this.coin = new Coin(165, 24)
+		//--------------KOOPA-----------------------
+		//this.koopaActive = true;
+		//this.koopa = new Koopa(360, 384, this.map,true);
+		//this.pointskoopa = 100;
+		//this.contkoopa = 0;
+
+		this.koopa_array = new Array();
+		this.koopa_array[0] = new Koopa(360, 384, this.map,true);
+		this.koopa_array[1] = new Koopa(126*16, 13*16 - 16, this.map,false);
+		this.koopa_array[2] = new Koopa(140*16, 25*16 - 16, this.map,false);
+		this.koopa_array[3] = new Koopa(152*16, 25*16 - 16, this.map,false);
+
+		this.koopa_active_array = new Array();
+		this.koopa_active_array[0] = true;
+		this.koopa_active_array[1] = true;
+		this.koopa_active_array[2] = true;
+		this.koopa_active_array[3] = true;
+
+		this.koopa_cont_array = new Array();
+		this.koopa_cont_array[0] = 0;
+		this.koopa_cont_array[1] = 0;
+		this.koopa_cont_array[2] = 0;
+		this.koopa_cont_array[3] = 0;
+
+		this.koopa_points_array = new Array();
+		this.koopa_points_array[0] = 100;
+		this.koopa_points_array[1] = 100;
+		this.koopa_points_array[2] = 100;
+		this.koopa_points_array[3] = 100;
+
+
+		//--------------Question_box-----------------------
+		this.question_box = new Array();
 		this.question_box[0] = new Question_Box(208, 320);
 		this.question_box[1] = new Question_Box(37*16, 320);
 		this.question_box[2] = new Question_Box(41*16, 320);
@@ -310,6 +376,30 @@ SceneNormal.prototype.update = function(deltaTime)
 		this.question_box[13] = new Question_Box(164*16, 20*16);
 		this.question_box[14] = new Question_Box(169*16, 9*16);
 		this.question_box[15] = new Question_Box(175*16, 9*16);
+
+		this.coin = new Coin(165, 24);
+
+		this.marioDead = false;
+		this.startmarioDead = false;
+
+		// Prepare sounds
+		this.music = AudioFX('sounds/1 - Running About.mp3', { loop: true });
+		this.oneUpSound = AudioFX('sounds/1up.wav', { volume: 0.5 });
+		this.jumpSound = AudioFX('sounds/Jump.wav');
+		this.coinSound = AudioFX('sounds/Coin.wav', { volume: 0.5 });
+		this.dieSound = AudioFX('sounds/Die.wav', { volume: 0.5 });
+		this.flagpoleSound = AudioFX('sounds/Flagpole.wav', { volume: 0.5 });
+		this.gameOverSound = AudioFX('sounds/GameOver.wav', { volume: 0.5 });
+		this.kickSound = AudioFX('sounds/Kick.wav', { volume: 0.5 });
+		this.pauseSound = AudioFX('sounds/Pause.wav', { volume: 0.5 });
+		this.powerUpSound = AudioFX('sounds/PowerUp.wav', { volume: 0.5 });
+		this.squishSound = AudioFX('sounds/Squish.wav', { volume: 0.5 });
+		this.vineSound = AudioFX('sounds/Vine.wav', { volume: 0.5 });
+		this.warpSound = AudioFX('sounds/Warp.wav', { volume: 0.5 });
+		this.bumpSound = AudioFX('sounds/Bump.wav', { volume: 0.5 });
+
+		// Store current time
+		this.currentTime = 0;
 
 		this.points = "000000";
 	}
@@ -407,7 +497,7 @@ SceneNormal.prototype.draw = function ()
 
 	// Draw UI
 
-		// Draw text
+	// Draw text
 	var text = "TIME";
 	context.font = "18px mario";
 	var textSize = context.measureText(text);

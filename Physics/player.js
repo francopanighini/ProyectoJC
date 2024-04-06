@@ -86,6 +86,8 @@ function Player(x, y, map, posMap) {
 
 	this.speed = 0;
 	this.mata = false;
+
+	this.romper = true;
 }
 
 let minWalkSpeed = 60;
@@ -290,7 +292,7 @@ Player.prototype.update = function (deltaTime) {
 			if (this.jumpAngle > 90) {
 				this.bJumping = !this.map.collisionMoveDown(this.collisionBox(), this.sprite);
 			}else{
-				this.bJumping = !this.map.collisionMoveUP(this.collisionBox(), this.sprite);
+				this.bJumping = !this.map.collisionMoveUP(this.collisionBox(), this.sprite,this.romper);
 				if (!this.bJumping) {
 					if (this.animjump) {
 
@@ -316,7 +318,7 @@ Player.prototype.update = function (deltaTime) {
 	else {
 		// Move Bub so that it is affected by gravity
 		this.sprite.y += 4;
-		
+		//console.log(this.map.collisionMoveDown(this.collisionBox(), this.sprite));
 		if (!this.m_dead && this.map.collisionMoveDown(this.collisionBox(), this.sprite)) {
 
 			//this.sprite.y -= 2;
