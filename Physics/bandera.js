@@ -10,8 +10,9 @@ function Bandera(x, y,map,dir)
 	this.sprite.addAnimation();
 	this.sprite.addKeyframe(0, [16, 80, 16, 16]);
 
-	this.activa = false;
+	this.activa = true;
 
+	this.bajar = false;
 
 	this.map = map;
 
@@ -21,31 +22,12 @@ function Bandera(x, y,map,dir)
 
 Bandera.prototype.update = function update(deltaTime)
 {
-	if(this.activa){
+	if(this.bajar){
 		
-
-		if(this.direccion){
-			this.sprite.x += 1;
-		}else{
-			this.sprite.x -= 1;
-		}
-
-
-		this.sprite.y += 4;
-
-
-		this.map.collisionMoveDown(this.collisionBox(), this.sprite);
-
-
-		if ((this.map.collisionMoveRight(this.collisionBox()))
-		|| (this.map.collisionMoveLeft(this.collisionBox()))){
-			this.direccion = !this.direccion;
-		}
-
-
-			
-	}
-	
+		if (this.sprite.y < (24*16) ){
+			this.sprite.y += 1;
+		}	
+	}	
 
 	this.sprite.update(deltaTime);
 }

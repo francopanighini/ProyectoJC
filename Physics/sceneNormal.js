@@ -99,21 +99,21 @@ function SceneNormal()
 	//--------------Question_box-----------------------
 	this.question_box = new Array();
 	this.question_box[0] = new Question_Box(13*16, 20*16+4); //seta
-	this.question_box[1] = new Question_Box(37*16, 320);
-	this.question_box[2] = new Question_Box(41*16, 320);
-	this.question_box[3] = new Question_Box(49*16, 320);
-	this.question_box[4] = new Question_Box(55*16, 9*16);
+	this.question_box[1] = new Question_Box(37*16, 320+4);
+	this.question_box[2] = new Question_Box(41*16, 320+4);
+	this.question_box[3] = new Question_Box(49*16, 320+4);
+	this.question_box[4] = new Question_Box(55*16, 9*16+4);
 	this.question_box[5] = new Question_Box(76*16, 13*16+4); //esctrella
-	this.question_box[6] = new Question_Box(121*16, 9*16);
-	this.question_box[7] = new Question_Box(125*16, 9*16);
-	this.question_box[8] = new Question_Box(125*16, 26*16);
-	this.question_box[9] = new Question_Box(144*16, 20*16);
-	this.question_box[10] = new Question_Box(149*16, 9*16);
-	this.question_box[11] = new Question_Box(155*16, 18*16);
-	this.question_box[12] = new Question_Box(158*16, 9*16);
-	this.question_box[13] = new Question_Box(164*16, 20*16);
-	this.question_box[14] = new Question_Box(169*16, 9*16);
-	this.question_box[15] = new Question_Box(175*16, 9*16);
+	this.question_box[6] = new Question_Box(121*16, 9*16+4);
+	this.question_box[7] = new Question_Box(125*16, 9*16+4);
+	this.question_box[8] = new Question_Box(125*16, 26*16-4);
+	this.question_box[9] = new Question_Box(144*16, 20*16+4);
+	this.question_box[10] = new Question_Box(149*16, 9*16+4);
+	this.question_box[11] = new Question_Box(155*16, 18*16+4);
+	this.question_box[12] = new Question_Box(158*16, 9*16+4);
+	this.question_box[13] = new Question_Box(164*16, 20*16+4);
+	this.question_box[14] = new Question_Box(169*16, 9*16+4);
+	this.question_box[15] = new Question_Box(175*16, 9*16+4);
 
 
 	this.question_box_active_array = new Array();
@@ -134,12 +134,69 @@ function SceneNormal()
 	this.question_box_active_array[14] = true;
 	this.question_box_active_array[15] = true;
 
+	//--------------COINS-----------------------
 
 	this.coin = new Coin(165, 24);
+
+	this.coins = new Array();
+	this.coins[0] = new SmallCoin(13 * 16, 19 * 16);
+	this.coins[1] = new SmallCoin(37 * 16, 19 * 16);
+	this.coins[2] = new SmallCoin(41 * 16, 19 * 16);
+	this.coins[3] = new SmallCoin(49 * 16, 19 * 16);
+	this.coins[4] = new SmallCoin(55 * 16, 8 * 16);
+	this.coins[5] = new SmallCoin(76 * 16, 12 * 16);
+	this.coins[6] = new SmallCoin(121 * 16, 8 * 16);
+	this.coins[7] = new SmallCoin(125 * 16, 8 * 16);
+	this.coins[8] = new SmallCoin(125 * 16, 25 * 16);
+	this.coins[9] = new SmallCoin(144 * 16, 19 * 16);
+	this.coins[10] = new SmallCoin(149 * 16, 8 * 16);
+	this.coins[11] = new SmallCoin(155 * 16, 17 * 16);
+	this.coins[12] = new SmallCoin(158 * 16, 8 * 16);
+	this.coins[13] = new SmallCoin(164 * 16, 19 * 16);
+	this.coins[14] = new SmallCoin(169 * 16, 8 * 16);
+	this.coins[15] = new SmallCoin(175 * 16, 8 * 16);
+
+
+	this.coin_active_array = new Array();
+	this.coin_active_array[0] = false;
+	this.coin_active_array[1] = false;
+	this.coin_active_array[2] = false;
+	this.coin_active_array[3] = false;
+	this.coin_active_array[4] = false;
+	this.coin_active_array[5] = false;
+	this.coin_active_array[6] = false;
+	this.coin_active_array[7] = false;
+	this.coin_active_array[8] = false;
+	this.coin_active_array[9] = false;
+	this.coin_active_array[10] = false;
+	this.coin_active_array[11] = false;
+	this.coin_active_array[12] = false;
+	this.coin_active_array[13] = false;
+	this.coin_active_array[14] = false;
+	this.coin_active_array[15] = false;
+
+	this.coin_cont_array = new Array();
+	this.coin_cont_array[0] = 0;
+	this.coin_cont_array[1] = 0;
+	this.coin_cont_array[2] = 0;
+	this.coin_cont_array[3] = 0;
+	this.coin_cont_array[4] = 0;
+	this.coin_cont_array[5] = 0;
+	this.coin_cont_array[6] = 0;
+	this.coin_cont_array[7] = 0;
+	this.coin_cont_array[8] = 0;
+	this.coin_cont_array[9] = 0;
+	this.coin_cont_array[10] = 0;
+	this.coin_cont_array[11] = 0;
+	this.coin_cont_array[12] = 0;
+	this.coin_cont_array[13] = 0;
+	this.coin_cont_array[14] = 0;
+	this.coin_cont_array[15] = 0;
 
 	this.marioDead = false;
 	this.startmarioDead = false;
 	this.supermario = false;
+	this.cont_cambio = 0;
 	this.starmario = false;
 	this.invulnerable = false;
 
@@ -159,11 +216,17 @@ function SceneNormal()
 	this.warpSound = AudioFX('sounds/Warp.wav', { volume: 0.5 });
 	this.bumpSound = AudioFX('sounds/Bump.wav', { volume: 0.5 });
 	this.itemSound = AudioFX('sounds/Item.wav', { volume: 0.5 });
+	this.starSound = AudioFX('sounds/star_mario.mp3', { volume: 0.5 });
 
 	// Store current time
 	this.currentTime = 0;
 
 	this.points = "000000";
+
+	this.final = false;
+	this.time_final = 0;
+
+	this.monedas = "00";
 }
 
 SceneNormal.prototype.update = function(deltaTime)
@@ -171,24 +234,25 @@ SceneNormal.prototype.update = function(deltaTime)
 	// Keep track of time
 	this.currentTime += deltaTime;
 
-	this.player.moveMario(deltaTime);
-
-	// Update entities
-	this.player.update(deltaTime);
-
-	this.seta.update(deltaTime);
-
-	this.star.update(deltaTime);
-
 	this.bandera.update(deltaTime);
 
-	if (this.supermario){
-		this.seta_cont += 1;
-	}
+	if (!this.final){
+		this.player.moveMario(deltaTime);
+			// Update entities
+		this.player.update(deltaTime);
 
-	if (this.invulnerable){
-		this.star_cont += 1;
-	}
+		this.seta.update(deltaTime);
+
+		this.star.update(deltaTime);
+
+
+		if (this.supermario){
+			this.seta_cont += 1;
+		}
+
+		if (this.star_cont >  1){
+			this.star_cont += 1;
+		}
 
 	
 	//this.goomba.update(deltaTime);
@@ -207,17 +271,27 @@ SceneNormal.prototype.update = function(deltaTime)
 	
 	this.coin.update(deltaTime);
 
+	for (i = 0; i < this.coins.length; i++){
+		this.coins[i].update(deltaTime);
+	}
+
 
 	for (i = 0; i < this.goomba_array.length; i++){
 		//if( this.goombaActive && this.player.collisionBox().intersect(this.goomba.collisionBox())){
-		if( this.goomba_active_array[i] && this.player.collisionBox().intersect(this.goomba_array[i].collisionBox())){
+		if(this.cont_cambio==0 && this.goomba_active_array[i] && this.player.collisionBox().intersect(this.goomba_array[i].collisionBox())){
 			if (!this.invulnerable){
 				if (!this.player.mata){
 					var vector = this.player.collisionPosition(this.player.collisionBox(),this.goomba_array[i].collisionBox())
 					if(!this.marioDead && vector == "Otra"){	
-						this.music.stop();
-						this.player.dead();
-						this.marioDead = true;
+						if (this.supermario){
+							this.invulnerable = true;
+							this.supermario = false;
+							this.cont_cambio = 1;
+						}else{
+							this.music.stop();
+							this.player.dead();
+							this.marioDead = true;
+						}
 					}else if(!this.marioDead) {
 						this.player.mata = true;
 						this.player.bJumping = true;
@@ -261,6 +335,7 @@ SceneNormal.prototype.update = function(deltaTime)
 
 	if (this.player.collisionBox().intersect(this.question_box[5].collisionBox())){
 		this.star.activa = true;
+		this.star_cont = 1;
 		this.question_box_active_array[5] = false;
 	}
 	
@@ -269,23 +344,64 @@ SceneNormal.prototype.update = function(deltaTime)
 		this.star.activa = false;
 		this.starmario = true;
 		this.invulnerable = true;
+		this.starSound.play();
+		this.time_final =  Math.floor(400 - this.currentTime / 1000) - 13;
 		var currentNumber = parseInt(this.points);
 		var newNumber = currentNumber + 1000;
 		var formattedNumber = ("000000" + newNumber).slice(-6);
 		this.points = formattedNumber;
 	}
 
+	var t = Math.floor(400 - this.currentTime / 1000);
+	if (t <= this.time_final){
+		this.invulnerable = false;
+	}
+
+	for(i = 0; i < this.coins.length; i++){
+		if (i != 0 && i != 5){
+			if (this.question_box_active_array[i] && this.player.collisionBox().intersect(this.question_box[i].collisionBox())){
+				this.coin_active_array[i] = true;
+				this.question_box_active_array[i] = false;
+			}
+		}
+	}
+
+	for(i = 0; i < this.coins.length; i++){
+		if (i != 0 && i != 5){
+			if (this.coin_active_array[i] && this.player.collisionBox().intersect(this.coins[i].collisionBox())){
+				this.coin_active_array[i] = false;
+				this.coin_cont_array[i] = 1;
+				var currentNumber = parseInt(this.points);
+				var newNumber = currentNumber + 200;
+				var formattedNumber = ("000000" + newNumber).slice(-6);
+				this.points = formattedNumber;
+
+				var currentNumber = parseInt(this.monedas);
+				var newNumber = currentNumber + 1;
+				var formattedNumber = ("0" + newNumber).slice(-6);
+				this.monedas = formattedNumber;
+			}
+		
+		}
+	}
+
 	for (i = 0; i < this.koopa_array.length; i++){
-		if( this.koopa_active_array[i] && this.player.collisionBox().intersect(this.koopa_array[i].collisionBox())){
+		if( this.cont_cambio == 0 && this.koopa_active_array[i] && this.player.collisionBox().intersect(this.koopa_array[i].collisionBox())){
 			
 			if (!this.invulnerable){
 				if (!this.player.mata){
 					var vector = this.player.collisionPosition(this.player.collisionBox(),this.koopa_array[i].collisionBox())
 					if(!this.marioDead && vector == "Otra"){
 						if (!this.invulnerable){
-							this.music.stop();
-							this.player.dead();
-							this.marioDead = true;
+							if (this.supermario){
+								this.invulnerable = true;
+								this.supermario = false;
+								this.cont_cambio = 1;
+							}else{
+								this.music.stop();
+								this.player.dead();
+								this.marioDead = true;
+							}
 						}
 					}else if (this.koopa_array[i].caparazon){
 						this.player.bJumping = true;
@@ -328,6 +444,7 @@ SceneNormal.prototype.update = function(deltaTime)
 
 		}
 	}
+	}
 		
 
 
@@ -363,6 +480,15 @@ SceneNormal.prototype.update = function(deltaTime)
 				this.goomba_active_array[i] = false;
 			}
 		}
+	}
+
+	if ( this.cont_cambio > 0){
+		this.cont_cambio += 1;
+	}
+
+	if (this.cont_cambio > 80){
+		this.invulnerable = false;
+		this.cont_cambio = 0;
 	}
 
 	// if key 2 is pressed, change scene to lava map (sceneLava.js)
@@ -545,6 +671,12 @@ SceneNormal.prototype.draw = function ()
 		this.pos +=2;
 		this.player.posMap = this.pos;
 	}
+
+	if (this.player.sprite.x >= 3108 ){
+		this.bandera.bajar=true;
+		this.final = true;
+
+	}
 	// Draw tilemap
 	context.save();
 	context.translate(-this.pos,0);
@@ -563,6 +695,12 @@ SceneNormal.prototype.draw = function ()
 	for(var i=0;i<16;i++){
 		if (this.question_box_active_array[i] == true)
 			this.question_box[i].draw();
+	}
+
+	for(var i=0;i<this.coins.length;i++){
+		if (this.coin_active_array[i] == true){
+			this.coins[i].draw();
+		}
 	}
 	
 	for (i = 0; i < this.goomba_array.length; i++){
@@ -589,6 +727,16 @@ SceneNormal.prototype.draw = function ()
 		context.font = "12px mario";
 		context.fillStyle = "White";
 		context.fillText(text, this.star.sprite.x, this.star.sprite.y);
+	}
+
+	for (i = 0; i < this.coins.length; i++){
+		if(this.coin_cont_array[i] > 0 && this.coin_cont_array[i] <= 80){
+			var text = "200";
+			context.font = "12px mario";
+			context.fillStyle = "White";
+			context.fillText(text, this.coins[i].sprite.x, this.coins[i].sprite.y);
+			this.coin_cont_array[i] += 1;
+		}
 	}
 	
 	
@@ -636,14 +784,36 @@ SceneNormal.prototype.draw = function ()
 	// right side of the screen
 	context.fillText(text, 400, 24);
 
-	text = Math.floor(400 - this.currentTime / 1000);
-	var textSize = context.measureText(text);
-	if(textSize.width < 20)
-		context.fillText(text, 454, 48);
-	else if(textSize.width < 40)
-		context.fillText(text, 436, 48);
-	else
-		context.fillText(text, 418, 48);
+
+	if (!this.final){
+		text = Math.floor(400 - this.currentTime / 1000);
+		time = Math.floor(400 - this.currentTime / 1000);
+		var textSize = context.measureText(text);
+		if(textSize.width < 20)
+			context.fillText(text, 454, 48);
+		else if(textSize.width < 40)
+			context.fillText(text, 436, 48);
+		else
+			context.fillText(text, 418, 48);
+	}else{
+		text = time - 1;
+		if (time > 1){
+			var currentNumber = parseInt(this.points);
+			var newNumber = currentNumber + 60;
+			var formattedNumber = ("000000" + newNumber).slice(-6);
+			this.points = formattedNumber;
+			time = time - 1;
+		}
+		var textSize = context.measureText(text);
+		if(textSize.width < 20)
+			context.fillText(text, 454, 48);
+		else if(textSize.width < 40)
+			context.fillText(text, 436, 48);
+		else
+			context.fillText(text, 418, 48);
+
+		
+	}
 
 	// Draw text
 	var text = "WORLD";
@@ -656,7 +826,7 @@ SceneNormal.prototype.draw = function ()
 	context.fillText(text, 286, 48);
 
 	// Draw text
-	var text = "x00";
+	var text = "x"+this.monedas;
 	var textSize = context.measureText(text);
 	context.fillStyle = "White";
 	context.fillText(text, 190, 48);
