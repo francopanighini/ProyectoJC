@@ -785,34 +785,42 @@ SceneNormal.prototype.draw = function ()
 	context.fillText(text, 400, 24);
 
 
-	if (!this.final){
-		text = Math.floor(400 - this.currentTime / 1000);
-		time = Math.floor(400 - this.currentTime / 1000);
-		var textSize = context.measureText(text);
-		if(textSize.width < 20)
-			context.fillText(text, 454, 48);
-		else if(textSize.width < 40)
-			context.fillText(text, 436, 48);
-		else
-			context.fillText(text, 418, 48);
-	}else{
-		text = time - 1;
-		if (time > 1){
-			var currentNumber = parseInt(this.points);
-			var newNumber = currentNumber + 60;
-			var formattedNumber = ("000000" + newNumber).slice(-6);
-			this.points = formattedNumber;
-			time = time - 1;
-		}
-		var textSize = context.measureText(text);
-		if(textSize.width < 20)
-			context.fillText(text, 454, 48);
-		else if(textSize.width < 40)
-			context.fillText(text, 436, 48);
-		else
-			context.fillText(text, 418, 48);
 
-		
+	if (Math.floor(400 - this.currentTime / 1000) < 0){
+		this.music.stop();
+		this.player.dead();
+		this.marioDead = true;
+	}else{
+			
+		if (!this.final){
+			text = Math.floor(400 - this.currentTime / 1000);
+			time = Math.floor(400 - this.currentTime / 1000);
+			var textSize = context.measureText(text);
+			if(textSize.width < 20)
+				context.fillText(text, 454, 48);
+			else if(textSize.width < 40)
+				context.fillText(text, 436, 48);
+			else
+				context.fillText(text, 418, 48);
+		}else{
+			text = time - 1;
+			if (time > 1){
+				var currentNumber = parseInt(this.points);
+				var newNumber = currentNumber + 60;
+				var formattedNumber = ("000000" + newNumber).slice(-6);
+				this.points = formattedNumber;
+				time = time - 1;
+			}
+			var textSize = context.measureText(text);
+			if(textSize.width < 20)
+				context.fillText(text, 454, 48);
+			else if(textSize.width < 40)
+				context.fillText(text, 436, 48);
+			else
+				context.fillText(text, 418, 48);
+
+			
+		}
 	}
 
 	// Draw text
