@@ -511,6 +511,19 @@ SceneNormal.prototype.update = function(deltaTime)
 
 			var tilesheet = new Texture("imgs/CompleteTilesheetLvl1.png");
 			this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V4);
+			
+			this.marioDead = false;
+			this.startmarioDead = false;
+			interacted = false;
+			// restart scene
+			// Create entities
+			// Loading texture to use in a TileMap
+			this.pos = 0;
+			this.i=0;
+			this.sel=0;
+			this.currentTime = 0;
+
+			hurryMusic = false;
 
 			// Create entities
 			this.player = new Player(150, 384, this.map,this.pos);
@@ -751,6 +764,13 @@ SceneNormal.prototype.draw = function ()
 		this.pos = this.pos + 5;
 	}
 
+	// if time is more than 300 change to hurry music
+	if(this.currentTime > 300000 && hurryMusic == false){
+		this.music.stop();
+		hurryMusic = true;
+		this.music = AudioFX('sounds/ThemeHurry.mp3', { loop: true });
+	}
+	
 	// Transform to super mario if M key is pressed
 	// if(keyboard[77])
 	// 	this.player.superMario();

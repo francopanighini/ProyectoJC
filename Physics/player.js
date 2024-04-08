@@ -143,8 +143,8 @@ Player.prototype.moveMario = function (deltaTime) {
 	//if speed is positive, use collisionMoveRight, else use collisionMoveLeft
 
 	if ((this.speed > 0 && this.map.collisionMoveRight(this.collisionBox()))
-	|| (this.speed < 0 && this.map.collisionMoveLeft(this.collisionBox())))
-	this.sprite.x = prevX;
+		|| (this.speed < 0 && this.map.collisionMoveLeft(this.collisionBox())))
+		this.sprite.x = prevX;
 
 
 	// Apply acceleration to current speed
@@ -245,17 +245,16 @@ Player.prototype.moveMario = function (deltaTime) {
 	}
 
 	if (this.sprite.x < -2 + this.posMap) {
-		this.sprite.x = -2 + this.posMap; 
-	} else if (this.sprite.x > 480  + this.posMap) {
+		this.sprite.x = -2 + this.posMap;
+	} else if (this.sprite.x > 480 + this.posMap) {
 		this.sprite.x = 480 + this.posMap;
 	}
 }
 
 Player.prototype.update = function (deltaTime) {
 
-
-	if (this.mata){
-		this.mata=this.mata;
+	if (this.mata) {
+		this.mata = this.mata;
 	}
 	if (this.m_dead) {
 		if (this.sprite.currentAnimation != MARIO_DEAD)
@@ -303,8 +302,8 @@ Player.prototype.update = function (deltaTime) {
 			this.sprite.y = this.startY - 96 * Math.sin(3.14159 * this.jumpAngle / 180);
 			if (this.jumpAngle > 90) {
 				this.bJumping = !this.map.collisionMoveDown(this.collisionBox(), this.sprite);
-			}else{
-				this.bJumping = !this.map.collisionMoveUP(this.collisionBox(), this.sprite,this.romper);
+			} else {
+				this.bJumping = !this.map.collisionMoveUP(this.collisionBox(), this.sprite, this.romper);
 				if (!this.bJumping) {
 					if (this.animjump) {
 
@@ -328,7 +327,7 @@ Player.prototype.update = function (deltaTime) {
 									this.sprite.setAnimation(MARIO_STOP_JUMP_L);
 							}
 						}
-		
+
 						this.animjump = false;
 					}
 				}
@@ -336,7 +335,7 @@ Player.prototype.update = function (deltaTime) {
 
 		}
 
-		if (!this.bJumping){
+		if (!this.bJumping) {
 			this.mata = false;
 		}
 	}
@@ -383,7 +382,7 @@ Player.prototype.update = function (deltaTime) {
 
 
 
-	if (this.sprite.y>400){
+	if (this.sprite.y > 400) {
 		this.m_dead = true;
 	}
 
@@ -404,61 +403,61 @@ Player.prototype.dead = function () {
 	this.m_dead = true;
 }
 
-Player.prototype.collisionPosition = function (posM,posE){
+Player.prototype.collisionPosition = function (posM, posE) {
 	//console.log(posM);
 
 
 	// Calcular las coordenadas del punto central en cada dimensión
-    var centerMX = (posM.max_x + posM.min_x) / 2;
-    var centerMY = (posM.max_y + posM.min_y) / 2;
+	var centerMX = (posM.max_x + posM.min_x) / 2;
+	var centerMY = (posM.max_y + posM.min_y) / 2;
 
-    // Mostrar el punto central en la consola
-    /*console.log("Punto central:");
-    console.log("x:", centerMX);
-    console.log("y:", centerMY);*/
+	// Mostrar el punto central en la consola
+	/*console.log("Punto central:");
+	console.log("x:", centerMX);
+	console.log("y:", centerMY);*/
 
 	var centerM = { x: centerMX, y: centerMY };
 
 
 	// Calcular las coordenadas del punto central en cada dimensión
-    var centerEX = (posE.max_x + posE.min_x) / 2;
-    var centerEY = (posE.max_y + posE.min_y) / 2;
+	var centerEX = (posE.max_x + posE.min_x) / 2;
+	var centerEY = (posE.max_y + posE.min_y) / 2;
 
-    // Mostrar el punto central en la consola
-    /*console.log("Punto central:");
-    console.log("x:", centerEX);
-    console.log("y:", centerEY);*/
+	// Mostrar el punto central en la consola
+	/*console.log("Punto central:");
+	console.log("x:", centerEX);
+	console.log("y:", centerEY);*/
 
 	var centerE = { x: centerEX, y: centerEY };
-    // Devolver el punto central como un objeto
+	// Devolver el punto central como un objeto
 
 	// Calcular las componentes del vector que apunta desde el centro de posM hacia el centro de posE
-    var vectorX = centerEX - centerMX;
-    var vectorY = centerEY - centerMY;
+	var vectorX = centerEX - centerMX;
+	var vectorY = centerEY - centerMY;
 
-    // Crear el vector como un objeto con las componentes calculadas
-    var collisionVector = { x: vectorX, y: vectorY };
-	
+	// Crear el vector como un objeto con las componentes calculadas
+	var collisionVector = { x: vectorX, y: vectorY };
+
 
 	var angleradi = Math.atan2(collisionVector.y, collisionVector.x);
-	
+
 	var ang = (angleradi * 180) / Math.PI;
-	
+
 	//console.log(ang);
 
 
 	var direction;
-    //if (ang >= 45 && ang <= 135) {
+	//if (ang >= 45 && ang <= 135) {
 	if (ang >= 45 && ang <= 75) {
-        direction = "AbajoI";
-    } else if (ang > 75 && ang <= 105){
-		direction  = "Abajo";
-	} else if (ang > 105 && ang <= 135){
-		direction  = "AbajoD";
-	}else  {
+		direction = "AbajoI";
+	} else if (ang > 75 && ang <= 105) {
+		direction = "Abajo";
+	} else if (ang > 105 && ang <= 135) {
+		direction = "AbajoD";
+	} else {
 		direction = "Otra"
 	}
-    return direction;
+	return direction;
 }
 
 

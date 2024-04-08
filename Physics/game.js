@@ -14,7 +14,7 @@ var previousTimestamp;
 var keyboard = [];
 var interacted;
 var soltar = false;
-
+var hurryMusic = false;
 
 var scen = [sceneNormal,cred,instrc,start,sceneLava];
 
