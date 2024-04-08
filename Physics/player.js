@@ -21,6 +21,12 @@ function Player(x, y, map, posMap) {
 	// this.superMarioSprite = new Sprite(x, y, 32, 32, 7, mario);
 	this.sprite = new Sprite(x, y, 32, 32, 7, mario);
 
+	this.isSuperMario = false;
+	this.superMario = false;
+
+	this.isStarMario = false;
+	this.starMario = false;
+
 	this.posMap = posMap;
 
 
@@ -252,6 +258,132 @@ Player.prototype.moveMario = function (deltaTime) {
 
 Player.prototype.update = function (deltaTime) {
 
+	if ((this.superMario == true && this.isSuperMario == false) || (this.superMario == true && this.isSuperMario == true && ((this.isStarMario == false && this.starMario == true) || (this.isStarMario == true && this.starMario == false)))) {
+		if ((!this.starMario && this.isStarMario) || (!this.starMario && !this.isStarMario)){
+			this.sprite = new Sprite(this.sprite.x, this.sprite.y - 24, 24, 48, 7, new Texture("imgs/supermario.png"));
+			this.isSuperMario = true;
+			this.isStarMario = false;
+		} else {
+			this.sprite = new Sprite(this.sprite.x, this.sprite.y - 24, 24, 48, 7, new Texture("imgs/supermarioStar.png"));
+			this.isStarMario = true;
+		}
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_STAND_LEFT, [32, 32, 16, 32]);
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_STAND_RIGHT, [0, 0, 16, 32]);
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_WALK_LEFT, [32, 32, 16, 32]);
+		this.sprite.addKeyframe(MARIO_WALK_LEFT, [0, 32, 16, 32]);
+		this.sprite.addKeyframe(MARIO_WALK_LEFT, [0, 32, 16, 32]);
+		this.sprite.addKeyframe(MARIO_WALK_LEFT, [16, 32, 16, 32]);
+		this.sprite.addKeyframe(MARIO_WALK_LEFT, [16, 32, 16, 32]);
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_WALK_RIGHT, [0, 0, 16, 32]);
+		this.sprite.addKeyframe(MARIO_WALK_RIGHT, [32, 0, 16, 32]);
+		this.sprite.addKeyframe(MARIO_WALK_RIGHT, [32, 0, 16, 32]);
+		this.sprite.addKeyframe(MARIO_WALK_RIGHT, [16, 0, 16, 32]);
+		this.sprite.addKeyframe(MARIO_WALK_RIGHT, [16, 0, 16, 32]);
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_JUMP_R, [32, 64, 16, 32]);
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_STOP_JUMP_R, [32, 0, 16, 32]);
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_JUMP_L, [16, 64, 16, 32]);
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_STOP_JUMP_L, [0, 32, 16, 32]);
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_DEAD, [48, 0, 16, 32]);
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_RUN_LEFT, [32, 32, 16, 32]);
+		this.sprite.addKeyframe(MARIO_RUN_LEFT, [0, 32, 16, 32]);
+		this.sprite.addKeyframe(MARIO_RUN_LEFT, [16, 32, 16, 32]);
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_RUN_RIGHT, [0, 0, 16, 32]);
+		this.sprite.addKeyframe(MARIO_RUN_RIGHT, [32, 0, 16, 32]);
+		this.sprite.addKeyframe(MARIO_RUN_RIGHT, [16, 0, 16, 32]);
+
+		if (this.speed < 0) {
+			this.sprite.setAnimation(MARIO_STAND_LEFT);
+		} else {
+			this.sprite.setAnimation(MARIO_STAND_RIGHT);
+		}
+	}
+
+	if ((this.superMario == false && this.isSuperMario == true) || (this.superMario == false && this.isSuperMario == false && ((this.starMario == true && this.isStarMario == false) || (this.starMario == false && this.isStarMario == true)))) {
+
+		if ((!this.starMario && this.isStarMario) || (!this.starMario && !this.isStarMario)){
+			this.sprite = new Sprite(this.sprite.x, this.sprite.y, 32, 32, 7, new Texture("imgs/mario.png"));
+			this.isSuperMario = false;
+			this.isStarMario = false;
+		} else {
+			this.sprite = new Sprite(this.sprite.x, this.sprite.y, 32, 32, 7, new Texture("imgs/marioStar.png"));
+			this.isStarMario = true;
+		}
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_STAND_LEFT, [32, 16, 16, 16]);
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_STAND_RIGHT, [0, 0, 16, 16]);
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_WALK_LEFT, [32, 16, 16, 16]);
+		this.sprite.addKeyframe(MARIO_WALK_LEFT, [0, 16, 16, 16]);
+		this.sprite.addKeyframe(MARIO_WALK_LEFT, [0, 16, 16, 16]);
+		this.sprite.addKeyframe(MARIO_WALK_LEFT, [16, 16, 16, 16]);
+		this.sprite.addKeyframe(MARIO_WALK_LEFT, [16, 16, 16, 16]);
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_WALK_RIGHT, [0, 0, 16, 16]);
+		this.sprite.addKeyframe(MARIO_WALK_RIGHT, [32, 0, 16, 16]);
+		this.sprite.addKeyframe(MARIO_WALK_RIGHT, [32, 0, 16, 16]);
+		this.sprite.addKeyframe(MARIO_WALK_RIGHT, [16, 0, 16, 16]);
+		this.sprite.addKeyframe(MARIO_WALK_RIGHT, [16, 0, 16, 16]);
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_JUMP_R, [32, 32, 16, 16]);
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_STOP_JUMP_R, [32, 0, 16, 16]);
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_JUMP_L, [16, 32, 16, 16]);
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_STOP_JUMP_L, [0, 16, 16, 16]);
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_DEAD, [48, 0, 16, 16]);
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_RUN_LEFT, [32, 16, 16, 16]);
+		this.sprite.addKeyframe(MARIO_RUN_LEFT, [0, 16, 16, 16]);
+		this.sprite.addKeyframe(MARIO_RUN_LEFT, [16, 16, 16, 16]);
+
+		this.sprite.addAnimation();
+		this.sprite.addKeyframe(MARIO_RUN_RIGHT, [0, 0, 16, 16]);
+		this.sprite.addKeyframe(MARIO_RUN_RIGHT, [32, 0, 16, 16]);
+		this.sprite.addKeyframe(MARIO_RUN_RIGHT, [16, 0, 16, 16]);
+
+		if (this.speed < 0) {
+			this.sprite.setAnimation(MARIO_STAND_LEFT);
+		}
+		else {
+			this.sprite.setAnimation(MARIO_STAND_RIGHT);
+		}
+	}
+
 	if (this.mata) {
 		this.mata = this.mata;
 	}
@@ -352,8 +484,14 @@ Player.prototype.update = function (deltaTime) {
 
 
 
-	if (this.sprite.y > 400) {
-		this.m_dead = true;
+	if (!this.isSuperMario) {
+		if (this.sprite.y > 400) {
+			this.m_dead = true;
+		}
+	} else {
+		if (this.sprite.y > 376) {
+			this.m_dead = true;
+		}
 	}
 
 	// Update sprites
