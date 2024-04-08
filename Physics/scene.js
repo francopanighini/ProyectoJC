@@ -81,9 +81,9 @@ Scene.prototype.update = function(deltaTime)
 		console.log(col.min_x);
 		console.log(col2.min_x);*/
 		if (!this.player.mata){
-			console.log("hola");
+			//console.log("hola");
 			var vector = this.player.collisionPosition(this.player.collisionBox(),this.goomba.collisionBox())
-			console.log(vector);
+			//console.log(vector);
 			
 			if(!this.marioDead && vector == "Otra"){
 				this.music.stop();

@@ -184,8 +184,6 @@ Player.prototype.moveMario = function (deltaTime) {
 	}
 
 	// Set animation according to current speed
-	console.log(this.speed);
-	console.log(this.sprite.currentAnimation);
 	if (this.speed > 0) {
 		if (!this.animjump) {
 			if (this.speed > 120 && this.sprite.currentAnimation != MARIO_RUN_RIGHT)

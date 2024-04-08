@@ -106,7 +106,7 @@ SceneLava.prototype.update = function(deltaTime)
 			if (!this.player.mata){
 				
 				var vector = this.player.collisionPosition(this.player.collisionBox(),this.goomba.collisionBox())
-				console.log(vector);
+				//console.log(vector);
 				
 				if(!this.marioDead && vector == "Otra"){
 					this.music.stop();
