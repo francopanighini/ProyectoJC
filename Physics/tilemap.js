@@ -11,6 +11,8 @@ function Tilemap(tilesheet, tileSize, blockGrid, basePos, map)
 	this.tochos = [];
 
 	this.tilesheet = tilesheet;
+
+	this.lava = false;
 }
 
 Tilemap.prototype.draw = function ()
@@ -142,6 +144,9 @@ Tilemap.prototype.collisionMoveDown = function(box, sprite)
 		
 		if (!skipTile) {
 		
+			if (this.map.layers[0].data[y * this.map.width + x] == 9){
+				this.lava = true;
+			}
 			if(this.map.layers[0].data[y * this.map.width + x] != 0 || this.map.layers[2].data[y * this.map.width + x] != 0)
 			{
 				sprite.y = y * this.tileSize[1] - sprite.height + this.basePos[1];

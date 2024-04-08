@@ -214,6 +214,7 @@ Player.prototype.moveMario = function (deltaTime) {
 		}
 		this.direccionjump = "L";
 	} else {
+		
 		if (this.sprite.currentAnimation == MARIO_WALK_LEFT)
 			this.sprite.setAnimation(MARIO_STAND_LEFT);
 		if (this.sprite.currentAnimation == MARIO_WALK_RIGHT)
@@ -404,19 +405,31 @@ Player.prototype.update = function (deltaTime) {
 		if (this.jumpAngle == 180) {
 			this.bJumping = false;
 			this.sprite.y = this.startY;
-			// if (this.animjump) {
+			
+				
+			if (this.direccionjump == "R") {
+				
+				if (this.speed > 0) {
+					
+					if (this.sprite.currentAnimation != MARIO_WALK_RIGHT)
+						this.sprite.setAnimation(MARIO_WALK_RIGHT);
+				} else {
+					
+					if (this.sprite.currentAnimation != MARIO_STOP_JUMP_R)
+						this.sprite.setAnimation(MARIO_STOP_JUMP_R);
+				}
+			} else {
+				if (this.speed < 0) {
+					if (this.sprite.currentAnimation != MARIO_WALK_LEFT)
+						this.sprite.setAnimation(MARIO_WALK_LEFT);
+				} else {
+					if (this.sprite.currentAnimation != MARIO_STOP_JUMP_L)
+						this.sprite.setAnimation(MARIO_STOP_JUMP_L);
+				}
+			}
 
-			// 	if (this.direccionjump == "R") {
-			// 		if (this.sprite.currentAnimation != MARIO_STOP_JUMP_R)
-			// 			this.sprite.setAnimation(MARIO_STOP_JUMP_R);
-			// 	} else {
-			// 		if (this.sprite.currentAnimation != MARIO_STOP_JUMP_L)
-			// 			this.sprite.setAnimation(MARIO_STOP_JUMP_L);
-			// 	}
-
-			// 	this.animjump = false;
-			// }
-		} else {
+		}
+		else {
 
 			this.sprite.y = this.startY - 96 * Math.sin(3.14159 * this.jumpAngle / 180);
 			if (this.jumpAngle > 90) {
@@ -427,11 +440,24 @@ Player.prototype.update = function (deltaTime) {
 					if (this.animjump) {
 
 						if (this.direccionjump == "R") {
-							if (this.sprite.currentAnimation != MARIO_STOP_JUMP_R)
-								this.sprite.setAnimation(MARIO_STOP_JUMP_R);
+				
+							if (this.speed > 0) {
+								
+								if (this.sprite.currentAnimation != MARIO_WALK_RIGHT)
+									this.sprite.setAnimation(MARIO_WALK_RIGHT);
+							} else {
+								
+								if (this.sprite.currentAnimation != MARIO_STOP_JUMP_R)
+									this.sprite.setAnimation(MARIO_STOP_JUMP_R);
+							}
 						} else {
-							if (this.sprite.currentAnimation != MARIO_STOP_JUMP_L)
-								this.sprite.setAnimation(MARIO_STOP_JUMP_L);
+							if (this.speed < 0) {
+								if (this.sprite.currentAnimation != MARIO_WALK_LEFT)
+									this.sprite.setAnimation(MARIO_WALK_LEFT);
+							} else {
+								if (this.sprite.currentAnimation != MARIO_STOP_JUMP_L)
+									this.sprite.setAnimation(MARIO_STOP_JUMP_L);
+							}
 						}
 
 						this.animjump = false;
@@ -460,17 +486,21 @@ Player.prototype.update = function (deltaTime) {
 				this.startY = this.sprite.y;
 			} else if (this.animjump) {
 				if (this.direccionjump == "R") {
-					if (this.speed > 0)
-						this.sprite.setAnimation(MARIO_WALK_RIGHT);
-					else {
+				
+					if (this.speed > 0) {
+						
+						if (this.sprite.currentAnimation != MARIO_WALK_RIGHT)
+							this.sprite.setAnimation(MARIO_WALK_RIGHT);
+					} else {
+						
 						if (this.sprite.currentAnimation != MARIO_STOP_JUMP_R)
 							this.sprite.setAnimation(MARIO_STOP_JUMP_R);
 					}
-				}
-				else {
-					if (this.speed < 0)
-						this.sprite.setAnimation(MARIO_WALK_LEFT);
-					else {
+				} else {
+					if (this.speed < 0) {
+						if (this.sprite.currentAnimation != MARIO_WALK_LEFT)
+							this.sprite.setAnimation(MARIO_WALK_LEFT);
+					} else {
 						if (this.sprite.currentAnimation != MARIO_STOP_JUMP_L)
 							this.sprite.setAnimation(MARIO_STOP_JUMP_L);
 					}
