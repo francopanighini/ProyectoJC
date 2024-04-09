@@ -772,11 +772,9 @@ SceneLava.prototype.draw = function () {
 
 	// Transform to normal mario if N key is pressed
 	if (keyboard[78]) {
-		if (this.supermario && !this.starmario) {
-			this.player.superMario = false;
-			this.supermario = false;
-			this.warpSound.play();
-		}
+		this.player.superMario = false;
+		this.supermario = false;
+		this.warpSound.play();
 	}
 
 	// Transform to star mario if G key is pressed

@@ -330,6 +330,7 @@ Player.prototype.update = function (deltaTime) {
 			this.isStarMario = false;
 		} else {
 			this.sprite = new Sprite(this.sprite.x, this.sprite.y, 32, 32, 7, new Texture("imgs/marioStar.png"));
+			this.isSuperMario = false;
 			this.isStarMario = true;
 		}
 
