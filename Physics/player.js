@@ -599,9 +599,3 @@ Player.prototype.collisionPosition = function (posM, posE) {
 	}
 	return direction;
 }
-
-
-
-
-
-

@@ -1,22 +1,18 @@
-
-
 // Scene. Updates and draws a single scene of the game.
-
-function Scene()
-{
+function Scene() {
 	// Loading texture to use in a TileMap
 	this.pos = 0;
-	this.i=0;
-	this.sel=0;
+	this.i = 0;
+	this.sel = 0;
 
 	var tilesheet = new Texture("imgs/CompleteTilesheetLvl1.png");
 	this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V4);
 
 	//var tilesheet = new Texture("imgs/lava.png");
 	//this.map = new Tilemap(tilesheet, [16, 16], [6, 4], [0, 0], lava);
-	
+
 	// Create entities
-	this.player = new Player(150, 384, this.map,this.pos);
+	this.player = new Player(150, 384, this.map, this.pos);
 	//this.bubble = new Bubble(360, 112);
 	this.goomba = new Goomba(512, 200, this.map);
 	//this.goomba = new Goomba(100, 200, this.map,true);
@@ -25,7 +21,6 @@ function Scene()
 	this.goombaActive = true;
 
 	this.question_box = new Question_Box(208, 320);
-
 
 	this.marioDead = false;
 	this.startmarioDead = false;
@@ -46,17 +41,15 @@ function Scene()
 	this.warpSound = AudioFX('sounds/Warp.wav', { volume: 0.5 });
 	this.bumpSound = AudioFX('sounds/Bump.wav', { volume: 0.5 });
 
-
 	this.contBoomba = 0;
 	// Store current time
 	this.currentTime = 0
 }
 
-Scene.prototype.update = function(deltaTime)
-{
+Scene.prototype.update = function (deltaTime) {
 	// Keep track of time
 	this.currentTime += deltaTime;
-	
+
 	this.player.moveMario(deltaTime);
 
 	// Update entities
@@ -65,12 +58,12 @@ Scene.prototype.update = function(deltaTime)
 	this.goomba.update(deltaTime);
 
 	this.question_box.update(deltaTime);
-	
+
 	// Check for collision between entities
 	/*if(this.player.collisionBox().intersect(this.bubble.collisionBox()))
 		this.bubbleActive = false;*/
-	
-	if( this.goombaActive && this.player.collisionBox().intersect(this.goomba.collisionBox())){ 
+
+	if (this.goombaActive && this.player.collisionBox().intersect(this.goomba.collisionBox())) {
 		//this.goombaActive = false;
 
 		/*console.log(this.player.collisionBox().intersect(this.goomba.collisionBox()));
@@ -80,54 +73,48 @@ Scene.prototype.update = function(deltaTime)
 		var col2 = this.goomba.collisionBox();
 		console.log(col.min_x);
 		console.log(col2.min_x);*/
-		if (!this.player.mata){
+		if (!this.player.mata) {
 			//console.log("hola");
-			var vector = this.player.collisionPosition(this.player.collisionBox(),this.goomba.collisionBox())
+			var vector = this.player.collisionPosition(this.player.collisionBox(), this.goomba.collisionBox())
 			//console.log(vector);
-			
-			if(!this.marioDead && vector == "Otra"){
+
+			if (!this.marioDead && vector == "Otra") {
 				this.music.stop();
 				this.player.dead();
 				this.marioDead = true;
-			}else {
+			} else {
 				this.player.mata = true;
 				this.player.bJumping = true;
 				this.player.jumpAngle = 0;
 				this.player.startY = this.player.sprite.y;
 				this.goomba.muerto = true;
 				this.squishSound.play();
-			}	
+			}
 		}
-			
-		
-		
 	}
 
 	// Init music once user has interacted
-	if(interacted)
+	if (interacted)
 		this.music.play();
-	
+
 	// Play jump sound when up key is pressed
-	if(keyboard[38])
+	if (keyboard[38])
 		this.jumpSound.play();
 
 	// Play die sound when Mario dies
-	if(this.marioDead && !this.startmarioDead){
+	if (this.marioDead && !this.startmarioDead) {
 		this.dieSound.play();
 		this.startmarioDead = true;
 	}
 
-	if (this.goomba.muerto){
+	if (this.goomba.muerto) {
 		this.contBoomba += 1;
-		if(this.contBoomba >= 20){
+		if (this.contBoomba >= 20)
 			this.goombaActive = false;
-		}
 	}
-
 }
 
-Scene.prototype.draw = function ()
-{
+Scene.prototype.draw = function () {
 	// Get canvas object, then its context
 	var canvas = document.getElementById("game-layer");
 	var context = canvas.getContext("2d");
@@ -136,41 +123,29 @@ Scene.prototype.draw = function ()
 	context.fillStyle = "rgb(160, 172, 254)";
 	context.fillRect(0, 0, canvas.width, canvas.height);
 
-
-
-	
-	if (keyboard[65]) {
+	if (keyboard[65])
 		this.pos = this.pos - 5;
 		//this.map.basePos = [this.pos,0]
-	}
-	if (keyboard[68]) {
+	if (keyboard[68])
 		this.pos = this.pos + 5;
 		//this.map.basePos = [this.pos,0]
 
-	}	
-
-	
-	if(this.player.sprite.x >= (200+this.pos) && this.player.sprite.x < 3000){
-		this.pos +=2;
+	if (this.player.sprite.x >= (200 + this.pos) && this.player.sprite.x < 3000) {
+		this.pos += 2;
 		this.player.posMap = this.pos;
 	}
+
 	// Draw tilemap
 	context.save();
-	context.translate(-this.pos,0);
+	context.translate(-this.pos, 0);
 	this.map.draw();
-	
 
 	this.question_box.draw();
 	// Draw entities
 	/*if(this.bubbleActive)
 		this.bubble.draw();*/
-	if(this.goombaActive)
+	if (this.goombaActive)
 		this.goomba.draw();
 	this.player.draw();
 	context.restore();
-
-
 }
-
-
-

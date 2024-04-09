@@ -1,7 +1,6 @@
 
 
-function Bandera(x, y,map,dir)
-{
+function Bandera(x, y, map, dir) {
 	var bubble = new Texture("imgs/CompleteTilesheetLvl1.png");
 
 	// Prepare bubble sprite & its animation
@@ -11,39 +10,26 @@ function Bandera(x, y,map,dir)
 	this.sprite.addKeyframe(0, [16, 80, 16, 16]);
 
 	this.activa = true;
-
 	this.bajar = false;
-
 	this.map = map;
-
 	this.direccion = dir;
 }
 
 
-Bandera.prototype.update = function update(deltaTime)
-{
-	if(this.bajar){
-		
-		if (this.sprite.y < (24*16) ){
+Bandera.prototype.update = function update(deltaTime) {
+	if (this.bajar)
+		if (this.sprite.y < (24 * 16))
 			this.sprite.y += 1;
-		}	
-	}	
 
 	this.sprite.update(deltaTime);
 }
 
-Bandera.prototype.draw = function draw()
-{
+Bandera.prototype.draw = function draw() {
 	this.sprite.draw();
 }
 
-Bandera.prototype.collisionBox = function()
-{
+Bandera.prototype.collisionBox = function () {
 	var box = new Box(this.sprite.x + 2, this.sprite.y + 2, this.sprite.x + this.sprite.width - 4, this.sprite.y + this.sprite.height - 4);
-	
+
 	return box;
 }
-
-
-
-

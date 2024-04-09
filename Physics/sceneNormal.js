@@ -1,7 +1,4 @@
-
-
 // Scene. Updates and draws a single scene of the game.
-
 function SceneNormal() {
 	// Loading texture to use in a TileMap
 	this.pos = 0;
@@ -15,7 +12,6 @@ function SceneNormal() {
 	this.player = new Player(150, 384, this.map, this.pos);
 
 	//-------------- Setas, estrella y bandera
-
 	this.seta = new Seta(13 * 16 - 7, 19 * 16 - 16, this.map, true);
 	this.seta_cont = 0;
 
@@ -24,7 +20,6 @@ function SceneNormal() {
 
 	this.bandera = new Bandera(195 * 16 + 8, 16 * 16, this.map, true);
 	this.bandera_cont = 0;
-
 
 	//--------------Goomba-----------------------
 	//this.goomba = new Goomba(512, 200, this.map,false);
@@ -40,7 +35,6 @@ function SceneNormal() {
 	this.goomba_array[5] = new Goomba(115 * 16, 25 * 16 - 16, this.map, false);
 	this.goomba_array[6] = new Goomba(161 * 16, 25 * 16 - 16, this.map, false);
 	this.goomba_array[7] = new Goomba(192 * 16, 25 * 16 - 16, this.map, false);
-
 
 	this.goomba_active_array = new Array();
 	this.goomba_active_array[0] = true;
@@ -61,8 +55,6 @@ function SceneNormal() {
 	this.goomba_cont_array[5] = 0;
 	this.goomba_cont_array[6] = 0;
 	this.goomba_cont_array[7] = 0;
-
-
 
 	//--------------KOOPA-----------------------
 	//this.koopaActive = true;
@@ -94,7 +86,6 @@ function SceneNormal() {
 	this.koopa_points_array[2] = 100;
 	this.koopa_points_array[3] = 100;
 
-
 	//--------------Question_box-----------------------
 	this.question_box = new Array();
 	this.question_box[0] = new Question_Box(13 * 16, 20 * 16 + 4); //seta
@@ -113,7 +104,6 @@ function SceneNormal() {
 	this.question_box[13] = new Question_Box(164 * 16, 20 * 16 + 4);
 	this.question_box[14] = new Question_Box(169 * 16, 9 * 16 + 4);
 	this.question_box[15] = new Question_Box(175 * 16, 9 * 16 + 4);
-
 
 	this.question_box_active_array = new Array();
 	this.question_box_active_array[0] = true;
@@ -134,7 +124,6 @@ function SceneNormal() {
 	this.question_box_active_array[15] = true;
 
 	//--------------COINS-----------------------
-
 	this.coin = new Coin(165, 24);
 
 	this.coins = new Array();
@@ -154,7 +143,6 @@ function SceneNormal() {
 	this.coins[13] = new SmallCoin(164 * 16, 19 * 16);
 	this.coins[14] = new SmallCoin(169 * 16, 8 * 16);
 	this.coins[15] = new SmallCoin(175 * 16, 8 * 16);
-
 
 	this.coin_active_array = new Array();
 	this.coin_active_array[0] = false;
@@ -219,12 +207,9 @@ function SceneNormal() {
 
 	// Store current time
 	this.currentTime = 0;
-
 	this.points = "000000";
-
 	this.final = false;
 	this.time_final = 0;
-
 	this.monedas = "00";
 }
 
@@ -243,33 +228,27 @@ SceneNormal.prototype.update = function (deltaTime) {
 
 		this.star.update(deltaTime);
 
-		if (this.supermario) {
+		if (this.supermario)
 			this.seta_cont += 1;
-		}
 
-		if (this.star_cont > 1) {
+		if (this.star_cont > 1)
 			this.star_cont += 1;
-		}
 
 		//this.goomba.update(deltaTime);
-		for (i = 0; i < this.goomba_array.length; i++) {
+		for (i = 0; i < this.goomba_array.length; i++)
 			this.goomba_array[i].update(deltaTime);
-		}
 
 		//this.koopa.update(deltaTime);
-		for (i = 0; i < this.koopa_array.length; i++) {
+		for (i = 0; i < this.koopa_array.length; i++)
 			this.koopa_array[i].update(deltaTime);
-		}
 
-		for (var i = 0; i < 16; i++) {
+		for (var i = 0; i < 16; i++)
 			this.question_box[i].update(deltaTime);
-		}
 
 		this.coin.update(deltaTime);
 
-		for (i = 0; i < this.coins.length; i++) {
+		for (i = 0; i < this.coins.length; i++)
 			this.coins[i].update(deltaTime);
-		}
 
 		for (i = 0; i < this.goomba_array.length; i++) {
 			//if( this.goombaActive && this.player.collisionBox().intersect(this.goomba.collisionBox())){
@@ -487,15 +466,13 @@ SceneNormal.prototype.update = function (deltaTime) {
 	for (i = 0; i < this.goomba_array.length; i++) {
 		if (this.goomba_array[i].muerto) {
 			this.goomba_cont_array[i] += 1;
-			if (this.goomba_cont_array[i] >= 20) {
+			if (this.goomba_cont_array[i] >= 20)
 				this.goomba_active_array[i] = false;
-			}
 		}
 	}
 
-	if (this.cont_cambio > 0) {
+	if (this.cont_cambio > 0)
 		this.cont_cambio += 1;
-	}
 
 	if (this.cont_cambio > 80) {
 		this.invulnerable = false;
@@ -533,7 +510,6 @@ SceneNormal.prototype.update = function (deltaTime) {
 		this.i = 0;
 		this.sel = 0;
 		this.currentTime = 0;
-
 		hurryMusic = false;
 
 		var tilesheet = new Texture("imgs/CompleteTilesheetLvl1.png");
@@ -543,7 +519,6 @@ SceneNormal.prototype.update = function (deltaTime) {
 		this.player = new Player(150, 384, this.map, this.pos);
 
 		//-------------- Setas, estrella y bandera
-
 		this.seta = new Seta(13 * 16 - 7, 19 * 16 - 16, this.map, true);
 		this.seta_cont = 0;
 
@@ -552,7 +527,6 @@ SceneNormal.prototype.update = function (deltaTime) {
 
 		this.bandera = new Bandera(195 * 16 + 8, 16 * 16, this.map, true);
 		this.bandera_cont = 0;
-
 
 		//--------------Goomba-----------------------
 		//this.goomba = new Goomba(512, 200, this.map,false);
@@ -568,7 +542,6 @@ SceneNormal.prototype.update = function (deltaTime) {
 		this.goomba_array[5] = new Goomba(115 * 16, 25 * 16 - 16, this.map, false);
 		this.goomba_array[6] = new Goomba(161 * 16, 25 * 16 - 16, this.map, false);
 		this.goomba_array[7] = new Goomba(192 * 16, 25 * 16 - 16, this.map, false);
-
 
 		this.goomba_active_array = new Array();
 		this.goomba_active_array[0] = true;
@@ -589,8 +562,6 @@ SceneNormal.prototype.update = function (deltaTime) {
 		this.goomba_cont_array[5] = 0;
 		this.goomba_cont_array[6] = 0;
 		this.goomba_cont_array[7] = 0;
-
-
 
 		//--------------KOOPA-----------------------
 		//this.koopaActive = true;
@@ -622,7 +593,6 @@ SceneNormal.prototype.update = function (deltaTime) {
 		this.koopa_points_array[2] = 100;
 		this.koopa_points_array[3] = 100;
 
-
 		//--------------Question_box-----------------------
 		this.question_box = new Array();
 		this.question_box[0] = new Question_Box(13 * 16, 20 * 16 + 4); //seta
@@ -641,7 +611,6 @@ SceneNormal.prototype.update = function (deltaTime) {
 		this.question_box[13] = new Question_Box(164 * 16, 20 * 16 + 4);
 		this.question_box[14] = new Question_Box(169 * 16, 9 * 16 + 4);
 		this.question_box[15] = new Question_Box(175 * 16, 9 * 16 + 4);
-
 
 		this.question_box_active_array = new Array();
 		this.question_box_active_array[0] = true;
@@ -662,7 +631,6 @@ SceneNormal.prototype.update = function (deltaTime) {
 		this.question_box_active_array[15] = true;
 
 		//--------------COINS-----------------------
-
 		this.coin = new Coin(165, 24);
 
 		this.coins = new Array();
@@ -682,7 +650,6 @@ SceneNormal.prototype.update = function (deltaTime) {
 		this.coins[13] = new SmallCoin(164 * 16, 19 * 16);
 		this.coins[14] = new SmallCoin(169 * 16, 8 * 16);
 		this.coins[15] = new SmallCoin(175 * 16, 8 * 16);
-
 
 		this.coin_active_array = new Array();
 		this.coin_active_array[0] = false;
@@ -747,15 +714,11 @@ SceneNormal.prototype.update = function (deltaTime) {
 
 		// Store current time
 		this.currentTime = 0;
-
 		this.points = "000000";
-
 		this.final = false;
 		this.time_final = 0;
-
 		this.monedas = "00";
 	}
-
 }
 
 SceneNormal.prototype.draw = function () {
@@ -767,15 +730,10 @@ SceneNormal.prototype.draw = function () {
 	context.fillStyle = "rgb(160, 172, 254)";
 	context.fillRect(0, 0, canvas.width, canvas.height);
 
-
-
-
-	if (keyboard[65]) {
+	if (keyboard[65])
 		this.pos = this.pos - 5;
-	}
-	if (keyboard[68]) {
+	if (keyboard[68])
 		this.pos = this.pos + 5;
-	}
 
 	// if time is more than 300 change to hurry music
 	if (this.currentTime > 300000 && hurryMusic == false) {
@@ -829,26 +787,21 @@ SceneNormal.prototype.draw = function () {
 	context.translate(-this.pos, 0);
 	this.map.draw();
 
-	if (this.seta.activa) {
+	if (this.seta.activa)
 		this.seta.draw();
-	}
 
-	if (this.star.activa) {
+	if (this.star.activa)
 		this.star.draw();
-	}
 
 	this.bandera.draw();
 
-	for (var i = 0; i < 16; i++) {
+	for (var i = 0; i < 16; i++)
 		if (this.question_box_active_array[i] == true)
 			this.question_box[i].draw();
-	}
 
-	for (var i = 0; i < this.coins.length; i++) {
-		if (this.coin_active_array[i] == true) {
+	for (var i = 0; i < this.coins.length; i++)
+		if (this.coin_active_array[i] == true)
 			this.coins[i].draw();
-		}
-	}
 
 	for (i = 0; i < this.goomba_array.length; i++) {
 		if (this.goomba_active_array[i])
@@ -867,7 +820,6 @@ SceneNormal.prototype.draw = function () {
 		context.fillStyle = "White";
 		context.fillText(text, this.seta.sprite.x, this.seta.sprite.y);
 	}
-
 
 	if (this.star_cont > 0 && this.star_cont <= 80) {
 		var text = "1000";
@@ -888,10 +840,9 @@ SceneNormal.prototype.draw = function () {
 
 	this.player.draw();
 
-	for (i = 0; i < this.koopa_array.length; i++) {
+	for (i = 0; i < this.koopa_array.length; i++)
 		if (this.koopa_active_array[i])
 			this.koopa_array[i].draw();
-	}
 
 
 	for (i = 0; i < this.koopa_array.length; i++) {
@@ -917,7 +868,6 @@ SceneNormal.prototype.draw = function () {
 	context.restore();
 
 	// Draw UI
-
 	// Draw text
 	var text = "TIME";
 	context.font = "18px mario";
@@ -926,15 +876,12 @@ SceneNormal.prototype.draw = function () {
 	// right side of the screen
 	context.fillText(text, 400, 24);
 
-
-
 	if (Math.floor(400 - this.currentTime / 1000) < 0) {
 		this.music.stop();
 		this.player.dead();
 		this.marioDead = true;
 		this.dieSound.play();
 	} else {
-
 		if (!this.final) {
 			text = Math.floor(400 - this.currentTime / 1000);
 			time = Math.floor(400 - this.currentTime / 1000);
@@ -991,6 +938,3 @@ SceneNormal.prototype.draw = function () {
 
 	this.coin.draw();
 }
-
-
-
