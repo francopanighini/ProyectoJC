@@ -437,7 +437,7 @@ Player.prototype.update = function (deltaTime) {
 			if (this.jumpAngle > 90) {
 				this.bJumping = !this.map.collisionMoveDown(this.collisionBox(), this.sprite);
 			} else {
-				this.bJumping = !this.map.collisionMoveUP(this.collisionBox(), this.sprite, this.romper);
+				this.bJumping = !this.map.collisionMoveUP(this.collisionBox(), this.sprite, this.superMario);
 				if (!this.bJumping) {
 					if (this.animjump) {
 
