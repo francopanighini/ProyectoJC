@@ -1,37 +1,68 @@
 <!DOCTYPE HTML>
-
-<html>
+<html lang="en">
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Super mario bros</title>
-
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Super Mario Bros.</title>
 	<style>
 		@font-face {
 			font-family: 'mario';
-			/* Puedes elegir el nombre que desees */
 			src: url('imgs/super.ttf') format('truetype');
+		}
+
+		body {
+			background: linear-gradient(to bottom, #87ceeb, #f0e68c);
+			font-family: 'mario', sans-serif;
+			color: #333;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			min-height: 100vh;
+			margin: 0;
+			text-align: center;
+		}
+
+		h1 {
+			font-size: 3em;
+			color: #ff0000;
+			text-shadow: 2px 2px #fff;
+			margin-bottom: 20px;
+		}
+
+		#game-layer {
+			border: 4px solid #000;
+			background-color: #87ceeb;
+			margin-bottom: 20px;
+		}
+
+		p {
+			font-size: 0.6rem;
+			background: rgba(255, 255, 255, 0.7);
+			padding: 10px 20px;
+			border-radius: 10px;
+			max-width: 1000px;
+			margin: 0 auto 20px auto;
 		}
 	</style>
 </head>
 
 <body>
-
 	<!-- Title -->
-	<h1> Super mario bros</h1>
+	<h1>Super Mario Bros.</h1>
 
 	<!-- Canvas -->
 	<canvas id="game-layer" width="512" height="448"></canvas>
 
-	<!-- Load levels -->
-	<script src="levels/level1MineV4.js"></script>
+	<!-- Controls Information -->
+	<p id="instructions">Press key: [1] to Play - [2] for Credits - [3] for Controls. Press Space to Select</p>
+
+	<!-- Game Scripts -->
+	<script src="levels/level1MineV5.js"></script>
 	<script src="levels/lava.js"></script>
 
-	<p>Controles: [1] Jugar [2] Creditos [3] Instrucciones. Espacio para seleccionar</p>
-
-
 	<!-- All classes -->
-
 	<script src="quad.js"></script>
 	<script src="texturedQuad.js"></script>
 	<script src="audio-fx.min.js"></script>
@@ -55,6 +86,30 @@
 	<script src="scene_creditos.js"></script>
 	<script src="scene_instrucciones.js"></script>
 	<script src="game.js"></script>
+
+	<script>
+		let lastKeyPressed = null;
+	
+		document.addEventListener('keydown', function (event) {
+			// Track which key was pressed: "1", "2", or "3"
+			if (event.key === '1') {
+				lastKeyPressed = '1';
+			}
+		});
+	
+		document.addEventListener('keydown', function (event) {
+			if (event.code === 'Space') {
+				const instructions = document.getElementById('instructions');
+	
+				// Change the text based on the last key pressed before "space"
+				if (lastKeyPressed === '1') {
+					instructions.textContent = 'Press [1] to restart on normal map - [2] to restart on lava map';
+				}
+	
+			}
+		});
+	</script>
+	
 	
 </body>
 

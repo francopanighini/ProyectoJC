@@ -7,7 +7,7 @@ function SceneStart() {
 	this.coin = new Coin(165, 50);
 
 	this.selec = [70 + 140, 105 + 140, 130 + 150];
-	this.i = 0;
+	this.i = 2;
 	this.setaQuad = new TexturedQuad(0, 32, 32, 32, 280, this.selec[this.i], 65, 65, img2);
 
 	this.start = new TexturedQuad(0, 0, 512, 448, 0, 0, 512, 448, img);
