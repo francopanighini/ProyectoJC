@@ -6,7 +6,8 @@ function SceneNormal() {
 	this.sel = 0;
 
 	var tilesheet = new Texture("imgs/CompleteTilesheetLvl1.png");
-	this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V4);
+	// this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V4);
+	this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V5);
 
 	// Create entities
 	this.player = new Player(150, 384, this.map, this.pos);
@@ -88,22 +89,23 @@ function SceneNormal() {
 
 	//--------------Question_box-----------------------
 	this.question_box = new Array();
-	this.question_box[0] = new Question_Box(13 * 16, 20 * 16 + 4); //seta
-	this.question_box[1] = new Question_Box(37 * 16, 320 + 4);
-	this.question_box[2] = new Question_Box(41 * 16, 320 + 4);
-	this.question_box[3] = new Question_Box(49 * 16, 320 + 4);
-	this.question_box[4] = new Question_Box(55 * 16, 9 * 16 + 4);
-	this.question_box[5] = new Question_Box(76 * 16, 13 * 16 + 4); //esctrella
-	this.question_box[6] = new Question_Box(121 * 16, 9 * 16 + 4);
-	this.question_box[7] = new Question_Box(125 * 16, 9 * 16 + 4);
-	this.question_box[8] = new Question_Box(125 * 16, 26 * 16 - 4);
-	this.question_box[9] = new Question_Box(144 * 16, 20 * 16 + 4);
-	this.question_box[10] = new Question_Box(149 * 16, 9 * 16 + 4);
-	this.question_box[11] = new Question_Box(155 * 16, 18 * 16 + 4);
-	this.question_box[12] = new Question_Box(158 * 16, 9 * 16 + 4);
-	this.question_box[13] = new Question_Box(164 * 16, 20 * 16 + 4);
-	this.question_box[14] = new Question_Box(169 * 16, 9 * 16 + 4);
-	this.question_box[15] = new Question_Box(175 * 16, 9 * 16 + 4);
+	this.question_box[0] = new Question_Box(13 * 16, 20 * 16); //seta
+	// this.question_box[0] = new Question_Box(13 * 16, 20 * 16 + 4); //seta
+	this.question_box[1] = new Question_Box(37 * 16, 320);
+	this.question_box[2] = new Question_Box(41 * 16, 320);
+	this.question_box[3] = new Question_Box(49 * 16, 320);
+	this.question_box[4] = new Question_Box(55 * 16, 9 * 16);
+	this.question_box[5] = new Question_Box(76 * 16, 13 * 16); //estrella
+	this.question_box[6] = new Question_Box(121 * 16, 9 * 16);
+	this.question_box[7] = new Question_Box(125 * 16, 9 * 16);
+	this.question_box[8] = new Question_Box(125 * 16, 26 * 16);
+	this.question_box[9] = new Question_Box(144 * 16, 20 * 16);
+	this.question_box[10] = new Question_Box(149 * 16, 9 * 16);
+	this.question_box[11] = new Question_Box(155 * 16, 18 * 16);
+	this.question_box[12] = new Question_Box(158 * 16, 9 * 16);
+	this.question_box[13] = new Question_Box(164 * 16, 20 * 16);
+	this.question_box[14] = new Question_Box(169 * 16, 9 * 16);
+	this.question_box[15] = new Question_Box(175 * 16, 9 * 16);
 
 	this.question_box_active_array = new Array();
 	this.question_box_active_array[0] = true;
@@ -498,7 +500,8 @@ SceneNormal.prototype.update = function (deltaTime) {
 		this.sel = 0;
 
 		var tilesheet = new Texture("imgs/CompleteTilesheetLvl1.png");
-		this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V4);
+		// this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V4);
+		this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V5);
 
 		this.marioDead = false;
 		this.startmarioDead = false;
@@ -513,7 +516,8 @@ SceneNormal.prototype.update = function (deltaTime) {
 		hurryMusic = false;
 
 		var tilesheet = new Texture("imgs/CompleteTilesheetLvl1.png");
-		this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V4);
+		// this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V4);
+		this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V5);
 
 		// Create entities
 		this.player = new Player(150, 384, this.map, this.pos);
@@ -595,22 +599,23 @@ SceneNormal.prototype.update = function (deltaTime) {
 
 		//--------------Question_box-----------------------
 		this.question_box = new Array();
-		this.question_box[0] = new Question_Box(13 * 16, 20 * 16 + 4); //seta
-		this.question_box[1] = new Question_Box(37 * 16, 320 + 4);
-		this.question_box[2] = new Question_Box(41 * 16, 320 + 4);
-		this.question_box[3] = new Question_Box(49 * 16, 320 + 4);
-		this.question_box[4] = new Question_Box(55 * 16, 9 * 16 + 4);
-		this.question_box[5] = new Question_Box(76 * 16, 13 * 16 + 4); //esctrella
-		this.question_box[6] = new Question_Box(121 * 16, 9 * 16 + 4);
-		this.question_box[7] = new Question_Box(125 * 16, 9 * 16 + 4);
-		this.question_box[8] = new Question_Box(125 * 16, 26 * 16 - 4);
-		this.question_box[9] = new Question_Box(144 * 16, 20 * 16 + 4);
-		this.question_box[10] = new Question_Box(149 * 16, 9 * 16 + 4);
-		this.question_box[11] = new Question_Box(155 * 16, 18 * 16 + 4);
-		this.question_box[12] = new Question_Box(158 * 16, 9 * 16 + 4);
-		this.question_box[13] = new Question_Box(164 * 16, 20 * 16 + 4);
-		this.question_box[14] = new Question_Box(169 * 16, 9 * 16 + 4);
-		this.question_box[15] = new Question_Box(175 * 16, 9 * 16 + 4);
+		this.question_box[0] = new Question_Box(13 * 16, 20 * 16); //seta
+		// this.question_box[0] = new Question_Box(13 * 16, 20 * 16 + 8); //seta
+		this.question_box[1] = new Question_Box(37 * 16, 320);
+		this.question_box[2] = new Question_Box(41 * 16, 320);
+		this.question_box[3] = new Question_Box(49 * 16, 320);
+		this.question_box[4] = new Question_Box(55 * 16, 9 * 16);
+		this.question_box[5] = new Question_Box(76 * 16, 13 * 16); //estrella
+		this.question_box[6] = new Question_Box(121 * 16, 9 * 16);
+		this.question_box[7] = new Question_Box(125 * 16, 9 * 16);
+		this.question_box[8] = new Question_Box(125 * 16, 26 * 16);
+		this.question_box[9] = new Question_Box(144 * 16, 20 * 16);
+		this.question_box[10] = new Question_Box(149 * 16, 9 * 16);
+		this.question_box[11] = new Question_Box(155 * 16, 18 * 16);
+		this.question_box[12] = new Question_Box(158 * 16, 9 * 16);
+		this.question_box[13] = new Question_Box(164 * 16, 20 * 16);
+		this.question_box[14] = new Question_Box(169 * 16, 9 * 16);
+		this.question_box[15] = new Question_Box(175 * 16, 9 * 16);
 
 		this.question_box_active_array = new Array();
 		this.question_box_active_array[0] = true;

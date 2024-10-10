@@ -6,7 +6,8 @@ function Scene() {
 	this.sel = 0;
 
 	var tilesheet = new Texture("imgs/CompleteTilesheetLvl1.png");
-	this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V4);
+	// this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V4);
+	this.map = new Tilemap(tilesheet, [16, 16], [4, 8], [0, 0], level01V5);
 
 	//var tilesheet = new Texture("imgs/lava.png");
 	//this.map = new Tilemap(tilesheet, [16, 16], [6, 4], [0, 0], lava);

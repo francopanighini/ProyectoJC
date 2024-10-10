@@ -72,13 +72,13 @@ function SceneLava() {
 
 	//--------------Question_box-----------------------
 	this.question_box = new Array();
-	this.question_box[0] = new Question_Box(27 * 16, 3 * 16 + 4); //seta
-	this.question_box[1] = new Question_Box(40 * 16, 7 * 16 + 4);
-	this.question_box[2] = new Question_Box(39 * 16, 12 * 16 + 4);
-	this.question_box[3] = new Question_Box(40 * 16, 7 * 16 + 4);
-	this.question_box[4] = new Question_Box(41 * 16, 12 * 16 + 4);
-	this.question_box[5] = new Question_Box(74 * 16, 14 * 16 + 4);//estrella
-	this.question_box[6] = new Question_Box(116 * 16, 6 * 16 + 4);
+	this.question_box[0] = new Question_Box(27 * 16, 3 * 16); //seta
+	this.question_box[1] = new Question_Box(40 * 16, 7 * 16);
+	this.question_box[2] = new Question_Box(39 * 16, 12 * 16);
+	this.question_box[3] = new Question_Box(40 * 16, 7 * 16);
+	this.question_box[4] = new Question_Box(41 * 16, 12 * 16);
+	this.question_box[5] = new Question_Box(74 * 16, 14 * 16);//estrella
+	this.question_box[6] = new Question_Box(116 * 16, 6 * 16);
 
 	this.question_box_active_array = new Array();
 	this.question_box_active_array[0] = true;
@@ -547,13 +547,13 @@ SceneLava.prototype.update = function (deltaTime) {
 
 		//--------------Question_box-----------------------
 		this.question_box = new Array();
-		this.question_box[0] = new Question_Box(27 * 16, 3 * 16 + 4); //seta
-		this.question_box[1] = new Question_Box(40 * 16, 7 * 16 + 4);
-		this.question_box[2] = new Question_Box(39 * 16, 12 * 16 + 4);
-		this.question_box[3] = new Question_Box(40 * 16, 7 * 16 + 4);
-		this.question_box[4] = new Question_Box(41 * 16, 12 * 16 + 4);
-		this.question_box[5] = new Question_Box(74 * 16, 14 * 16 + 4);//estrella
-		this.question_box[6] = new Question_Box(116 * 16, 6 * 16 + 4);
+		this.question_box[0] = new Question_Box(27 * 16, 3 * 16); //seta
+		this.question_box[1] = new Question_Box(40 * 16, 7 * 16);
+		this.question_box[2] = new Question_Box(39 * 16, 12 * 16);
+		this.question_box[3] = new Question_Box(40 * 16, 7 * 16);
+		this.question_box[4] = new Question_Box(41 * 16, 12 * 16);
+		this.question_box[5] = new Question_Box(74 * 16, 14 * 16);//estrella
+		this.question_box[6] = new Question_Box(116 * 16, 6 * 16);
 
 		this.question_box_active_array = new Array();
 		this.question_box_active_array[0] = true;
