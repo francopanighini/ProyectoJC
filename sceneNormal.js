@@ -487,7 +487,7 @@ SceneNormal.prototype.update = function (deltaTime) {
 
 		this.marioDead = false;
 		this.startmarioDead = false;
-		interacted = false;
+		interacted = true;
 		activa = 4;
 	}
 
@@ -505,7 +505,7 @@ SceneNormal.prototype.update = function (deltaTime) {
 
 		this.marioDead = false;
 		this.startmarioDead = false;
-		interacted = false;
+		interacted = true;
 		// restart scene
 		// Create entities
 		// Loading texture to use in a TileMap

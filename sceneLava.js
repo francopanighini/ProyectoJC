@@ -462,7 +462,7 @@ SceneLava.prototype.update = function (deltaTime) {
 		this.music.stop();
 		this.marioDead = false;
 		this.startmarioDead = false;
-		interacted = false;
+		interacted = true;
 		activa = 0;
 	}
 
@@ -481,7 +481,7 @@ SceneLava.prototype.update = function (deltaTime) {
 
 		this.marioDead = false;
 		this.startmarioDead = false;
-		interacted = false;
+		interacted = true;
 
 		// Create entities
 		this.player = new Player(2 * 16, 10 * 16, this.map, this.pos);
