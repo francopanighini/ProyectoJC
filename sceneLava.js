@@ -671,10 +671,10 @@ SceneLava.prototype.draw = function () {
 	context.fillStyle = "rgb(0, 0, 0)";
 	context.fillRect(0, 0, canvas.width, canvas.height);
 
-	if (keyboard[65])
-		this.pos = this.pos - 5;
-	if (keyboard[68])
-		this.pos = this.pos + 5;
+	// if (keyboard[65])
+	// 	this.pos = this.pos - 5;
+	// if (keyboard[68])
+	// 	this.pos = this.pos + 5;
 
 	// if time is more than 300 change to hurry music
 	if (this.currentTime > 300000 && hurryMusic == false) {
@@ -697,14 +697,14 @@ SceneLava.prototype.draw = function () {
 		this.warpSound.play();
 	}
 
-	// Transform to star mario if G key is pressed
-	if (keyboard[71]) {
-		this.player.starMario = true;
-		this.invulnerable = true;
-		this.starmario = true;
-		this.starSound.play();
-		this.time_final = Math.floor(400 - this.currentTime / 1000) - 13;
-	}
+	// // Transform to star mario if G key is pressed
+	// if (keyboard[71]) {
+	// 	this.player.starMario = true;
+	// 	this.invulnerable = true;
+	// 	this.starmario = true;
+	// 	this.starSound.play();
+	// 	this.time_final = Math.floor(400 - this.currentTime / 1000) - 13;
+	// }
 
 	var t = Math.floor(400 - this.currentTime / 1000);
 	if (t <= this.time_final) {

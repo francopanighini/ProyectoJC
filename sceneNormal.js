@@ -762,13 +762,13 @@ SceneNormal.prototype.draw = function () {
 	}
 
 	// // Transform to star mario if G key is pressed
-	if (keyboard[71]) {
-		this.player.starMario = true;
-		this.invulnerable = true;
-		this.starmario = true;
-		this.starSound.play();
-		this.time_final = Math.floor(400 - this.currentTime / 1000) - 13;
-	}
+	// if (keyboard[71]) {
+	// 	this.player.starMario = true;
+	// 	this.invulnerable = true;
+	// 	this.starmario = true;
+	// 	this.starSound.play();
+	// 	this.time_final = Math.floor(400 - this.currentTime / 1000) - 13;
+	// }
 
 	var t = Math.floor(400 - this.currentTime / 1000);
 	if (t <= this.time_final) {

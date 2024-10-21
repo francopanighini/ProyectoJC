@@ -124,12 +124,12 @@ Scene.prototype.draw = function () {
 	context.fillStyle = "rgb(160, 172, 254)";
 	context.fillRect(0, 0, canvas.width, canvas.height);
 
-	if (keyboard[65])
-		this.pos = this.pos - 5;
-		//this.map.basePos = [this.pos,0]
-	if (keyboard[68])
-		this.pos = this.pos + 5;
-		//this.map.basePos = [this.pos,0]
+	// if (keyboard[65])
+	// 	this.pos = this.pos - 5;
+	// 	//this.map.basePos = [this.pos,0]
+	// if (keyboard[68])
+	// 	this.pos = this.pos + 5;
+	// 	//this.map.basePos = [this.pos,0]
 
 	if (this.player.sprite.x >= (200 + this.pos) && this.player.sprite.x < 3000) {
 		this.pos += 2;
