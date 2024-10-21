@@ -735,10 +735,10 @@ SceneNormal.prototype.draw = function () {
 	context.fillStyle = "rgb(160, 172, 254)";
 	context.fillRect(0, 0, canvas.width, canvas.height);
 
-	if (keyboard[65])
-		this.pos = this.pos - 5;
-	if (keyboard[68])
-		this.pos = this.pos + 5;
+	// if (keyboard[65])
+	// 	this.pos = this.pos - 5;
+	// if (keyboard[68])
+	// 	this.pos = this.pos + 5;
 
 	// if time is more than 300 change to hurry music
 	if (this.currentTime > 300000 && hurryMusic == false) {

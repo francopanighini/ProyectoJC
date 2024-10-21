@@ -44,7 +44,8 @@ function init() {
 	document.body.addEventListener('keyup', keyUp);
 	document.body.addEventListener('click', click);
 	previousTimestamp = performance.now();
-	interacted = false;
+	//music always plays
+	interacted = true;
 }
 
 // Game loop: Update, draw, and request a new frame
